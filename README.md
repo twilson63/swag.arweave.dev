@@ -8,6 +8,14 @@ to STAMP their player card. The benefit of the game is to spread as much
 knowledge as possible about the community or team you are part of at
 conferences.
 
+## Design
+
+TODO: Place final design
+
+## Contributing Guide
+
+[Contributing Guide](CONTRIBUTING.md)
+
 ## Dev Environment
 
 - Requires deno [v1.30.3] or higher
