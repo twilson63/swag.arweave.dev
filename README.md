@@ -21,6 +21,7 @@ TODO: Place final design
 - Requires deno [v1.30.3] or higher
 
 ```sh
+deno task install
 deno task dev
 ```
 
