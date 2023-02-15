@@ -1,0 +1,26 @@
+name: deploy swag app
+
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 18.x
+      - uses: denoland/setup-deno@main
+        with:
+          deno-version: v1.x
+      - run: |
+          deno task install
+          deno task build
+          cd scripts
+          npm install
+          npm run deploy
+        env:
+          ARNS: ${{ secrets.ARNS }}
