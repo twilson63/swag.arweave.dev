@@ -1,6 +1,8 @@
 {
   "version": "2",
-  "remote": {},
+  "remote": {
+    "https://deno.land/std@0.177.0/encoding/base64.ts": "7de04c2f8aeeb41453b09b186480be90f2ff357613b988e99fabb91d2eeceba1"
+  },
   "npm": {
     "specifiers": {
       "@sveltejs/vite-plugin-svelte@^2.0.2": "@sveltejs/vite-plugin-svelte@2.0.2_svelte@3.55.1_vite@4.1.1",
