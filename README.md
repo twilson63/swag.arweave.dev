@@ -8,9 +8,11 @@ to STAMP their player card. The benefit of the game is to spread as much
 knowledge as possible about the community or team you are part of at
 conferences.
 
+- [SWAG Game](https://swag.arweave.dev)
+
 ## Design
 
-TODO: Place final design
+- Figma - https://www.figma.com/file/ESyYxB5KKthUQZ65RXRFP6/arweave-swag-app?node-id=0%3A1&t=NnRQvtzjaT6ZshxO-1
 
 ## Contributing Guide
 
@@ -18,17 +20,34 @@ TODO: Place final design
 
 ## Dev Environment
 
-- Requires deno [v1.30.3] or higher
+- Requires deno [v1.30.3] or higher - https://deno.com
 
 ```sh
 deno task install
 deno task dev
 ```
 
+## Technical Stack
+
+* Typescript or Javascript (w/JSDocs)
+* Deno for development Runtime
+* Vite for bundling
+* Svelte, Twind, and DaisyUI for frontend
+* Robot for state-machines
+* date-fns for date formating
+* Zod, Ramda, and Crocs for Business Logic
+* Bundlr and Warp for Services
+
 ## Tests
 
 ```sh
 deno task test
+```
+
+## Lint
+
+```sh
+deno task lint
 ```
 
 ## Tech Stack
@@ -85,3 +104,4 @@ the STAMP
 
 Players can re-register to different conferences to play the game and view a
 feed specific for that conference.
+

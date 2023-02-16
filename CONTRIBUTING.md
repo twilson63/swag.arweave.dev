@@ -21,6 +21,9 @@ handle in the comments of the issue.
 assigned to @twilson63
 ```
 
+- [Definition of Ready](DOR.md)
+- [Definition of Done](DOD.md)
+
 ## What is the DOR or definition of ready?
 
 The DOR (Definiton of Ready) is the required detail that should be supplied on
@@ -66,6 +69,10 @@ issues, and no daily scrum, you look at the project board to determine the
 current status or state the project is in. Each issue should be focused and
 should not take more than two business days to complete. The sweet spot for
 duration of an issue is 4 hours.
+
+## All commit messages should follow conventional commits
+
+https://www.conventionalcommits.org/en/v1.0.0/
 
 ## Dependencies
 
