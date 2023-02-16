@@ -4,5 +4,6 @@ import { leaderboard } from './leaderboard.js'
 const { test } = Deno
 
 test('Get Leaderboard', async () => {
-  assertEquals(await leaderboard(), [])
+  const players = await leaderboard()
+  assertEquals(players.length, 7)
 })
