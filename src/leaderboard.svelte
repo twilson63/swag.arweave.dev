@@ -1,7 +1,12 @@
+<script>
+  import { getContext } from "svelte";
 
+  const { leaderboard } = getContext("data");
+</script>
 
-<div class="hero min-h-screen">
-    <div class="hero-content">
-        <h1 class="text-6xl">Leaderboard View</h1>
-    </div>
-</div>
+{#await leaderboard() then players}
+  {#each players as player}
+    <div>Leaderboard view</div>
+    <pre>{JSON.stringify(player, null, 2)}</pre>
+  {/each}
+{/await}
