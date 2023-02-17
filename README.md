@@ -18,6 +18,10 @@ conferences.
 
 [Contributing Guide](CONTRIBUTING.md)
 
+## API Docs
+
+[API](API.md)
+
 ## Dev Environment
 
 - Requires deno [v1.30.3] or higher - https://deno.com

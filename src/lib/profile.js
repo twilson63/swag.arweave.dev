@@ -1,4 +1,4 @@
-export function player(id) {
+export function profile(address) {
   return Promise.resolve({
     "id": "O48r5xi5Vlvu4hNIZeO45PDQf-B36vQ-4vSX65t9Tfw",
     "handleName": "rakis",
