@@ -7,7 +7,14 @@
   import get from "./services/get.js";
 
   // setBusinessLogic
-  setContext("data", Lib.init({ get }));
+  setContext(
+    "data",
+    Lib.init({
+      query: () => Promise.resolve({}),
+      get,
+      dispatch: () => Promise.resolve({ ok: true })
+    })
+  );
   // setup hash router mode
   // router.mode.hash();
 </script>

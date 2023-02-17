@@ -11,8 +11,10 @@
     "specifiers": {
       "@sveltejs/vite-plugin-svelte@^2.0.2": "@sveltejs/vite-plugin-svelte@2.0.2_svelte@3.55.1_vite@4.1.1",
       "arweave": "arweave@1.13.0",
+      "crocks": "crocks@0.12.4",
       "ramda": "ramda@0.28.0",
       "svelte@^3.54.0": "svelte@3.55.1",
+      "tinro": "tinro@0.6.12",
       "vite": "vite@4.1.1",
       "vite@^4.0.4": "vite@4.1.1"
     },
@@ -156,6 +158,8 @@
       },
       "bn.js@4.12.0": {
         "integrity": "sha512-c98Bf3tPniI+scsdk237ku1Dc3ujXQTSgyiPUDEOe7tRkhrqridvh8klBv0HCEso1OLOYcHuCv/cS6DNxKH+ZA==",
+      "crocks@0.12.4": {
+        "integrity": "sha512-paln6xJUrR9e/OWMFsyTi4dLyr+q99C5f7PQbGgSDHtwsfW0sCNZvnpHzvniI2dAE0uoBgeIP1Ukmme8Z0HxxA==",
         "dependencies": {}
       },
       "debug@4.3.4": {
@@ -295,6 +299,10 @@
       },
       "svelte@3.55.1": {
         "integrity": "sha512-S+87/P0Ve67HxKkEV23iCdAh/SX1xiSfjF1HOglno/YTbSTW7RniICMCofWGdJJbdjw3S+0PfFb1JtGfTXE0oQ==",
+        "dependencies": {}
+      },
+      "tinro@0.6.12": {
+        "integrity": "sha512-YYLh0a21GXXpS66ilZbywfXcPTKQQ+bv3tihoqKqSFQP6/F11N7ZmtRbFWcyZXXPFRSzNxmPJBB8ZhP0GkoS0Q==",
         "dependencies": {}
       },
       "vite@4.1.1": {
