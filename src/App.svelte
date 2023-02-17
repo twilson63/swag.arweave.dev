@@ -4,9 +4,10 @@
   import Leaderboard from "./leaderboard.svelte";
   import Player from "./player.svelte";
   import Lib from "./lib/index.js";
+  import { register } from "./services/warp.js";
 
   // setBusinessLogic
-  setContext("data", Lib.init({}));
+  setContext("data", Lib.init({ register }));
   // setup hash router mode
   // router.mode.hash();
 </script>
