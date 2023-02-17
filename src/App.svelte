@@ -4,6 +4,7 @@
   import Leaderboard from "./leaderboard.svelte";
   import Player from "./player.svelte";
   import Lib from "./lib/index.js";
+  import { register } from "./services/warp.js";
   import get from "./services/get.js";
 
   // setBusinessLogic
@@ -12,7 +13,8 @@
     Lib.init({
       query: () => Promise.resolve({}),
       get,
-      dispatch: () => Promise.resolve({ ok: true })
+      dispatch: () => Promise.resolve({ ok: true }),
+      register
     })
   );
   // setup hash router mode
