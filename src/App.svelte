@@ -11,6 +11,7 @@
     Lib.init({
       query: () => Promise.resolve({}),
       get: () => Promise.resolve({}),
+      dispatch: () => Promise.resolve({ ok: true })
     })
   );
   // setup hash router mode
@@ -18,7 +19,6 @@
 </script>
 
 <Route path="/" let:meta>
-  <div>{JSON.stringify(meta)}</div>
   {#if meta.query.id}
     <div>ID Route: {meta.query.id}</div>
   {:else if meta.query.tx}
