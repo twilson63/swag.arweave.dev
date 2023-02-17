@@ -12,7 +12,6 @@
 </script>
 
 <Route path="/" let:meta>
-  <div>{JSON.stringify(meta)}</div>
   {#if meta.query.id}
     <div>ID Route: {meta.query.id}</div>
   {:else if meta.query.tx}
