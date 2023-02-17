@@ -6,7 +6,13 @@
   import Lib from "./lib/index.js";
 
   // setBusinessLogic
-  setContext("data", Lib.init({}));
+  setContext(
+    "data",
+    Lib.init({
+      query: () => Promise.resolve({}),
+      get: () => Promise.resolve({}),
+    })
+  );
   // setup hash router mode
   // router.mode.hash();
 </script>
