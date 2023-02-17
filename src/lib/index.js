@@ -9,7 +9,7 @@ export default {
   init(env) {
     return Object.freeze({
       leaderboard,
-      player,
+      player: (code) => player(code).runWith(env).toPromise(),
       stamp,
       register: (player) => register(player).runWith(env),
       profile

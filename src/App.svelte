@@ -8,7 +8,11 @@
   // setBusinessLogic
   setContext(
     "data",
-    Lib.init({ dispatch: () => Promise.resolve({ ok: true }) })
+    Lib.init({
+      query: () => Promise.resolve({}),
+      get: () => Promise.resolve({}),
+      dispatch: () => Promise.resolve({ ok: true })
+    })
   );
   // setup hash router mode
   // router.mode.hash();
