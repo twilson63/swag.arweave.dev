@@ -5,15 +5,23 @@
   import Player from "./player.svelte";
   import Lib from "./lib/index.js";
   import { register } from "./services/warp.js";
+  import get from "./services/get.js";
 
   // setBusinessLogic
-  setContext("data", Lib.init({ register }));
+  setContext(
+    "data",
+    Lib.init({
+      query: () => Promise.resolve({}),
+      get,
+      dispatch: () => Promise.resolve({ ok: true }),
+      register
+    })
+  );
   // setup hash router mode
   // router.mode.hash();
 </script>
 
 <Route path="/" let:meta>
-  <div>{JSON.stringify(meta)}</div>
   {#if meta.query.id}
     <div>ID Route: {meta.query.id}</div>
   {:else if meta.query.tx}
