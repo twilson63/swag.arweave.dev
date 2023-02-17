@@ -9,6 +9,7 @@
     "lint": "deno lint"
   },
   "imports": {
-    "tinro": "npm:tinro"
+    "tinro": "npm:tinro",
+    "crocks": "npm:crocks"
   }
 }

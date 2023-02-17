@@ -6,13 +6,15 @@
   import Lib from "./lib/index.js";
 
   // setBusinessLogic
-  setContext("data", Lib.init({}));
+  setContext(
+    "data",
+    Lib.init({ dispatch: () => Promise.resolve({ ok: true }) })
+  );
   // setup hash router mode
   // router.mode.hash();
 </script>
 
 <Route path="/" let:meta>
-  <div>{JSON.stringify(meta)}</div>
   {#if meta.query.id}
     <div>ID Route: {meta.query.id}</div>
   {:else if meta.query.tx}
