@@ -11,7 +11,7 @@ export default {
       leaderboard,
       player,
       stamp,
-      register,
+      register: (player) => register(player).runWith(env),
       profile
     })
   }

@@ -10,7 +10,9 @@
   "npm": {
     "specifiers": {
       "@sveltejs/vite-plugin-svelte@^2.0.2": "@sveltejs/vite-plugin-svelte@2.0.2_svelte@3.55.1_vite@4.1.1",
+      "crocks": "crocks@0.12.4",
       "svelte@^3.54.0": "svelte@3.55.1",
+      "tinro": "tinro@0.6.12",
       "vite": "vite@4.1.1",
       "vite@^4.0.4": "vite@4.1.1"
     },
@@ -119,6 +121,10 @@
           "vite": "vite@4.1.1",
           "vitefu": "vitefu@0.2.4"
         }
+      },
+      "crocks@0.12.4": {
+        "integrity": "sha512-paln6xJUrR9e/OWMFsyTi4dLyr+q99C5f7PQbGgSDHtwsfW0sCNZvnpHzvniI2dAE0uoBgeIP1Ukmme8Z0HxxA==",
+        "dependencies": {}
       },
       "debug@4.3.4": {
         "integrity": "sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==",
@@ -241,6 +247,10 @@
       },
       "svelte@3.55.1": {
         "integrity": "sha512-S+87/P0Ve67HxKkEV23iCdAh/SX1xiSfjF1HOglno/YTbSTW7RniICMCofWGdJJbdjw3S+0PfFb1JtGfTXE0oQ==",
+        "dependencies": {}
+      },
+      "tinro@0.6.12": {
+        "integrity": "sha512-YYLh0a21GXXpS66ilZbywfXcPTKQQ+bv3tihoqKqSFQP6/F11N7ZmtRbFWcyZXXPFRSzNxmPJBB8ZhP0GkoS0Q==",
         "dependencies": {}
       },
       "vite@4.1.1": {
