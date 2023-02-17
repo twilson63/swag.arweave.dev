@@ -4,13 +4,14 @@
   import Leaderboard from "./leaderboard.svelte";
   import Player from "./player.svelte";
   import Lib from "./lib/index.js";
+  import get from "./services/get.js";
 
   // setBusinessLogic
   setContext(
     "data",
     Lib.init({
       query: () => Promise.resolve({}),
-      get: () => Promise.resolve({}),
+      get,
       dispatch: () => Promise.resolve({ ok: true })
     })
   );
