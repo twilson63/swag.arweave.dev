@@ -1,22 +1,24 @@
-import crocks from 'crocks'
-import { compose, pluck, path, head, prop } from 'ramda'
+import crocks from "crocks";
+import { compose, head, path, pluck, prop } from "ramda";
 
-const {Async, ReaderT} = crocks
-const { of, ask, lift } = ReaderT(Async)
+const { Async, ReaderT } = crocks;
+const { of, ask, lift } = ReaderT(Async);
 
 export function player(id) {
   return of(id)
     .map(buildQuery)
-    .chain(id => ask(({query, get}) => Async.fromPromise(query)({query})
-      .map(compose(
-        pluck('node'), 
-        path(['data', 'transactions', 'edges'])
-      ))
-      .map(head)
-      .map(prop('id'))
-      .chain(tx => Async.fromPromise(get)(tx))
-    )).chain(lift)
-    
+    .chain((id) =>
+      ask(({ query, get }) =>
+        Async.fromPromise(query)({ query })
+          .map(compose(
+            pluck("node"),
+            path(["data", "transactions", "edges"]),
+          ))
+          .map(head)
+          .map(prop("id"))
+          .chain((tx) => Async.fromPromise(get)(tx))
+      )
+    ).chain(lift);
 }
 
 function buildQuery(id) {
@@ -31,5 +33,5 @@ transactions(tags: [
     }
   }
 }
-  }`
+  }`;
 }

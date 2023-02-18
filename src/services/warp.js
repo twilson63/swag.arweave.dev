@@ -1,6 +1,6 @@
-const { WarpFactory } = window.warp
+const { WarpFactory } = window.warp;
 
-const warp = WarpFactory.forMainnet()
+const warp = WarpFactory.forMainnet();
 export function register(txId) {
-  return warp.register(txId, 'node2')
+  return warp.register(txId, "node2");
 }

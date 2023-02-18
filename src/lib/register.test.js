@@ -1,13 +1,13 @@
 import { assert, assertEquals } from "https://deno.land/std/testing/asserts.ts";
-import { register } from './register.js'
+import { register } from "./register.js";
 
-const { test } = Deno
+const { test } = Deno;
 
 function dispatch({ data, tags }) {
-  return Promise.resolve({ ok: true })
+  return Promise.resolve({ ok: true });
 }
 
-test('Register Player', async () => {
+test("Register Player", async () => {
   const result = await register({
     "addr": "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI",
     "handle": "rakis",
@@ -18,10 +18,10 @@ test('Register Player', async () => {
     "links": {
       "twitter": "rakis_me",
       "github": "rakis-me",
-      "discord": "tom-permapages#3217"
+      "discord": "tom-permapages#3217",
     },
-    "wallets": {}
-  }).runWith({ dispatch }).toPromise()
+    "wallets": {},
+  }).runWith({ dispatch }).toPromise();
 
-  assert(result.ok)
-})
+  assert(result.ok);
+});
