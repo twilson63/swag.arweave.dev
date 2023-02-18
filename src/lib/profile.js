@@ -4,6 +4,10 @@ import { compose, head, path, pluck, prop } from "ramda";
 const { Async, ReaderT } = crocks;
 const { of, ask, lift } = ReaderT(Async);
 
+/**
+ * @param {string} address - wallet address
+ * @returns {AsyncReader}
+ */
 export function profile(address) {
   return of(address)
     .map(buildQuery)

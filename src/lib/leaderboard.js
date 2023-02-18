@@ -4,6 +4,9 @@ import { compose, find, map, prop, propEq, pluck, path } from "ramda";
 const { Async, ReaderT } = crocks;
 const { of, ask, lift } = ReaderT(Async);
 
+/**
+ * @returns {AsyncReader}
+ */
 export function leaderboard() {
   return of(buildQuery())
     .chain(gql => ask(({ query }) =>

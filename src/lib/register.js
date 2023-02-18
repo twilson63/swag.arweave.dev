@@ -3,6 +3,10 @@ import crocks from "crocks";
 const { Async, ReaderT } = crocks;
 const { ask, of, lift } = ReaderT(Async);
 
+/**
+ * @param {Player} player - player profile data
+ * @returns {AsyncReader}
+ */
 export function register(player) {
   return of(player)
     // TODO: validate player model
