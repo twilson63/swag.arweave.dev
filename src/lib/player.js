@@ -4,10 +4,14 @@ import { compose, pluck, path, head, prop } from 'ramda'
 const {Async, ReaderT} = crocks
 const { of, ask, lift } = ReaderT(Async)
 
+/**
+ * @param {string} id - QR Code Identifier
+ * @returns {AsyncReader}
+ */
 export function player(id) {
   return of(id)
     .map(buildQuery)
-    .chain(id => ask(({query, get}) => Async.fromPromise(query)({query})
+    .chain(gql => ask(({query, get}) => Async.fromPromise(query)(gql)
       .map(compose(
         pluck('node'), 
         path(['data', 'transactions', 'edges'])
@@ -20,9 +24,10 @@ export function player(id) {
 }
 
 function buildQuery(id) {
-  return `query {
+  return {
+    query: `query($codes: [String!]) {
 transactions(tags: [
-  {name: "SWAG_CODE", values: ["${id}"]},
+  {name: "SWAG_CODE", values: $codes},
   {name: "Protocol-Name", values: ["Account-0.3"]}
 ]) {
   edges {
@@ -31,5 +36,7 @@ transactions(tags: [
     }
   }
 }
-  }`
+  }`,
+  variables: { codes: [id] }
+  }
 }

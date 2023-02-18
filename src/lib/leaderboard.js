@@ -1,3 +1,6 @@
+/**
+ * @returns {AsyncReader}
+ */
 export function leaderboard() {
   return Promise.resolve([{
     "id": "O48r5xi5Vlvu4hNIZeO45PDQf-B36vQ-4vSX65t9Tfw",
