@@ -14,7 +14,7 @@ export async function dispatch({ data, tags }) {
 
 export function query({ query, variables = {} }) {
   return arweave.api.post('graphql', { query, variables })
-    .then(result => result.data)
+    .then(prop('data'))
 }
 
 export function get(tx) {
