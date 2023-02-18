@@ -11,6 +11,7 @@
   "imports": {
     "tinro": "npm:tinro",
     "crocks": "npm:crocks",
-    "ramda": "npm:ramda"
+    "ramda": "npm:ramda",
+    "arweave": "npm:arweave"
   }
 }
