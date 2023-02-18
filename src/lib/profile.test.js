@@ -1,5 +1,5 @@
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts'
-import { player } from './player.js'
+import { profile } from './profile.js'
 
 const { test } = Deno
 
@@ -19,8 +19,8 @@ const get = (id) => Promise.resolve({
   handle: 'rakis'
 })
 
-test('get player by qr id', async () => {
-  const p = await player("1").runWith({ query, get }).toPromise()
+test('get profile by address', async () => {
+  const p = await profile("vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI").runWith({ query, get }).toPromise()
   assertEquals(p, {
     handle: 'rakis'
   })
