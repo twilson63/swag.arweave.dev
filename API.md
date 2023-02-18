@@ -16,12 +16,13 @@ const api = getContext('data')
 
 ### Leaderboard
 
-The leaderboard function return a leaderboard of all the players sorted by the number of stamps they have received.
+The leaderboard function return a leaderboard of all the players sorted by the
+number of stamps they have received.
 
 ```js
-const { leaderboard } = getContext('data')
+const { leaderboard } = getContext("data");
 
-const players = await leaderboard()
+const players = await leaderboard();
 ```
 
 ### Player
@@ -29,9 +30,9 @@ const players = await leaderboard()
 The player function returs a single player based on the QRCode Identifier
 
 ```js
-const { player } = getContext('data')
+const { player } = getContext("data");
 
-const player = await player(1)
+const player = await player("1");
 ```
 
 ### Stamp
@@ -39,9 +40,10 @@ const player = await player(1)
 The stamp function stamps the atomic token profile using a users wallet.
 
 ```js
-const { stamp } = getContext('data')
+const { stamp } = getContext("data");
 
-const result = await stamp(1)
+// use the player's TX ID to stamp
+const result = await stamp("PLAYER_TX_ID");
 ```
 
 ### Profile
@@ -49,9 +51,10 @@ const result = await stamp(1)
 The profile function returns a wallet addresses arprofile data
 
 ```js
-const { profile } = getContext('data')
+const { profile } = getContext("data");
 
-const profile = await profile(address)
+const address = "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI";
+const profile = await profile(address);
 ```
 
 ### Register
@@ -59,12 +62,17 @@ const profile = await profile(address)
 > The register method takes a QR id and wallet address looks up the arprofile
 > via wallet address and return the profile handle name, avatar etc.
 
-The register function takes a QR id, if the qr code is not matched then a request is made to get the waller id from the arweaveWallet object. This function will create the Atomic Token Profile, by composing the Atomic Token + ANS - 110 + ArProfile standards. As a result it will be STAMPable for the participants.
+The register function takes a QR id, if the qr code is not matched then a
+request is made to get the waller id from the arweaveWallet object. This
+function will create the Atomic Token Profile, by composing the Atomic Token +
+ANS - 110 + ArProfile standards. As a result it will be STAMPable for the
+participants.
 
 ```js
-const { register } = getContext('data')
+const { register } = getContext("data");
 
-const profile = await profile(address)
+const address = "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI";
+const profile = await profile(address);
 // edit or change or create
-const result = await register(1, profile)
+const result = await register("1", profile);
 ```
