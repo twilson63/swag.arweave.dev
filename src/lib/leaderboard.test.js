@@ -44,6 +44,6 @@ function query() {
 
 test("Get Leaderboard", async () => {
   const players = await leaderboard().runWith({ query }).toPromise();
-  
+
   assertEquals(players.length, 2);
 });

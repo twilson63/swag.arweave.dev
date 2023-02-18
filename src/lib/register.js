@@ -20,7 +20,7 @@ export function register(player) {
               value: JSON.stringify({
                 balances: { [player.addr]: 1 },
                 pairs: [],
-                swag: player.code
+                swag: player.code,
               }),
             },
             { name: "Protocol-Name", value: "Account-0.3" },
