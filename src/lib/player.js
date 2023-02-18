@@ -11,9 +11,9 @@ const { of, ask, lift } = ReaderT(Async);
 export function player(id) {
   return of(id)
     .map(buildQuery)
-    .chain((id) =>
+    .chain((gql) =>
       ask(({ query, get }) =>
-        Async.fromPromise(query)({ query })
+        Async.fromPromise(query)(gql)
           .map(compose(pluck("node"), path(["data", "transactions", "edges"])))
           .map(head)
           .map(prop("id"))
@@ -36,5 +36,7 @@ transactions(tags: [
     }
   }
 }
-  }`;
+  }`,
+    variables: { codes: [id] },
+  };
 }
