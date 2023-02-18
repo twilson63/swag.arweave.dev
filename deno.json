@@ -6,7 +6,8 @@
     "preview": "deno run -A --node-modules-dir npm:vite preview",
     "serve": "deno run --allow-net --allow-read https://deno.land/std@0.157.0/http/file_server.ts dist/",
     "test": "deno test -A --unstable",
-    "lint": "deno lint"
+    "lint": "deno lint",
+    "fmt": "deno fmt"
   },
   "imports": {
     "tinro": "npm:tinro",

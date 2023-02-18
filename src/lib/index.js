@@ -1,8 +1,8 @@
-import { leaderboard } from './leaderboard.js'
-import { player } from './player.js'
-import { stamp } from './stamp.js'
-import { register } from './register.js'
-import { profile } from './profile.js'
+import { leaderboard } from "./leaderboard.js";
+import { player } from "./player.js";
+import { stamp } from "./stamp.js";
+import { register } from "./register.js";
+import { profile } from "./profile.js";
 
 /**
  * @typedef Player
@@ -12,7 +12,7 @@ import { profile } from './profile.js'
  * @property {string} banner
  * @property {string} name
  * @property {string} bio
- * @property {string} [code] - qr code 
+ * @property {string} [code] - qr code
  * @property {StampRecord[]} [stamps]
  */
 
@@ -27,7 +27,7 @@ import { profile } from './profile.js'
  * @returns {Promise<Player>}
  */
 
-/** 
+/**
  * @callback Stamp
  * @param {string} tx - player tx to stamp
  * @returns {Promise<number>} - returns new count
@@ -64,8 +64,9 @@ export default {
       leaderboard,
       player: (code) => player(code).runWith(env).toPromise(),
       stamp: (tx) => stamp(tx).runWith(env).toPromise(),
-      register: (code, player) => register({...player, code}).runWith(env).toPromise(),
-      profile: (address) => profile(address).runWith(env).toPromise()
-    })
-  }
-}
+      register: (code, player) =>
+        register({ ...player, code }).runWith(env).toPromise(),
+      profile: (address) => profile(address).runWith(env).toPromise(),
+    });
+  },
+};

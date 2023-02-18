@@ -71,6 +71,8 @@ participants.
 ```js
 const { register } = getContext("data");
 
+const profile = await profile(address);
+
 const address = "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI";
 const profile = await profile(address);
 // edit or change or create
