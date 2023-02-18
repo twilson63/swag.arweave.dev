@@ -5,16 +5,16 @@
   import Player from "./player.svelte";
   import Lib from "./lib/index.js";
   import { register } from "./services/warp.js";
-  import get from "./services/get.js";
+  import { dispatch, get, query } from "./services/ar-utils.js";
 
   // setBusinessLogic
   setContext(
     "data",
     Lib.init({
-      query: () => Promise.resolve({}),
+      query,
       get,
-      dispatch: () => Promise.resolve({ ok: true }),
-      register
+      dispatch,
+      register,
     })
   );
   // setup hash router mode
