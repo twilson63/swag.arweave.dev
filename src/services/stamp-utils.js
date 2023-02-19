@@ -1,7 +1,8 @@
 import Stamps from "https://esm.sh/@permaweb/stampjs";
 import { prop } from "ramda";
+import fpjson from "fpjson-lang";
 
-const { WarpFactory } = window.warp || (await import("warp-contracts")).default;
+const { WarpFactory } = window.warp;
 
 const warp = WarpFactory.forMainnet();
 const stamps = Stamps.init({ warp });
@@ -15,9 +16,5 @@ export function count(tx) {
 }
 
 export function filter(logic) {
-  return [];
-}
-
-export function balance(tx) {
-  return stamps.balance(tx);
+  return stamps.filter(logic);
 }

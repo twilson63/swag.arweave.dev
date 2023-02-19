@@ -1,8 +1,8 @@
-import crocks from 'crocks'
-import { compose, pluck, path, head, prop } from 'ramda'
+import crocks from "crocks";
+import { compose, head, path, pluck, prop } from "ramda";
 
-const { Async, ReaderT } = crocks
-const { of, ask, lift } = ReaderT(Async)
+const { Async, ReaderT } = crocks;
+const { of, ask, lift } = ReaderT(Async);
 
 /**
  * @param {string} address - wallet address
@@ -11,16 +11,18 @@ const { of, ask, lift } = ReaderT(Async)
 export function profile(address) {
   return of(address)
     .map(buildQuery)
-    .chain(gql =>
-      ask(({ query, get }) => Async.fromPromise(query)(gql)
-        .map(compose(
-          pluck('node'),
-          path(['data', 'transactions', 'edges'])
-        ))
-        .map(head)
-        .map(prop('id'))
-        .chain(tx => Async.fromPromise(get)(tx))
-      )).chain(lift)
+    .chain((gql) =>
+      ask(({ query, get }) =>
+        Async.fromPromise(query)(gql)
+          .map(compose(
+            pluck("node"),
+            path(["data", "transactions", "edges"]),
+          ))
+          .map(head)
+          .map(prop("id"))
+          .chain((tx) => Async.fromPromise(get)(tx))
+      )
+    ).chain(lift);
 }
 
 function buildQuery(address) {
@@ -40,6 +42,6 @@ transactions(
   }
 }
   }`,
-    variables: { "owners": [address] }
-  }
+    variables: { "owners": [address] },
+  };
 }

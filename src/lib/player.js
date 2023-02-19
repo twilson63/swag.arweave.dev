@@ -1,5 +1,5 @@
 import crocks from "crocks";
-import { compose, pluck, path, head, prop } from "ramda";
+import { compose, head, path, pluck, prop } from "ramda";
 
 const { Async, ReaderT } = crocks;
 const { of, ask, lift } = ReaderT(Async);
@@ -35,8 +35,7 @@ transactions(tags: [
       id
     }
   }
-}
-  }`,
+}}`,
     variables: { codes: [id] },
   };
 }
