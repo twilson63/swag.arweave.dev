@@ -15,6 +15,10 @@ conferences.
 - Figma -
   https://www.figma.com/file/ESyYxB5KKthUQZ65RXRFP6/arweave-swag-app?node-id=0%3A1&t=NnRQvtzjaT6ZshxO-1
 
+## App Game Play Floe
+
+![Flow](StampGameFlow.png)
+
 ## Contributing Guide
 
 [Contributing Guide](CONTRIBUTING.md)
