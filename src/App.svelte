@@ -6,7 +6,7 @@
   import Lib from "./lib/index.js";
   import { register } from "./services/warp.js";
   import { dispatch, get, query } from "./services/ar-utils.js";
-  import { stamp, count } from "./services/stamp-utils.js";
+  import { stamp, count, filter } from "./services/stamp-utils.js";
 
   // setBusinessLogic
   setContext(
@@ -18,6 +18,7 @@
       register,
       stamp,
       count,
+      filter,
     })
   );
   // setup hash router mode

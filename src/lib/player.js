@@ -12,7 +12,7 @@ export function player(id) {
   return of(id)
     .map(buildQuery)
     .chain((gql) =>
-      ask(({ query, get }) =>
+      ask(({ query, get, filter }) =>
         Async.fromPromise(query)(gql)
           .map(compose(
             pluck("node"),
@@ -21,6 +21,21 @@ export function player(id) {
           .map(head)
           .map(prop("id"))
           .chain((tx) => Async.fromPromise(get)(tx))
+          // need to get stamps collected and add to the player card
+          .chain(player => Async.fromPromise(filter)(['compose',
+            ['filter', ['propEq', 'asset', player.id]],
+            ['values'],
+            ['prop', 'stamps']
+          ]).map(collected => ({ ...player, collected }))
+
+          )
+          // need to get stams given and add to the player card
+          .chain(player => Async.fromPromise(filter)(['compose',
+            ['filter', ['propEq', 'address', player.address]],
+            ['values'],
+            ['prop', 'stamps']
+          ]).map(given => ({ ...player, given }))
+          )
       )
     ).chain(lift);
 }
