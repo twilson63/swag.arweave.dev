@@ -1,5 +1,6 @@
 import Stamps from "https://esm.sh/@permaweb/stampjs";
 import { prop } from "ramda";
+import fpjson from "fpjson-lang";
 
 const { WarpFactory } = window.warp;
 
@@ -15,5 +16,5 @@ export function count(tx) {
 }
 
 export function filter(logic) {
-  return [];
+  return stamps.filter(logic);
 }
