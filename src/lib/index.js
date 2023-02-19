@@ -61,7 +61,7 @@ export default {
    */
   init(env) {
     return Object.freeze({
-      leaderboard,
+      leaderboard: () => leaderboard().runWith(env).toPromise(),
       player: (code) => player(code).runWith(env).toPromise(),
       stamp: (tx) => stamp(tx).runWith(env).toPromise(),
       register: (code, player) =>
