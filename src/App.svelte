@@ -1,8 +1,10 @@
 <script lang="ts">
   import { Route } from "tinro";
-  import { setContext } from "svelte";
   import Leaderboard from "./leaderboard.svelte";
   import Player from "./player.svelte";
+  import Splash from "./splash.svelte";
+
+  import { setContext } from "svelte";
   import Lib from "./lib/index.js";
   import { register } from "./services/warp.js";
   import { dispatch, get, query } from "./services/ar-utils.js";
@@ -32,4 +34,8 @@
   {:else}
     <Leaderboard />
   {/if}
+</Route>
+
+<Route path="/splash">
+  <Splash />
 </Route>
