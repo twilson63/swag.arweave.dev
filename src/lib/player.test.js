@@ -10,11 +10,11 @@ const query = () =>
         edges: [{
           node: {
             id: "1234",
-            owner: { address: '5436' },
+            owner: { address: "5436" },
             tags: [
-              { name: 'Type', value: 'profile' },
-              { name: 'Title', value: 'Rakis Profile' }
-            ]
+              { name: "Type", value: "profile" },
+              { name: "Title", value: "Rakis Profile" },
+            ],
           },
         }],
       },
@@ -26,7 +26,7 @@ const get = (id) =>
     handle: "rakis",
   });
 
-const filter = (x) => Promise.resolve([{ asset: '1', address: '2' }])
+const filter = (x) => Promise.resolve([{ asset: "1", address: "2" }]);
 
 test("get player by qr id", async () => {
   const p = await player("1").runWith({ query, get, filter }).toPromise();

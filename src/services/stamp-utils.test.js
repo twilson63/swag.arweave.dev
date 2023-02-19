@@ -6,7 +6,6 @@ window.warp = warp;
 
 const { test } = Deno;
 
-
 test("Get Stamp Count", async () => {
   const { count } = await import("./stamp-utils.js");
 
@@ -15,9 +14,7 @@ test("Get Stamp Count", async () => {
 });
 
 test("Get Stamp Data using filter", async () => {
-  const { filter } = await import('./stamp-utils.js');
-  const results = await filter(['prop', 'name'])
-  assert(results === 'Stamp Protocol')
-})
-
-
+  const { filter } = await import("./stamp-utils.js");
+  const results = await filter(["prop", "name"]);
+  assert(results === "Stamp Protocol");
+});

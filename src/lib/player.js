@@ -22,19 +22,22 @@ export function player(id) {
           .map(prop("id"))
           .chain((tx) => Async.fromPromise(get)(tx))
           // need to get stamps collected and add to the player card
-          .chain(player => Async.fromPromise(filter)(['compose',
-            ['filter', ['propEq', 'asset', player.id]],
-            ['values'],
-            ['prop', 'stamps']
-          ]).map(collected => ({ ...player, collected }))
-
+          .chain((player) =>
+            Async.fromPromise(filter)([
+              "compose",
+              ["filter", ["propEq", "asset", player.id]],
+              ["values"],
+              ["prop", "stamps"],
+            ]).map((collected) => ({ ...player, collected }))
           )
           // need to get stams given and add to the player card
-          .chain(player => Async.fromPromise(filter)(['compose',
-            ['filter', ['propEq', 'address', player.address]],
-            ['values'],
-            ['prop', 'stamps']
-          ]).map(given => ({ ...player, given }))
+          .chain((player) =>
+            Async.fromPromise(filter)([
+              "compose",
+              ["filter", ["propEq", "address", player.address]],
+              ["values"],
+              ["prop", "stamps"],
+            ]).map((given) => ({ ...player, given }))
           )
       )
     ).chain(lift);
