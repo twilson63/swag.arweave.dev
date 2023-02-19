@@ -1,4 +1,4 @@
-# swag.arweave.dev test
+# swag.arweave.dev
 
 SWAG is a webmobile game application that allows players to wear swag containing
 a unique QR Code. And participants to scan the QR Code using their phones and
