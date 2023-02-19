@@ -1,6 +1,6 @@
 # API
 
-This swag application need to allow players to register, allow visitors to STAMP
+This swag application needs to allow players to register, allow visitors to STAMP
 and show a view of a leaderboard and individual player.
 
 ## How do I access the library in the presentation layer?
