@@ -42,22 +42,23 @@ function query() {
   });
 }
 
-const filter = () => Promise.resolve([{
-  asset: '1234',
-  address: '333333',
-}, {
-  asset: '1234',
-  address: '222222',
-}, {
-  asset: '1234',
-  address: '333333',
-}, {
-  asset: '33333',
-  address: '1234',
-}])
+const filter = () =>
+  Promise.resolve([{
+    asset: "1234",
+    address: "333333",
+  }, {
+    asset: "1234",
+    address: "222222",
+  }, {
+    asset: "1234",
+    address: "333333",
+  }, {
+    asset: "33333",
+    address: "1234",
+  }]);
 
 test("Get Leaderboard", async () => {
   const players = await leaderboard().runWith({ query, filter }).toPromise();
   assertEquals(players.length, 2);
-  assertEquals(players[0].collected, 3)
+  assertEquals(players[0].collected, 3);
 });
