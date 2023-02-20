@@ -1,4 +1,5 @@
 import crocks from "crocks";
+import { validate } from "./model.js";
 
 const { Async, ReaderT } = crocks;
 const { ask, of, lift } = ReaderT(Async);
@@ -9,31 +10,34 @@ const { ask, of, lift } = ReaderT(Async);
  */
 export function register(player) {
   return of(player)
-    // TODO: validate player model
     .chain((player) =>
       ask(({ dispatch }) =>
-        Async.fromPromise(dispatch)({
-          data: JSON.stringify(player),
-          tags: [
-            { name: "Content-Type", value: "application/json" },
-            { name: "App-Name", value: "SmartWeaveContract" },
-            { name: "App-Version", value: "0.3.0" },
-            { name: "Contract-Src", value: "" },
-            {
-              name: "Init-State",
-              value: JSON.stringify({
-                balances: { [player.addr]: 1 },
-                pairs: [],
-                swag: player.code,
-              }),
-            },
-            { name: "Protocol-Name", value: "Account-0.3" },
-            { name: "handle", value: player.handle },
-            { name: "Type", value: "profile" },
-            { name: "Description", value: player.bio },
-            { name: "Title", value: player.handle + " profile" },
-          ],
-        })
+        Async.of(player)
+          .chain(doValidate)
+          .chain((player) =>
+            Async.fromPromise(dispatch)({
+              data: JSON.stringify(player),
+              tags: [
+                { name: "Content-Type", value: "application/json" },
+                { name: "App-Name", value: "SmartWeaveContract" },
+                { name: "App-Version", value: "0.3.0" },
+                { name: "Contract-Src", value: "" },
+                {
+                  name: "Init-State",
+                  value: JSON.stringify({
+                    balances: { [player.addr]: 1 },
+                    pairs: [],
+                    swag: player.code,
+                  }),
+                },
+                { name: "Protocol-Name", value: "Account-0.3" },
+                { name: "handle", value: player.handle },
+                { name: "Type", value: "profile" },
+                { name: "Description", value: player.bio },
+                { name: "Title", value: player.handle + " profile" },
+              ],
+            })
+          )
       )
     ).chain(lift);
 }
@@ -50,3 +54,7 @@ export function register(player) {
 
         }
  */
+
+function doValidate(player) {
+  return Async.fromPromise(validate)(player);
+}
