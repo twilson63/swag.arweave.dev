@@ -12,7 +12,12 @@ conferences.
 
 ## Design
 
-- Figma - https://www.figma.com/file/ESyYxB5KKthUQZ65RXRFP6/arweave-swag-app?node-id=0%3A1&t=NnRQvtzjaT6ZshxO-1
+- Figma -
+  https://www.figma.com/file/ESyYxB5KKthUQZ65RXRFP6/arweave-swag-app?node-id=0%3A1&t=NnRQvtzjaT6ZshxO-1
+
+## App Game Play Flow
+
+![Flow](./StampGameFlow.png)
 
 ## Contributing Guide
 
@@ -27,20 +32,26 @@ conferences.
 - Requires deno [v1.30.3] or higher - https://deno.com
 
 ```sh
-deno task install
-deno task dev
+yarn
+yarn dev
+```
+
+## Testing
+
+```sh
+deno task test
 ```
 
 ## Technical Stack
 
-* Typescript or Javascript (w/JSDocs)
-* Deno for development Runtime
-* Vite for bundling
-* Svelte, Twind, and DaisyUI for frontend
-* Robot for state-machines
-* date-fns for date formating
-* Zod, Ramda, and Crocs for Business Logic
-* Bundlr and Warp for Services
+- Typescript or Javascript (w/JSDocs)
+- Nodejs for development Runtime
+- Vite for bundling
+- Svelte, Twind, and DaisyUI for frontend
+- Robot for state-machines
+- date-fns for date formating
+- Zod, Ramda, and Crocs for Business Logic
+- Bundlr and Warp for Services
 
 ## Tests
 
@@ -108,4 +119,3 @@ the STAMP
 
 Players can re-register to different conferences to play the game and view a
 feed specific for that conference.
-

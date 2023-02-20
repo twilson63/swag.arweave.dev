@@ -1,23 +1,61 @@
+import crocks from "crocks";
+import { compose, head, path, pluck, prop } from "ramda";
+
+const { Async, ReaderT } = crocks;
+const { of, ask, lift } = ReaderT(Async);
+
+/**
+ * @param {string} id - QR Code Identifier
+ * @returns {AsyncReader}
+ */
 export function player(id) {
-  return Promise.resolve({
-    "id": "O48r5xi5Vlvu4hNIZeO45PDQf-B36vQ-4vSX65t9Tfw",
-    "handleName": "rakis",
-    "avatar": "fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
-    "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
-    "banner": "ar://a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
-    "bannerURL": "https://arweave.net:443/a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
-    "name": "rakis",
-    "bio": "Permaweb Developer",
-    "email": "",
-    "links": {
-      "twitter": "rakis_me",
-      "github": "rakis-me",
-      "discord": "tom-permapages#3217"
-    },
-    "wallets": {
-      "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI": 1
-    },
-    stamps: {},
-    qrcode: 10
-  })
+  return of(id)
+    .map(buildQuery)
+    .chain((gql) =>
+      ask(({ query, get, filter }) =>
+        Async.fromPromise(query)(gql)
+          .map(compose(
+            pluck("node"),
+            path(["data", "transactions", "edges"]),
+          ))
+          .map(head)
+          .map(prop("id"))
+          .chain((tx) => Async.fromPromise(get)(tx))
+          // need to get stamps collected and add to the player card
+          .chain((player) =>
+            Async.fromPromise(filter)([
+              "compose",
+              ["filter", ["propEq", "asset", player.id]],
+              ["values"],
+              ["prop", "stamps"],
+            ]).map((collected) => ({ ...player, collected }))
+          )
+          // need to get stams given and add to the player card
+          .chain((player) =>
+            Async.fromPromise(filter)([
+              "compose",
+              ["filter", ["propEq", "address", player.address]],
+              ["values"],
+              ["prop", "stamps"],
+            ]).map((given) => ({ ...player, given }))
+          )
+      )
+    ).chain(lift);
+}
+
+function buildQuery(id) {
+  return {
+    query: `query($codes: [String!]) {
+transactions(tags: [
+  {name: "SWAG_CODE", values: $codes},
+  {name: "Protocol-Name", values: ["Account-0.3"]}
+]) {
+  edges {
+    node {
+      id
+    }
+  }
+}}`,
+    variables: { codes: [id] },
+  };
 }
