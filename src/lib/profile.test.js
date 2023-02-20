@@ -17,9 +17,9 @@ const query = () =>
   });
 
 const get = (id) =>
-  Promise.resolve({
+  Promise.resolve(JSON.stringify({
     handle: "rakis",
-  });
+  }));
 
 test("get profile by address", async () => {
   const p = await profile("vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI")

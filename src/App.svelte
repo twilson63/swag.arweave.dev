@@ -3,6 +3,7 @@
   import Leaderboard from "./leaderboard.svelte";
   import Player from "./player.svelte";
   import Splash from "./splash.svelte";
+  import Register from "./register.svelte";
 
   import { setContext } from "svelte";
   import Lib from "./lib/index.js";
@@ -47,6 +48,10 @@
   {:else}
     <Leaderboard />
   {/if}
+</Route>
+
+<Route path="/register">
+  <Register />
 </Route>
 
 <Route path="/splash">

@@ -5,6 +5,13 @@ const { Async, ReaderT } = crocks;
 const { ask, of, lift } = ReaderT(Async);
 
 /**
+ * registration needs
+ * - create or use arProfile record
+ * - create Atomic Token Player Contract
+ * - register QR Code with Atomic Player Token
+ */
+
+/**
  * @param {Player} player - player profile data
  * @returns {AsyncReader}
  */

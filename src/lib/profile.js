@@ -6,7 +6,7 @@ const { of, ask, lift } = ReaderT(Async);
 
 /**
  * @param {string} address - wallet address
- * @returns {AsyncReader}
+ * @returns {any}
  */
 export function profile(address) {
   return of(address)
@@ -21,6 +21,7 @@ export function profile(address) {
           .map(head)
           .map(prop("id"))
           .chain((tx) => Async.fromPromise(get)(tx))
+          .map((data) => JSON.parse(data))
       )
     ).chain(lift);
 }
@@ -31,8 +32,7 @@ function buildQuery(address) {
 transactions(
   owners: $owners,
   tags: [
-    {name: "Protocol-Name", values: ["Account-0.3"]},
-    {name: "App-Name", values: ["SmartWeaveContract"]}
+    {name: "Protocol-Name", values: ["Account-0.3"]}
   ]
 ) {
   edges {

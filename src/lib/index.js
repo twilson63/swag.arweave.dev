@@ -13,7 +13,7 @@ import { profile } from "./profile.js";
  * @property {string} name
  * @property {string} bio
  * @property {string} [code] - qr code
- * @property {StampRecord[]} [stamps]
+ * @property {{asset: string, address: string}[]} [stamps]
  */
 
 /**
