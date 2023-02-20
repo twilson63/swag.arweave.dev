@@ -9,4 +9,6 @@
     <div>Leaderboard view</div>
     <pre>{JSON.stringify(player, null, 2)}</pre>
   {/each}
+{:catch}
+  <div>No Results</div>
 {/await}

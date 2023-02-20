@@ -1,7 +1,9 @@
 import { prop } from "ramda";
 
 const arweave = window.location
-  ? window.Arweave.init({})
+  ? import.meta.env.MODE === "development"
+    ? window.Arweave.init({ host: "arweave.net", port: 443, protocol: "https" })
+    : window.Arweave.init({})
   : window.Arweave.init({ host: "arweave.net", port: 443, protocol: "https" });
 
 export async function dispatch({ data, tags }) {

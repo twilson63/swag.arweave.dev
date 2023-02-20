@@ -1,5 +1,5 @@
 //import Stamps from "https://esm.sh/@permaweb/stampjs";
-import Stamps from "https://esm.sh/v106/@permaweb/stampjs@0.0.11/deno/stampjs.js";
+import Stamps from "@permaweb/stampjs";
 import { prop } from "ramda";
 
 const { WarpFactory } = window.warp;

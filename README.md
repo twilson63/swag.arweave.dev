@@ -32,8 +32,8 @@ conferences.
 - Requires deno [v1.30.3] or higher - https://deno.com
 
 ```sh
-deno task install
-deno task dev
+yarn
+yarn dev
 ```
 
 ## Testing
@@ -45,7 +45,7 @@ deno task test
 ## Technical Stack
 
 - Typescript or Javascript (w/JSDocs)
-- Deno for development Runtime
+- Nodejs for development Runtime
 - Vite for bundling
 - Svelte, Twind, and DaisyUI for frontend
 - Robot for state-machines
