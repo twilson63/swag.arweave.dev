@@ -1,6 +1,6 @@
 <script>
-    
+    import Loader from "./loader.svelte";
 </script>
   
-<div>Player view</div>
+<Loader active={true}/>
   

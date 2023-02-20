@@ -8,7 +8,19 @@
   import Lib from "./lib/index.js";
   import { register } from "./services/warp.js";
   import { dispatch, get, query } from "./services/ar-utils.js";
-  import { stamp, count } from "./services/stamp-utils.js";
+  import { stamp, count, filter } from "./services/stamp-utils.js";
+  import { ArweaveWebWallet } from "arweave-wallet-connector";
+
+  const wallet = new ArweaveWebWallet({
+    // Initialize the wallet as soon as possible to get instant auto reconnect
+    name: "Swag Game",
+    logo: "https://swag.arweave.dev/arweave.svg",
+  });
+
+  wallet.setUrl("arweave.app");
+
+  // setWallet Data
+  setContext("wallet", wallet);
 
   // setBusinessLogic
   setContext(
@@ -20,6 +32,7 @@
       register,
       stamp,
       count,
+      filter,
     })
   );
   // setup hash router mode

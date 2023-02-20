@@ -1,4 +1,5 @@
-import Stamps from "https://esm.sh/@permaweb/stampjs";
+//import Stamps from "https://esm.sh/@permaweb/stampjs";
+import Stamps from "@permaweb/stampjs";
 import { prop } from "ramda";
 
 const { WarpFactory } = window.warp;
@@ -15,5 +16,5 @@ export function count(tx) {
 }
 
 export function filter(logic) {
-  return [];
+  return stamps.filter(logic);
 }
