@@ -1,13 +1,15 @@
-const functions = {register, approve, slash, reset, evolve, setAdmin}
+const propEq = (k,v) => o => o[k] === v
+const functions = {register, slash, reset, evolve, setAdmin}
 
 
 /**
  * @typedef {Object} State
- * @property {Record<string, {code: string, address: string, token: string, active: boolean, admin: boolean}>[]} players
+ * @property {Record<string, {code: string, address: string, token: string, admin: boolean}>[]} players
  * @property {string} name
  * @property {string} creator
  * @property {boolean} canEvolve
  * @property {string} [evolve]
+ * @property {string} description
  * 
  */
 
@@ -36,15 +38,17 @@ async function register(state, action) {
     throw new ContractError('Player already registered!')
   }
 
-  //TODO: readContractState of token to verify the contract is valid
-
-  state.players[code] = {
-    address,
-    token,
-    admin: false,
-    active: false,
-    code
+  // readContractState of token is owned by the address
+  const contract = await SmartWeave.contracts.readContractState(action.input.token)
+  if (contract.balances[address] > 0) {
+    state.players[code] = {
+      address,
+      token,
+      admin: false,
+      code
+    }
   }
+
   return { state }
 }
 
@@ -57,13 +61,14 @@ function slash(state, action) {
   ContractAssert(action.caller && action.caller.length === 43, 'caller is invalid!')
   
   // if caller is admin then allow slash
-  if (Object.values(state.players).find(propEq('address', action.caller)).admin) {
-    delete state.players[code]
+  const caller = Object.values(state.players).find(propEq('address', action.caller))
+  if (caller && caller.admin) {
+    delete state.players[action.input.code]
   }
   
   // if caller is creator then allow slash
   if (action.caller === state.creator) {
-    delete state.players[code]
+    delete state.players[action.input.code]
   }
 
   return { state }
@@ -71,7 +76,7 @@ function slash(state, action) {
 
 /**
  * @param {State} state
- * @param {{caller: string, input: {name: string}}} action
+ * @param {{caller: string, input: {name: string, description: string}}} action
  */
 function reset(state, action) {
   ContractAssert(action.input.name, 'Name is Required!')
@@ -80,28 +85,9 @@ function reset(state, action) {
   if (state.creator === action.caller) {
     state.players = {}
     state.name = action.input.name
+    state.description = action.input.description || 'swag game'
   }
-
-}
-
-/**
- * @param {State} state
- * @param {{caller: string, input: {token: string, address: string}}} action
- */
-function approve(state, action) {
-  ContractAssert(action.input.token, 'Player Token is Required!')
-  ContractAssert(action.input.address, 'Player Address is Required!')
-  ContractAssert(action.caller && action.caller.length === 43, 'caller is invalid!')
-  
-  const isAdmin = Object.values(state.players).find(propEq('address', action.caller)).admin
-  const player = Object.values(state.players).find(p => p.address === action.input.address && p.token === action.input.token)
-
-  if (isAdmin && player) {
-   state.players[player.code] = {...player, active: true}
-  }
-
   return { state }
-
 }
 
 /**
