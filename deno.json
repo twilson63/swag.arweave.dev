@@ -15,6 +15,7 @@
     "ramda": "npm:ramda",
     "arweave": "npm:arweave",
     "warp-contracts": "npm:warp-contracts",
+    "zod": "https://deno.land/x/zod/mod.ts",
     "asserts": "https://deno.land/std/testing/asserts.ts",
     "@permaweb/stampjs": "https://esm.sh/@permaweb/stampjs"
   }

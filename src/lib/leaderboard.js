@@ -56,24 +56,28 @@ function buildQuery() {
 }
 
 function countStamps(players) {
-  return stamps => players.reduce(
-    (a, v) => {
-      const collected = stamps.filter(propEq('asset', v.id)).length
-      return [...a, assoc('collected', collected, v)]
-    },
-    []
-  )
+  return (stamps) =>
+    players.reduce(
+      (a, v) => {
+        const collected = stamps.filter(propEq("asset", v.id)).length;
+        return [...a, assoc("collected", collected, v)];
+      },
+      [],
+    );
 }
 
 function getStampsforPlayers(filter) {
-  return (players) => Async.fromPromise(filter)(['compose',
-    ['filter', ['compose',
-      [['flip', ['includes']], map(prop('id', players))],
-      ['prop', 'asset']
-    ]],
-    ['values'],
-    ['prop', 'stamps']
-  ])
+  return (players) =>
+    Async.fromPromise(filter)([
+      "compose",
+      ["filter", [
+        "compose",
+        [["flip", ["includes"]], map(prop("id", players))],
+        ["prop", "asset"],
+      ]],
+      ["values"],
+      ["prop", "stamps"],
+    ]);
 }
 
 function getPlayers(query, gql) {
@@ -82,10 +86,11 @@ function getPlayers(query, gql) {
       map(transform),
       pluck("node"),
       path(["data", "transactions", "edges"]),
-    ))
+    ));
 }
 
 function getAndCountStamps(filter) {
-  return (players) => getStampsforPlayers(filter)(players)
-    .map(countStamps(players))
+  return (players) =>
+    getStampsforPlayers(filter)(players)
+      .map(countStamps(players));
 }
