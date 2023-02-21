@@ -2,14 +2,30 @@
   import { getContext } from "svelte";
   import { user } from "./store.js";
 
-  const { profile, register, createProfile, uploadAvatar } = getContext("data");
-  const wallet = getContext("wallet");
+  import type {
+    Player,
+    Profile,
+    Register,
+    UploadAvatar,
+    CreateProfile,
+  } from "./lib/index.js";
+
+  export let code: string;
+
+  const data: {
+    profile: Profile;
+    uploadAvatar: UploadAvatar;
+    createProfile: CreateProfile;
+    register: Register;
+  } = getContext("data");
+  const wallet: { address: string } = getContext("wallet");
+  let files: FileList, handle: string, bio: string;
 
   async function loadArprofile() {
     // @ts-ignore
     await wallet.connect();
     // @ts-ignore
-    $user.profile = await profile(wallet.address);
+    $user.profile = await data.profile(wallet.address);
   }
 
   async function submitRegistration() {
@@ -17,18 +33,25 @@
       // access form data
       // convert avatar to under 100kb
       // upload avatar
-      const avatar = await uploadAvatar(files[0]);
+      const avatar = await data.uploadAvatar(files[0], files[0].type);
       $user.profile = {
         handle,
         bio,
-        avatar,
+        avatar: avatar.id,
         address: wallet.address,
       };
       // create ar profile tx
-      await createProfile($user.profile);
+      const { id } = await data.createProfile($user.profile);
+      $user.profile.id = id;
     }
-    const result = await register($user.profile);
-    if (result.ok) {
+    const result = await data.register({
+      profileTxId: $user.profile.id,
+      address: wallet.address,
+      handle: $user.profile.handle,
+      avatar: $user.profile.avatar,
+      code,
+    });
+    if (result) {
       alert("successfully registered as player");
     }
   }
@@ -59,19 +82,23 @@
         <div class="form-control">
           <label class="label"
             >Avatar
-            <input type="file" class="input input-bordered" />
+            <input type="file" bind:files class="input input-bordered" />
           </label>
         </div>
         <div class="form-control">
           <label class="label"
             >Username
-            <input type="input" class="input input-bordered" />
+            <input
+              type="input"
+              class="input input-bordered"
+              bind:value={handle}
+            />
           </label>
         </div>
         <div class="form-control">
           <label class="label"
             >Bio
-            <textarea type="input" class="textarea textarea-bordered" />
+            <textarea class="textarea textarea-bordered" bind:value={bio} />
           </label>
         </div>
         <div>

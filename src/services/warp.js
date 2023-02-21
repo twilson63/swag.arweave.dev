@@ -29,7 +29,7 @@ export function deployContract({ srcTxId, initState, tags }) {
  * @returns {Promise<{originalTxId: string}>}
  */
 export function writeAction({ contract, input, tags }) {
-  const options = tags ? { tags } : {}
+  const options = tags ? { tags } : {};
   return warp.contract(contract).writeInteraction({
     ...input,
   }, options);

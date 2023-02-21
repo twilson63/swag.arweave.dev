@@ -3,6 +3,8 @@ import { player } from "./player.js";
 import { stamp } from "./stamp.js";
 import { register } from "./register.js";
 import { profile } from "./profile.js";
+import { createProfile } from "./create-profile.js";
+import { uploadAvatar } from "./upload-avatar.js";
 import crocks from "crocks";
 import { keys } from "ramda";
 
@@ -39,7 +41,7 @@ const { Async } = crocks;
 
 /**
  * @callback Register
- * @param {Player} player - player data to register
+ * @param {{profileTxId: string, handle: string, avatar: string, address: string, code: string}} player - player data to register
  * @returns {Promise<string>}
  */
 
@@ -50,12 +52,27 @@ const { Async } = crocks;
  */
 
 /**
+ * @callback CreateProfile
+ * @param {{handle: string, avatar: string, bio: string}} profile
+ * @returns {Promise<{id:string}>}
+ */
+
+/**
+ * @callback UploadAvatar
+ * @param {File} file
+ * @param {string} mimeType
+ * @returns {Promise<{id:string}>}
+ */
+
+/**
  * @typedef {Object} Swag
  * @property {Leaderboard} leaderboard
  * @property {GetPlayer} player
  * @property {Stamp} stamp
  * @property {Register} register
  * @property {Profile} profile
+ * @property {CreateProfile} createProfile
+ * @property {UploadAvatar} uploadAvatar
  */
 // application libary
 export default {
@@ -77,6 +94,8 @@ export default {
       stamp: fork(stamp),
       register: fork(register),
       profile: fork(profile),
+      createProfile: fork(createProfile),
+      uploadAvatar: fork(uploadAvatar),
     });
   },
 };

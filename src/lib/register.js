@@ -1,6 +1,6 @@
 import { validate } from "./model.js";
 import { Async, AsyncReader } from "./utils.js";
-import { always } from 'ramda';
+import { always } from "ramda";
 
 const { ask, of, lift } = AsyncReader;
 
@@ -11,10 +11,11 @@ const { ask, of, lift } = AsyncReader;
  */
 /**
  * @typedef {Object} Player
- * @property {string} [id]
+ * @property {string} profileTxId
  * @property {string} address
  * @property {string} handle
  * @property {string} avatar
+ * @property {string} code
  */
 /**
  * @param {Player} player - player profile data
@@ -37,13 +38,15 @@ export function register(player) {
               },
               tags: [
                 { name: "Type", value: "profile" },
-                { name: "Description", value: player.bio },
+                { name: "Description", value: "Swag Player Card" },
                 { name: "Title", value: player.handle },
-                { name: "Render-With", value: "player_swag" },
+                { name: "Render-With", value: "swag" },
+                { name: "SWAG-Code", value: player.code },
+                { name: "Profile", value: player.profileTxId },
               ],
             })
               // register Player on game contract
-              .chain(({contractTxId }) =>
+              .chain(({ contractTxId }) =>
                 writeAction({
                   contract: "",
                   function: "register",
@@ -52,7 +55,7 @@ export function register(player) {
                 })
               )
           )
-          .map(always({ok: true}))
+          .map(always({ ok: true }))
       )
     ).chain(lift);
 }

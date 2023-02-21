@@ -30,13 +30,13 @@ export function get(tx) {
 export function toArrayBuffer(file) {
   return new Promise((resolve, reject) => {
     const fr = new FileReader();
-    fr.readAsArrayBuffer(file)
-    fr.addEventListener('loadend', (evt) => {
-      resolve(evt.target.result)
-    })
-  })
+    fr.readAsArrayBuffer(file);
+    fr.addEventListener("loadend", (evt) => {
+      resolve(evt.target.result);
+    });
+  });
 }
 
 export function createTransaction(data) {
-  return arweave.createTransaction({data})
+  return arweave.createTransaction({ data });
 }

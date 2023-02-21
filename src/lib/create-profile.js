@@ -1,19 +1,33 @@
-import { AsyncReader } from './utils.js'
+import { AsyncReader } from "./utils.js";
 
-const { of, ask, lift } = AsyncReader 
+const { of, ask, lift } = AsyncReader;
 
 /**
- * @param {Profile} profile
- * 
+ * @param {{handle: string, avatar: string, bio: string}} profile
+ *
  * @returns { AsyncReader }
  */
 export function createProfile(profile) {
   return of(profile)
-    .chain(f => ask(({dispatch}) => 
-      dispatch({data: JSON.stringify(profile), tags: [{name: 'Protocol-Name', value: 'Account-0.3'}]})
-    ))
-    .chain(lift)
-  // check if file is < 100kb
-  // dispatch
-  return of({ok: true})
+    .chain((p) =>
+      ask(({ dispatch }) =>
+        dispatch({
+          data: JSON.stringify({
+            handle: p.handle,
+            avatar: p.avatar,
+            bio: p.bio,
+            name: p.handle,
+            links: {},
+            wallets: {},
+          }),
+          tags: [
+            { name: "Protocol-Name", value: "Account-0.3" },
+            { name: "Content-Type", value: "application/json" },
+            { name: "handle", value: p.handle },
+            { name: "avatar", value: p.avatar },
+          ],
+        })
+      )
+    )
+    .chain(lift);
 }
