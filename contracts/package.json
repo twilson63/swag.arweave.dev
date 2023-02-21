@@ -1,0 +1,9 @@
+{
+  "name": "contracts",
+  "version": "1.0.0",
+  "main": "src/game.js",
+  "license": "MIT",
+  "scripts": {
+    "deploy": "npx warp-contracts-cli deploy"
+  }
+}
