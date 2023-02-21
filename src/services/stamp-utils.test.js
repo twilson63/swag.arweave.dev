@@ -1,4 +1,5 @@
-import { assert } from "https://deno.land/std/testing/asserts.ts";
+// @ts-nocheck
+import { assert } from "asserts";
 import warp from "warp-contracts";
 
 warp.LoggerFactory.INST.logLevel("fatal");

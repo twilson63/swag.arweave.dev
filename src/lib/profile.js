@@ -1,27 +1,20 @@
-import crocks from "crocks";
 import { compose, head, path, pluck, prop } from "ramda";
+import { AsyncReader } from "./utils.js";
 
-const { Async, ReaderT } = crocks;
-const { of, ask, lift } = ReaderT(Async);
+const { of, ask, lift } = AsyncReader;
 
 /**
  * @param {string} address - wallet address
- * @returns {any}
+ * @returns {AsyncReader}
  */
 export function profile(address) {
   return of(address)
     .map(buildQuery)
     .chain((gql) =>
       ask(({ query, get }) =>
-        Async.fromPromise(query)(gql)
-          .map(compose(
-            pluck("node"),
-            path(["data", "transactions", "edges"]),
-          ))
-          .map(head)
-          .map(prop("id"))
-          .chain((tx) => Async.fromPromise(get)(tx))
-          .map((data) => JSON.parse(data))
+        query(gql)
+          .map(getFirstIdforArProfile)
+          .chain(get)
       )
     ).chain(lift);
 }
@@ -44,4 +37,13 @@ transactions(
   }`,
     variables: { "owners": [address] },
   };
+}
+
+function getFirstIdforArProfile(result) {
+  return compose(
+    prop("id"),
+    head,
+    pluck("node"),
+    path(["data", "transactions", "edges"]),
+  )(result);
 }

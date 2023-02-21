@@ -1,7 +1,6 @@
-import crocks from "crocks";
+import { AsyncReader } from "./utils.js";
 
-const { Async, ReaderT } = crocks;
-const { ask, of, lift } = ReaderT(Async);
+const { ask, of, lift } = AsyncReader;
 
 /**
  * @param {string} tx - transactionId
@@ -9,6 +8,6 @@ const { ask, of, lift } = ReaderT(Async);
  */
 export function stamp(tx) {
   return of(tx)
-    .chain((tx) => ask(({ stamp }) => Async.fromPromise(stamp)(tx)))
+    .chain((tx) => ask(({ stamp }) => stamp(tx)))
     .chain(lift);
 }

@@ -7,8 +7,8 @@
 
   import { setContext } from "svelte";
   import Lib from "./lib/index.js";
-  import { register } from "./services/warp.js";
-  import { dispatch, get, query } from "./services/ar-utils.js";
+  import { register, deployContract, writeAction } from "./services/warp.js";
+  import { dispatch, get, query, toArrayBuffer } from "./services/ar-utils.js";
   import { stamp, count, filter } from "./services/stamp-utils.js";
   import { ArweaveWebWallet } from "arweave-wallet-connector";
 
@@ -34,6 +34,9 @@
       stamp,
       count,
       filter,
+      deployContract,
+      writeAction,
+      toArrayBuffer,
     })
   );
   // setup hash router mode

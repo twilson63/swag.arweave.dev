@@ -1,10 +1,12 @@
 import { assert, assertEquals } from "https://deno.land/std/testing/asserts.ts";
 import { leaderboard } from "./leaderboard.js";
+import crocks from "crocks";
 
+const { Async } = crocks;
 const { test } = Deno;
 
 function query() {
-  return Promise.resolve({
+  return Async.Resolved({
     data: {
       transactions: {
         edges: [
@@ -43,7 +45,7 @@ function query() {
 }
 
 const filter = () =>
-  Promise.resolve([{
+  Async.Resolved([{
     asset: "1234",
     address: "333333",
   }, {

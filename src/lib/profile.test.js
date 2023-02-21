@@ -1,10 +1,13 @@
-import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
+// @ts-nocheck
+import { assertEquals } from "asserts";
 import { profile } from "./profile.js";
+import crocks from "crocks";
 
+const { Async } = crocks;
 const { test } = Deno;
 
 const query = () =>
-  Promise.resolve({
+  Async.Resolved({
     data: {
       transactions: {
         edges: [{
@@ -17,9 +20,9 @@ const query = () =>
   });
 
 const get = (id) =>
-  Promise.resolve(JSON.stringify({
+  Async.Resolved({
     handle: "rakis",
-  }));
+  });
 
 test("get profile by address", async () => {
   const p = await profile("vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI")

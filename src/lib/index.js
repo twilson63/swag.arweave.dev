@@ -3,6 +3,10 @@ import { player } from "./player.js";
 import { stamp } from "./stamp.js";
 import { register } from "./register.js";
 import { profile } from "./profile.js";
+import crocks from "crocks";
+import { keys } from "ramda";
+
+const { Async } = crocks;
 
 /**
  * @typedef Player
@@ -60,13 +64,19 @@ export default {
    * @returns {Swag}
    */
   init(env) {
+    // could wrap all env functions in an Async Promise
+    const services = keys(env).reduce(
+      (s, k) => ({ ...s, [k]: Async.fromPromise(env[k]) }),
+      {},
+    );
+    const fork = (fn) => (...args) => fn(...args).runWith(services).toPromise();
+
     return Object.freeze({
-      leaderboard: () => leaderboard().runWith(env).toPromise(),
-      player: (code) => player(code).runWith(env).toPromise(),
-      stamp: (tx) => stamp(tx).runWith(env).toPromise(),
-      register: (code, player) =>
-        register({ ...player, code }).runWith(env).toPromise(),
-      profile: (address) => profile(address).runWith(env).toPromise(),
+      leaderboard: fork(leaderboard),
+      player: fork(player),
+      stamp: fork(stamp),
+      register: fork(register),
+      profile: fork(profile),
     });
   },
 };

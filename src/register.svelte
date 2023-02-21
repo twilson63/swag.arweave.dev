@@ -2,7 +2,7 @@
   import { getContext } from "svelte";
   import { user } from "./store.js";
 
-  const { profile } = getContext("data");
+  const { profile, register, createProfile, uploadAvatar } = getContext("data");
   const wallet = getContext("wallet");
 
   async function loadArprofile() {
@@ -10,6 +10,27 @@
     await wallet.connect();
     // @ts-ignore
     $user.profile = await profile(wallet.address);
+  }
+
+  async function submitRegistration() {
+    if (!$user.profile) {
+      // access form data
+      // convert avatar to under 100kb
+      // upload avatar
+      const avatar = await uploadAvatar(files[0]);
+      $user.profile = {
+        handle,
+        bio,
+        avatar,
+        address: wallet.address,
+      };
+      // create ar profile tx
+      await createProfile($user.profile);
+    }
+    const result = await register($user.profile);
+    if (result.ok) {
+      alert("successfully registered as player");
+    }
   }
 </script>
 
@@ -31,7 +52,7 @@
         <p>{$user.profile.bio}</p>
       </div>
       <div>
-        <button class="btn">Register</button>
+        <button class="btn" on:click={submitRegistration}>Register</button>
       </div>
     {:else}
       <form>
