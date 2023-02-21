@@ -1,6 +1,36 @@
+// @ts-nocheck
 const { WarpFactory } = window.warp;
 
 const warp = WarpFactory.forMainnet();
+
+/**
+ * @param {string} txId
+ * @returns {Promise<any>}
+ */
 export function register(txId) {
   return warp.register(txId, "node2");
+}
+
+/**
+ * @param {{srcTxId: string, initState: Record<string, any>, tags: {name:string, value: string}[]}} data
+ * @returns {Promise<{contractTxId: string, srcTxId: string }>}
+ */
+export function deployContract({ srcTxId, initState, tags }) {
+  return warp.createContract.deployFromSourceTx({
+    wallet: "use_wallet",
+    srcTxId,
+    initState: JSON.stringify(initState),
+    tags,
+  });
+}
+
+/**
+ * @param {{contract: string, fn: string, input: Record<name, any>, tags?: {name:string, value: string}[]}}
+ * @returns {Promise<{originalTxId: string}>}
+ */
+export function writeAction({ contract, input, tags }) {
+  const options = tags ? { tags } : {};
+  return warp.contract(contract).writeInteraction({
+    ...input,
+  }, options);
 }

@@ -1,10 +1,12 @@
-import { assert, assertEquals } from "https://deno.land/std/testing/asserts.ts";
+// @ts-nocheck
+import { assert, assertEquals } from "asserts";
 import { stamp } from "./stamp.js";
+import { Async } from "./utils.js";
 
 const { test } = Deno;
 
 function _stamp(tx) {
-  return Promise.resolve({ ok: true });
+  return Async.Resolved({ ok: true });
 }
 
 test("Register Player", async () => {

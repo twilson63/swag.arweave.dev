@@ -3,6 +3,12 @@ import { player } from "./player.js";
 import { stamp } from "./stamp.js";
 import { register } from "./register.js";
 import { profile } from "./profile.js";
+import { createProfile } from "./create-profile.js";
+import { uploadAvatar } from "./upload-avatar.js";
+import crocks from "crocks";
+import { keys } from "ramda";
+
+const { Async } = crocks;
 
 /**
  * @typedef Player
@@ -13,7 +19,7 @@ import { profile } from "./profile.js";
  * @property {string} name
  * @property {string} bio
  * @property {string} [code] - qr code
- * @property {StampRecord[]} [stamps]
+ * @property {{asset: string, address: string}[]} [stamps]
  */
 
 /**
@@ -35,7 +41,7 @@ import { profile } from "./profile.js";
 
 /**
  * @callback Register
- * @param {Player} player - player data to register
+ * @param {{profileTxId: string, handle: string, avatar: string, address: string, code: string}} player - player data to register
  * @returns {Promise<string>}
  */
 
@@ -46,12 +52,27 @@ import { profile } from "./profile.js";
  */
 
 /**
+ * @callback CreateProfile
+ * @param {{handle: string, avatar: string, bio: string}} profile
+ * @returns {Promise<{id:string}>}
+ */
+
+/**
+ * @callback UploadAvatar
+ * @param {File} file
+ * @param {string} mimeType
+ * @returns {Promise<{id:string}>}
+ */
+
+/**
  * @typedef {Object} Swag
  * @property {Leaderboard} leaderboard
  * @property {GetPlayer} player
  * @property {Stamp} stamp
  * @property {Register} register
  * @property {Profile} profile
+ * @property {CreateProfile} createProfile
+ * @property {UploadAvatar} uploadAvatar
  */
 // application libary
 export default {
@@ -60,13 +81,21 @@ export default {
    * @returns {Swag}
    */
   init(env) {
+    // could wrap all env functions in an Async Promise
+    const services = keys(env).reduce(
+      (s, k) => ({ ...s, [k]: Async.fromPromise(env[k]) }),
+      {},
+    );
+    const fork = (fn) => (...args) => fn(...args).runWith(services).toPromise();
+
     return Object.freeze({
-      leaderboard: () => leaderboard().runWith(env).toPromise(),
-      player: (code) => player(code).runWith(env).toPromise(),
-      stamp: (tx) => stamp(tx).runWith(env).toPromise(),
-      register: (code, player) =>
-        register({ ...player, code }).runWith(env).toPromise(),
-      profile: (address) => profile(address).runWith(env).toPromise(),
+      leaderboard: fork(leaderboard),
+      player: fork(player),
+      stamp: fork(stamp),
+      register: fork(register),
+      profile: fork(profile),
+      createProfile: fork(createProfile),
+      uploadAvatar: fork(uploadAvatar),
     });
   },
 };

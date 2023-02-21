@@ -1,10 +1,12 @@
-import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
+// @ts-nocheck
+import { assertEquals } from "asserts";
 import { player } from "./player.js";
+import { Async } from "./utils.js";
 
 const { test } = Deno;
 
 const query = () =>
-  Promise.resolve({
+  Async.Resolved({
     data: {
       transactions: {
         edges: [{
@@ -22,11 +24,11 @@ const query = () =>
   });
 
 const get = (id) =>
-  Promise.resolve({
+  Async.Resolved({
     handle: "rakis",
   });
 
-const filter = (x) => Promise.resolve([{ asset: "1", address: "2" }]);
+const filter = (x) => Async.Resolved([{ asset: "1", address: "2" }]);
 
 test("get player by qr id", async () => {
   const p = await player("1").runWith({ query, get, filter }).toPromise();

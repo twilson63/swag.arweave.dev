@@ -1,10 +1,16 @@
-import { assert, assertEquals } from "https://deno.land/std/testing/asserts.ts";
+// @ts-nocheck
+import { assert, assertEquals } from "asserts";
 import { register } from "./register.js";
+import { Async } from "./utils.js";
 
 const { test } = Deno;
 
-function dispatch({ data, tags }) {
-  return Promise.resolve({ ok: true });
+function deployContract() {
+  return Async.Resolved({ contractTxId: "1" });
+}
+
+function writeAction() {
+  return Async.Resolved({ originalTxId: "2" });
 }
 
 test("Register Player", async () => {
@@ -13,7 +19,7 @@ test("Register Player", async () => {
     "handle": "rakis",
     "avatar": "fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
     "bio": "Permaweb Developer",
-  }).runWith({ dispatch }).toPromise();
-  console.log(result);
+    "code": "1",
+  }).runWith({ deployContract, writeAction }).toPromise();
   assert(result.ok);
 });

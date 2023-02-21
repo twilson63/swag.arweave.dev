@@ -1,8 +1,7 @@
-import crocks from "crocks";
 import { assoc, compose, find, map, path, pluck, prop, propEq } from "ramda";
+import { AsyncReader } from "./utils.js";
 
-const { Async, ReaderT } = crocks;
-const { of, ask, lift } = ReaderT(Async);
+const { of, ask, lift } = AsyncReader;
 
 /**
  * @returns {AsyncReader}
@@ -68,7 +67,7 @@ function countStamps(players) {
 
 function getStampsforPlayers(filter) {
   return (players) =>
-    Async.fromPromise(filter)([
+    filter([
       "compose",
       ["filter", [
         "compose",
@@ -81,7 +80,7 @@ function getStampsforPlayers(filter) {
 }
 
 function getPlayers(query, gql) {
-  return Async.fromPromise(query)(gql)
+  return query(gql)
     .map(compose(
       map(transform),
       pluck("node"),
