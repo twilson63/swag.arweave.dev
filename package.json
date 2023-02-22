@@ -8,11 +8,12 @@
     "build": "vite build",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "dev": "vite",
-    "fmt": "deno task fmt",
+    "fmt": "prettier --write --plugin-search-dir=. .",
+    "lint": "prettier --check --plugin-search-dir=. . && eslint .",
     "prepare": "husky install",
     "preview": "vite preview",
     "staged": "lint-staged",
-    "test": "deno task fmt"
+    "test": "yarn check"
   },
   "dependencies": {
     "@permaweb/stampjs": "^0.0.11",
@@ -32,6 +33,8 @@
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "postcss": "^8.4.21",
+    "prettier": "^2.8.4",
+    "prettier-plugin-svelte": "^2.9.0",
     "sort-package-json": "^2.4.1",
     "svelte": "^3.55.1",
     "svelte-check": "^3.0.3",
