@@ -32,8 +32,6 @@
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "prepare": "husky install",
-    "test": "deno task fmt",
-    "fmt": "deno task fmt"
+    "prepare": "husky install"
   }
 }

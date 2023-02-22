@@ -2,7 +2,7 @@
     import Portal from "./portal.svelte";
 
     import loader from "../../assets/loader.gif";
-    import loaderIcon from "../../assets/loader-logo.png";
+    import loaderIcon from "../../assets/loader-logo.svg";
 
     export let active;
 </script>
@@ -37,8 +37,8 @@
         left: 0;
     }
     .l-gif-container {
-        height: 200px;
-        width: 200px;
+        height: 300px;
+        width: 300px;
     }
     .l-gif {
         height: 100%;

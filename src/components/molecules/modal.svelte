@@ -9,7 +9,7 @@
 </script>
 
 <Portal>
-  <div class="m-wrapper">
+  <div class="m-wrapper fadeIn">
     <div class="m-container">
       <div class="m-body-container">
         <slot />
@@ -43,7 +43,7 @@
     position: relative;
     height: 500px;
     max-height: 75vh;
-    width: 375px;
+    width: 400px;
     max-width: 90vw;
     background: #222326;
     border-radius: 24px;
@@ -56,7 +56,7 @@
     overflow: auto;
     scrollbar-width: none;
   }
-  
+
   .m-action-container {
     height: 60px;
     width: 100%;

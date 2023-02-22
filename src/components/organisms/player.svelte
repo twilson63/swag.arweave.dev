@@ -1,128 +1,162 @@
 <script>
-  //   import { getContext, onMount } from "svelte";
+  // onMount(() => {
+  //   const searchParams = new URLSearchParams(window.location.search);
+  //   queryId = searchParams.get("id");
 
-  //   const { player } = getContext("data");
+  //   (async function () {
+  //     try {
+  //       fetchedPlayer = await player(queryId);
+  //     } catch {
+  //       fetchedPlayer = null;
+  //     }
+  //     console.log(fetchedPlayer);
+  //   })();
+  // });
+
+  const TEMP_PROFILE_STAMPED = {
+    id: "O48r5xi5Vlvu4hNIZeO45PDQf-B36vQ-4vSX65t9Tfw",
+    handleName: "SebMasterOverlord",
+    avatar: "fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    avatarURL:
+      "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    banner: "ar://a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
+    bannerURL:
+      "https://arweave.net:443/a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
+    name: "seb",
+    bio: "Developer and Founder of Permapages, Permanotes, and Hyper (L) Web (L) Javascript (L) Arweave (Elephant emoji)",
+    email: "",
+    wallets: {
+      "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI": 1,
+    },
+  };
+
+  const TEMP_STAMP_LIST = [
+    {
+      name: "seb",
+      avatarURL:
+        "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    },
+    {
+      name: "seb",
+      avatarURL:
+        "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    },
+    {
+      name: "seb",
+      avatarURL:
+        "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    },
+    {
+      name: "seb",
+      avatarURL:
+        "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    },
+    {
+      name: "seb",
+      avatarURL:
+        "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    },
+    {
+      name: "seb",
+      avatarURL:
+        "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    },
+    {
+      name: "seb",
+      avatarURL:
+        "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    },
+    {
+      name: "seb",
+      avatarURL:
+        "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    },
+    {
+      name: "seb",
+      avatarURL:
+        "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    },
+    {
+      name: "seb",
+      avatarURL:
+        "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    },
+    {
+      name: "seb",
+      avatarURL:
+        "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    },
+  ];
+
+  // import { getContext, onMount } from "svelte";
+
+  // const { player } = getContext("data");
 
   import PlayerCard from "../molecules/player-card.svelte";
+  import PlayerStampCount from "../molecules/player-stamp-count.svelte";
 
-  // import Loader from "../atoms/loader.svelte";
+  import Loader from "../atoms/loader.svelte";
   import Modal from "../molecules/modal.svelte";
 
   import stampIcon from "../../assets/stamp.svg";
+  import continueIcon from "../../assets/continue.svg";
 
-  //   let queryId;
-  //   let fetchedPlayer;
+  let queryId;
+  let fetchedPlayer;
 
-  //   onMount(() => {
-  //     const searchParams = new URLSearchParams(window.location.search);
-  //     queryId = searchParams.get("id");
+  // TODO: check wallet connection
+  let walletConnected = true;
+  let showWalletConnect = false;
 
-  //     (async function () {
-  //         try {
-  //             fetchedPlayer = await player(queryId);
-  //         }
-  //         catch {
-  //             fetchedPlayer = null;
-  //         }
-  //     })();
-  //   });
+  let stampConfirmed = false;
+  // TODO: stampCompleted = true if stamp clicked, wallet connected and continue clicked
+  let stampCompleted = false;
 
+  // TODO: if wallet is not connected, connect wallet -> show stamp success -> continue -> get stamp count modal -> if 3/3, register
   function handleStamp() {
-    console.log("stamp");
+    if (walletConnected) {
+      stampConfirmed = true;
+    } else {
+      showWalletConnect = true;
+    }
   }
 
-  const actionIcon = {
-    icon: stampIcon,
-    start: true,
-  };
-
-  let TEMP_PROFILE = {
-      "id": "O48r5xi5Vlvu4hNIZeO45PDQf-B36vQ-4vSX65t9Tfw",
-      "handleName": "SebMasterOverlord",
-      "avatar": "fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
-      "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
-      "banner": "ar://a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
-      "bannerURL": "https://arweave.net:443/a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
-      "name": "seb",
-      "bio": "Developer and Founder of Permapages, Permanotes, and Hyper (L) Web (L) Javascript (L) Arweave (Elephant emoji)",
-      "email": "",
-      "wallets": {
-        "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI": 1
-      }
+  function handleComplete() {
+    stampCompleted = true;
   }
 
-  let TEMP_STAMP_LIST = [
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-    {"name": "seb", "avatarURL": "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"},
-  ]
-
+  function handleGoToLeaderboard() {
+    window.location.href = '/';
+  }
 </script>
 
 <!-- <Loader active={true} /> -->
-
-<Modal handleAction={handleStamp} actionLabel={"Stamp"} {actionIcon}>
-  <PlayerCard 
-    completed={false}
-    username={`@${TEMP_PROFILE.handleName}`}
-    avatar={TEMP_PROFILE.avatarURL}
-    bio={TEMP_PROFILE.bio}
-    stampList={TEMP_STAMP_LIST}
-  />
-</Modal>
-
-<style>
-</style>
+{#if !stampCompleted}
+  {#if showWalletConnect}
+    <div>wallet connect</div>
+  {:else}
+    <Modal
+      handleAction={stampConfirmed ? handleComplete : handleStamp}
+      actionLabel={stampConfirmed ? "Continue" : "Stamp"}
+      actionIcon={stampConfirmed
+        ? { icon: continueIcon, start: false }
+        : { icon: stampIcon, start: false }}
+    >
+      <PlayerCard
+        completed={stampConfirmed}
+        username={`@${TEMP_PROFILE_STAMPED.handleName}`}
+        avatar={TEMP_PROFILE_STAMPED.avatarURL}
+        bio={TEMP_PROFILE_STAMPED.bio}
+        stampList={TEMP_STAMP_LIST}
+      />
+    </Modal>
+  {/if}
+{:else}
+  <Modal
+    handleAction={handleGoToLeaderboard}
+    actionLabel={"Go to Leaderboard"}
+    actionIcon={{ icon: continueIcon, start: false }}
+  >
+    <PlayerStampCount />
+  </Modal>
+{/if}

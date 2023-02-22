@@ -1,6 +1,4 @@
 <script>
-  import { stamp } from "../../lib/stamp";
-
   export let completed;
   export let username;
   export let avatar;
@@ -25,7 +23,7 @@
   </div>
   <div class="pc-sl-container">
     {#if stampList.length > 0}
-      <span> Stamped by </span>
+      <span>Stamped by</span>
       <div class="pc-sl-container-l-wrapper">
         <div class="pc-sl-container-l">
           {#each slicedStampList as element}
@@ -33,13 +31,15 @@
           {/each}
         </div>
         <div class="pc-sl-container-e">
-          <span>+{stampList.length - slicedStampList.length}</span>
+          {#if stampList.length > 10}
+            <span>+{stampList.length - slicedStampList.length}</span>
+          {/if}
         </div>
       </div>
     {:else}
       <div class="pc-empty-wrapper">
         <p>Be the first to stamp this player</p>
-    </div>
+      </div>
     {/if}
   </div>
 </div>
@@ -93,57 +93,6 @@
   }
   .pc-b-container p {
     color: rgba(242, 243, 244, 0.6);
-    font-size: 14px;
-  }
-  .pc-sl-container {
-    height: 80px;
-    width: 100%;
-    padding: 0 20px;
-  }
-  .pc-sl-container span {
-    color: #ffffff;
-    font-size: 14px;
-    line-height: 25px;
-  }
-  .pc-sl-container-l-wrapper {
-    height: calc(100% - 25px);
-    width: 100%;
-    padding: 5px 0 0 0;
-    display: flex;
-    justify-content: space-between;
-  }
-  .pc-sl-container-l {
-    height: 100%;
-    width: calc(100% - 70px);
-    display: flex;
-    overflow: hidden;
-  }
-  .pc-sl-container-l *:not(:first-child) {
-    margin: 0 0 0 -7.5px;
-  }
-  .pc-sl-container-l img {
-    height: 32.5px;
-    width: 32.5px;
-    border-radius: 50%;
-    border: 2px solid #222326;
-  }
-  .pc-sl-container-e {
-    height: 100%;
-    width: 50px;
-    display: flex;
-    justify-content: center;
-  }
-  .pc-sl-container-e span {
-    color: #ffffff;
-    font-size: 24px;
-    line-height: initial;
-    font-weight: 600;
-  }
-  .pc-empty-wrapper {
-    text-align: center;
-  }
-  .pc-empty-wrapper p {
-    color: #ffffff;
     font-size: 14px;
   }
 </style>
