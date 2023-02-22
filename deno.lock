@@ -26,6 +26,7 @@
     "specifiers": {
       "crocks": "crocks@0.12.4",
       "ramda": "ramda@0.28.0",
+      "robot3": "robot3@0.4.0",
       "warp-contracts": "warp-contracts@1.2.52"
     },
     "packages": {
@@ -786,6 +787,10 @@
       },
       "require-directory@2.1.1": {
         "integrity": "sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==",
+        "dependencies": {}
+      },
+      "robot3@0.4.0": {
+        "integrity": "sha512-6WjtNe2jawFiAkqIwfA3ikhQjjDtm2EZ4e8Hz6VqxHmQYNQcpSZKIOr4OCDbw0PBBrRR9AIDrMRyagnIkapm6A==",
         "dependencies": {}
       },
       "run-parallel-limit@1.1.0": {

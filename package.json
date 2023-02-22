@@ -8,8 +8,10 @@
     "@sveltejs/vite-plugin-svelte": "^2.0.2",
     "@tailwindcss/typography": "^0.5.9",
     "@tsconfig/svelte": "^3.0.0",
+    "arweave": "^1.13.0",
     "autoprefixer": "^10.4.13",
     "daisyui": "^2.50.1",
+    "husky": "^8.0.0",
     "postcss": "^8.4.21",
     "svelte": "^3.55.1",
     "svelte-check": "^3.0.3",
@@ -18,13 +20,16 @@
     "tslib": "^2.5.0",
     "typescript": "^4.9.5",
     "vite": "^4.1.2",
-    "husky": "^8.0.0"
+    "vitest": "^0.28.5",
+    "warp-contracts": "^1.2.52"
   },
   "dependencies": {
     "@permaweb/stampjs": "^0.0.11",
     "arweave-wallet-connector": "0.0.31",
     "crocks": "^0.12.4",
     "ramda": "^0.28.0",
+    "robot3": "^0.4.0",
+    "svelte-robot-factory": "^2.0.4",
     "zod": "^3.20.6"
   },
   "scripts": {

@@ -9,9 +9,12 @@ const { of, ask, lift } = AsyncReader;
 export function leaderboard() {
   return of(buildQuery())
     .chain((gql) =>
-      ask(({ query, filter }) =>
-        getPlayers(query, gql)
-          .chain(getAndCountStamps(filter))
+      ask(({ query, filter, getState }) =>
+        //getPlayers(query, gql)
+        getState('pcciYWuObwPtQOhdnoQmg9jXDvEwXFryeUOGHY59c1k')
+          .map(prop('players'))
+          .map(x => (console.log(x), x))
+          //.chain(getAndCountStamps(filter))
       )
     )
     .chain(lift);

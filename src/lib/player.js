@@ -16,23 +16,23 @@ export function player(id) {
           .map(getFirstId)
           .chain(get)
           // need to get stamps collected and add to the player card
-          .chain((player) =>
-            filter(getAssetIds(player)).map((collected) => ({
-              ...player,
-              collected,
-            }))
-          )
-          // need to get stams given and add to the player card
-          .chain((player) =>
-            filter(getAddressIds(player)).map((given) => ({ ...player, given }))
-          )
+          // .chain((player) =>
+          //   filter(getAssetIds(player)).map((collected) => ({
+          //     ...player,
+          //     collected,
+          //   }))
+          // )
+          // // need to get stams given and add to the player card
+          // .chain((player) =>
+          //   filter(getAddressIds(player)).map((given) => ({ ...player, given }))
+          // )
       )
     ).chain(lift);
 }
 
 function buildQuery(id) {
   return {
-    query: `query($codes: [String!]) {
+    query: `query($codes: [String!]!) {
 transactions(tags: [
   {name: "SWAG_CODE", values: $codes},
   {name: "Protocol-Name", values: ["Account-0.3"]}
