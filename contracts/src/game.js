@@ -1,3 +1,5 @@
+/* global ContractError ContractAssert SmartWeave */
+
 const propEq = (k, v) => (o) => o[k] === v;
 const functions = { register, slash, reset, evolve, setAdmin };
 
@@ -26,12 +28,9 @@ async function register(state, action) {
   ContractAssert(action.input.code, "QR Code is Required!");
   ContractAssert(
     action.input.token && action.input.token.length === 43,
-    "Player Token Contract Id is required!",
+    "Player Token Contract Id is required!"
   );
-  ContractAssert(
-    action.caller && action.caller.length === 43,
-    "caller is invalid",
-  );
+  ContractAssert(action.caller && action.caller.length === 43, "caller is invalid");
 
   const code = action.input.code;
   const address = action.caller;
@@ -42,15 +41,13 @@ async function register(state, action) {
   }
 
   // readContractState of token is owned by the address
-  const contract = await SmartWeave.contracts.readContractState(
-    action.input.token,
-  );
+  const contract = await SmartWeave.contracts.readContractState(action.input.token);
   if (contract.balances[address] > 0) {
     state.players[code] = {
       address,
       token,
       admin: false,
-      code,
+      code
     };
   }
 
@@ -63,15 +60,10 @@ async function register(state, action) {
  */
 function slash(state, action) {
   ContractAssert(action.input.code, "QR Code is Required!");
-  ContractAssert(
-    action.caller && action.caller.length === 43,
-    "caller is invalid!",
-  );
+  ContractAssert(action.caller && action.caller.length === 43, "caller is invalid!");
 
   // if caller is admin then allow slash
-  const caller = Object.values(state.players).find(
-    propEq("address", action.caller),
-  );
+  const caller = Object.values(state.players).find(propEq("address", action.caller));
   if (caller && caller.admin) {
     delete state.players[action.input.code];
   }
@@ -90,10 +82,7 @@ function slash(state, action) {
  */
 function reset(state, action) {
   ContractAssert(action.input.name, "Name is Required!");
-  ContractAssert(
-    action.caller && action.caller.length === 43,
-    "caller is invalid!",
-  );
+  ContractAssert(action.caller && action.caller.length === 43, "caller is invalid!");
 
   if (state.creator === action.caller) {
     state.players = {};
@@ -124,15 +113,11 @@ function evolve(state, action) {
 function setAdmin(state, action) {
   ContractAssert(action.input.token, "Player Token is Required!");
   ContractAssert(action.input.address, "Player Address is Required!");
-  ContractAssert(
-    action.caller && action.caller.length === 43,
-    "caller is invalid!",
-  );
+  ContractAssert(action.caller && action.caller.length === 43, "caller is invalid!");
 
-  const isAdmin =
-    Object.values(state.players).find(propEq("address", action.caller)).admin;
-  const player = Object.values(state.players).find((p) =>
-    p.address === action.input.address && p.token === action.input.token
+  const isAdmin = Object.values(state.players).find(propEq("address", action.caller)).admin;
+  const player = Object.values(state.players).find(
+    (p) => p.address === action.input.address && p.token === action.input.token
   );
 
   if (isAdmin && player) {

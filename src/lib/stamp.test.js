@@ -1,5 +1,6 @@
+/* global Deno */
 // @ts-nocheck
-import { assert, assertEquals } from "asserts";
+import { assert } from "asserts";
 import { stamp } from "./stamp.js";
 import { Async } from "./utils.js";
 
@@ -11,7 +12,8 @@ function _stamp(tx) {
 
 test("Register Player", async () => {
   const result = await stamp("fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI")
-    .runWith({ stamp: _stamp }).toPromise();
+    .runWith({ stamp: _stamp })
+    .toPromise();
 
   assert(result.ok);
 });

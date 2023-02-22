@@ -20,7 +20,7 @@ export function deployContract({ srcTxId, initState, tags }) {
     wallet: "use_wallet",
     srcTxId,
     initState: JSON.stringify(initState),
-    tags,
+    tags
   });
 }
 
@@ -30,7 +30,10 @@ export function deployContract({ srcTxId, initState, tags }) {
  */
 export function writeAction({ contract, input, tags }) {
   const options = tags ? { tags } : {};
-  return warp.contract(contract).writeInteraction({
-    ...input,
-  }, options);
+  return warp.contract(contract).writeInteraction(
+    {
+      ...input
+    },
+    options
+  );
 }

@@ -1,24 +1,19 @@
 {
   "name": "swag.arweave.dev",
-  "type": "module",
   "version": "1.0.0",
   "repository": "https://github.com/twilson63/swag.arweave.dev.git",
   "license": "MIT",
-  "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^2.0.2",
-    "@tailwindcss/typography": "^0.5.9",
-    "@tsconfig/svelte": "^3.0.0",
-    "autoprefixer": "^10.4.13",
-    "daisyui": "^2.50.1",
-    "postcss": "^8.4.21",
-    "svelte": "^3.55.1",
-    "svelte-check": "^3.0.3",
-    "tailwindcss": "^3.2.7",
-    "tinro": "^0.6.12",
-    "tslib": "^2.5.0",
-    "typescript": "^4.9.5",
-    "vite": "^4.1.2",
-    "husky": "^8.0.0"
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "dev": "vite",
+    "fmt": "prettier --write --plugin-search-dir=. .",
+    "lint": "prettier --check --plugin-search-dir=. . && eslint .",
+    "prepare": "husky install",
+    "preview": "vite preview",
+    "staged": "lint-staged",
+    "test": "yarn lint"
   },
   "dependencies": {
     "@permaweb/stampjs": "^0.0.11",
@@ -27,13 +22,32 @@
     "ramda": "^0.28.0",
     "zod": "^3.20.6"
   },
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json",
-    "prepare": "husky install",
-    "test": "deno task fmt",
-    "fmt": "deno task fmt"
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "@sveltejs/vite-plugin-svelte": "^2.0.2",
+    "@tailwindcss/typography": "^0.5.9",
+    "@tsconfig/svelte": "^3.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.53.0",
+    "@typescript-eslint/parser": "^5.53.0",
+    "autoprefixer": "^10.4.13",
+    "daisyui": "^2.50.1",
+    "eslint": "^8.34.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-svelte3": "^4.0.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "markdown-toc-gen": "^1.0.1",
+    "postcss": "^8.4.21",
+    "prettier": "^2.8.4",
+    "prettier-plugin-svelte": "^2.9.0",
+    "sort-package-json": "^2.4.1",
+    "svelte": "^3.55.1",
+    "svelte-check": "^3.0.3",
+    "tailwindcss": "^3.2.7",
+    "tinro": "^0.6.12",
+    "tslib": "^2.5.0",
+    "typescript": "^4.9.5",
+    "vite": "^4.1.2"
   }
 }

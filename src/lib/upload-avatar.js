@@ -23,7 +23,7 @@ export function uploadAvatar(file, mimeType) {
           .chain((data) =>
             dispatch({
               data,
-              tags: [{ name: "Content-Type", value: mimeType }],
+              tags: [{ name: "Content-Type", value: mimeType }]
             })
           )
       )

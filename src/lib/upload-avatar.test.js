@@ -1,3 +1,4 @@
+/* global Deno */
 // @ts-nocheck
 import { assert } from "asserts";
 import { uploadAvatar } from "./upload-avatar.js";
@@ -10,7 +11,7 @@ function dispatch() {
 }
 
 function toArrayBuffer(file) {
-  const p = new Promise((resolve, reject) => {
+  const p = new Promise((resolve) => {
     const fr = new FileReader();
     fr.readAsArrayBuffer(file);
     fr.addEventListener("loadend", (evt) => {
@@ -22,9 +23,11 @@ function toArrayBuffer(file) {
 
 test("uploadAvatar", async () => {
   const file = new File(["Hello World"], "foo.txt", { type: "text/plain" });
-  const result = await uploadAvatar(file, file.type).runWith({
-    dispatch,
-    toArrayBuffer: Async.fromPromise(toArrayBuffer),
-  }).toPromise();
+  const result = await uploadAvatar(file, file.type)
+    .runWith({
+      dispatch,
+      toArrayBuffer: Async.fromPromise(toArrayBuffer)
+    })
+    .toPromise();
   assert(result.id === "1234");
 });

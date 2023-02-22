@@ -1,6 +1,5 @@
 import Bundlr from "@bundlr-network/client";
 import { defaultCacheOptions, WarpFactory } from "warp-contracts/mjs";
-import fs from "fs";
 import Arweave from "arweave";
 
 // ANT-SWAG
@@ -8,28 +7,20 @@ const ANT = "XXgOvDo8O2v0adZnkKkSmMcpdEgZy4JfU4GiYndAi_c";
 const arweave = Arweave.init({
   host: "arweave.net",
   port: 443,
-  protocol: "https",
+  protocol: "https"
 });
 //const jwk = JSON.parse(fs.readFileSync('../wallet.json', 'utf-8'))
-const jwk = JSON.parse(
-  Buffer.from(process.env.ARNS, "base64").toString("utf-8"),
-);
+const jwk = JSON.parse(Buffer.from(process.env.ARNS, "base64").toString("utf-8"));
 
-const bundlr = new Bundlr.default(
-  "https://node2.bundlr.network",
-  "arweave",
-  jwk,
-);
-const warp = WarpFactory.custom(
-  arweave,
-  defaultCacheOptions,
-  "mainnet",
-).useArweaveGateway().build();
+const bundlr = new Bundlr.default("https://node2.bundlr.network", "arweave", jwk);
+const warp = WarpFactory.custom(arweave, defaultCacheOptions, "mainnet")
+  .useArweaveGateway()
+  .build();
 
 const contract = warp.contract(ANT).connect(jwk);
 // upload folder
 const result = await bundlr.uploadFolder("../dist", {
-  indexFile: "index.html",
+  indexFile: "index.html"
 });
 
 // update ANT
@@ -37,9 +28,7 @@ const result = await bundlr.uploadFolder("../dist", {
 await contract.writeInteraction({
   function: "setRecord",
   subDomain: "@",
-  transactionId: result.id,
+  transactionId: result.id
 });
 
-console.log(
-  "Deployed pst.arweave.dev, please wait 20 - 30 minutes for ArNS to update!",
-);
+console.log("Deployed pst.arweave.dev, please wait 20 - 30 minutes for ArNS to update!");
