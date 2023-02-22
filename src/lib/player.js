@@ -15,17 +15,17 @@ export function player(id) {
         query(gql)
           .map(getFirstId)
           .chain(get)
-          // need to get stamps collected and add to the player card
-          // .chain((player) =>
-          //   filter(getAssetIds(player)).map((collected) => ({
-          //     ...player,
-          //     collected,
-          //   }))
-          // )
-          // // need to get stams given and add to the player card
-          // .chain((player) =>
-          //   filter(getAddressIds(player)).map((given) => ({ ...player, given }))
-          // )
+        // need to get stamps collected and add to the player card
+        // .chain((player) =>
+        //   filter(getAssetIds(player)).map((collected) => ({
+        //     ...player,
+        //     collected,
+        //   }))
+        // )
+        // // need to get stams given and add to the player card
+        // .chain((player) =>
+        //   filter(getAddressIds(player)).map((given) => ({ ...player, given }))
+        // )
       )
     ).chain(lift);
 }

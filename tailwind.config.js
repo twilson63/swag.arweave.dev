@@ -6,9 +6,9 @@ export default {
   plugins: [typography, daisyui],
   theme: {
     fontFamily: {
-      'poppins': ['Poppins', 'sans-serif'],
-      'roboto-mono': ['Roboto Mono', 'monospace'],
-      'work-sans': ['Work Sans', 'sans-serif'],
+      "poppins": ["Poppins", "sans-serif"],
+      "roboto-mono": ["Roboto Mono", "monospace"],
+      "work-sans": ["Work Sans", "sans-serif"],
     },
   },
   daisyui: {

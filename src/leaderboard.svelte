@@ -19,8 +19,21 @@
       >Show Player</button
     >
   {/each}
+  <!--
+  <Leaderboard
+    players={context.players}
+    on:show={(id) => send({ type: "show", id })}
+  />
+    
+  -->
 {:else if current === "player"}
   <div>Show Player</div>
   <pre>{JSON.stringify(context.player, null, 2)}</pre>
+  <button class="btn" on:click={() => send({ type: "stamp" })}>Stamp</button>
   <button class="btn" on:click={() => send({ type: "close" })}>Close</button>
+{:else if current === "stamping"}
+  <div>Stamping...</div>
+{:else if current === "confirmation"}
+  <div>Stamp Confirmed</div>
+  <pre>{JSON.stringify(context, null, 2)}</pre>
 {/if}

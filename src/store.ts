@@ -1,7 +1,41 @@
 // Svelte Stores
 import { writable } from "svelte/store";
-import machine from './machine.js'
-import { useMachine } from 'svelte-robot-factory'
+import createMachine from "./machine.js";
+import { useMachine } from "svelte-robot-factory";
+
+import { ArweaveWebWallet } from "arweave-wallet-connector";
+
+import Lib from "./lib/index.js";
+import {
+  deployContract,
+  getState,
+  register,
+  writeAction,
+} from "./services/warp.js";
+import { dispatch, get, query, toArrayBuffer } from "./services/ar-utils.js";
+import { count, filter, stamp } from "./services/stamp-utils.js";
+
+const wallet = new ArweaveWebWallet({
+  // Initialize the wallet as soon as possible to get instant auto reconnect
+  name: "Swag Game",
+  logo: "https://swag.arweave.dev/arweave.svg",
+});
+
+wallet.setUrl("arweave.app");
+
+const lib = Lib.init({
+  query,
+  get,
+  dispatch,
+  register,
+  stamp,
+  count,
+  filter,
+  deployContract,
+  writeAction,
+  toArrayBuffer,
+  getState,
+});
 
 // const machine = createMachine({
 //   loading: invoke(leaderboard,
@@ -18,9 +52,9 @@ import { useMachine } from 'svelte-robot-factory'
 //     transition('reset', 'admin')
 //   ),
 //   // send('stamp', 'PLAYER_TX_ID') // 2nd arg is the data prop in event
-//   stamp: invoke((_, ev) => stamp(ev.data), 
-//     transition('done', 'stampResult', 
-//       reduce((ctx, ev) => set(lensPath(['player', 'count']), ev.data, ctx)) 
+//   stamp: invoke((_, ev) => stamp(ev.data),
+//     transition('done', 'stampResult',
+//       reduce((ctx, ev) => set(lensPath(['player', 'count']), ev.data, ctx))
 //     ),
 //     transition('error', 'stampError')
 //   ),
@@ -38,10 +72,9 @@ import { useMachine } from 'svelte-robot-factory'
 //     transition('close', 'leaderboard')
 //   )
 
-
 // }, context)
-
-export const robot = useMachine(machine, { })
+const machine = createMachine(lib, wallet)
+export const robot = useMachine(machine, {});
 
 interface User {
   profile?: {

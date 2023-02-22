@@ -11,10 +11,10 @@ export function leaderboard() {
     .chain((gql) =>
       ask(({ query, filter, getState }) =>
         //getPlayers(query, gql)
-        getState('pcciYWuObwPtQOhdnoQmg9jXDvEwXFryeUOGHY59c1k')
-          .map(prop('players'))
-          .map(x => (console.log(x), x))
-          //.chain(getAndCountStamps(filter))
+        getState("pcciYWuObwPtQOhdnoQmg9jXDvEwXFryeUOGHY59c1k")
+          .map(prop("players"))
+          .map((x) => (console.log(x), x))
+        //.chain(getAndCountStamps(filter))
       )
     )
     .chain(lift);

@@ -1,8 +1,8 @@
-import { test, expect } from 'vitest'
-import { interpret } from 'robot3'
+import { expect, test } from "vitest";
+import { interpret } from "robot3";
 
-import { WarpFactory } from 'warp-contracts'
-import Arweave from 'arweave'
+import { WarpFactory } from "warp-contracts";
+import Arweave from "arweave";
 
 globalThis.window = {
   warp: {
@@ -15,16 +15,15 @@ globalThis.window = {
               setEvaluationOptions: () => ({
                 readState() {
                   return {
-                    stamps: {}
-                  }
-                }
-              })
-            }
-          }
-          
-        }
-      }
-    }
+                    stamps: {},
+                  };
+                },
+              }),
+            };
+          },
+        };
+      },
+    },
   },
   Arweave: {
     init() {
@@ -32,40 +31,38 @@ globalThis.window = {
         api: {
           get: (tx) => {
             return Promise.resolve({
-              data: JSON.stringify({id: tx })
-            })
+              data: JSON.stringify({ id: tx }),
+            });
           },
           post: (m) => {
-            if (m === 'graphql') {
+            if (m === "graphql") {
               return Promise.resolve({
                 data: {
                   data: {
                     transactions: {
-                      edges: [
-
-                      ]
-                    }
-                  }
-                }
-              })
+                      edges: [],
+                    },
+                  },
+                },
+              });
             }
-          }
-        }
-      }
-    }
-  }
-}
+          },
+        },
+      };
+    },
+  },
+};
 
-test('ok', async () => {
-  const machine = (await import('./machine.js')).default
-  const service = interpret(machine, (x) => null)
-  expect(service.machine.current).toBe('loading')
-  await new Promise((resolve) => setTimeout(resolve, 500))
-  console.log('context', service.context)
-  expect(service.machine.current).toBe('leaderboard')
+test("ok", async () => {
+  const machine = (await import("./machine.js")).default;
+  const service = interpret(machine, (x) => null);
+  expect(service.machine.current).toBe("loading");
+  await new Promise((resolve) => setTimeout(resolve, 500));
+  console.log("context", service.context);
+  expect(service.machine.current).toBe("leaderboard");
   /*
   await service.send({type: 'show', id: '1'})
   await new Promise((resolve) => setTimeout(resolve, 500))
   expect(service.machine.current).toBe('player')
   */
-})
+});

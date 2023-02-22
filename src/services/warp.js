@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { prop } from 'ramda'
+import { prop } from "ramda";
 const { WarpFactory } = window.warp;
 
 const warp = WarpFactory.forMainnet();
@@ -37,9 +37,8 @@ export function writeAction({ contract, input, tags }) {
 }
 
 export function getState(contract) {
-  return fetch('https://dre-1.warp.cc/contract?id=${contract}')
-    .then(res => res.json())
-    .then(x => (console.log('game state', x)))
-    .then(prop('state'))
-
+  return fetch("https://dre-1.warp.cc/contract?id=${contract}")
+    .then((res) => res.json())
+    .then((x) => (console.log("game state", x)))
+    .then(prop("state"));
 }
