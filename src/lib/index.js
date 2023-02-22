@@ -82,11 +82,13 @@ export default {
    */
   init(env) {
     // could wrap all env functions in an Async Promise
-    const services = keys(env).reduce(
-      (s, k) => ({ ...s, [k]: Async.fromPromise(env[k]) }),
-      {},
-    );
-    const fork = (fn) => (...args) => fn(...args).runWith(services).toPromise();
+    const services = keys(env).reduce((s, k) => ({ ...s, [k]: Async.fromPromise(env[k]) }), {});
+    const fork =
+      (fn) =>
+      (...args) =>
+        fn(...args)
+          .runWith(services)
+          .toPromise();
 
     return Object.freeze({
       leaderboard: fork(leaderboard),
@@ -95,7 +97,7 @@ export default {
       register: fork(register),
       profile: fork(profile),
       createProfile: fork(createProfile),
-      uploadAvatar: fork(uploadAvatar),
+      uploadAvatar: fork(uploadAvatar)
     });
-  },
+  }
 };

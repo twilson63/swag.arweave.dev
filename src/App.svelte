@@ -15,7 +15,7 @@
   const wallet = new ArweaveWebWallet({
     // Initialize the wallet as soon as possible to get instant auto reconnect
     name: "Swag Game",
-    logo: "https://swag.arweave.dev/arweave.svg",
+    logo: "https://swag.arweave.dev/arweave.svg"
   });
 
   wallet.setUrl("arweave.app");
@@ -36,7 +36,7 @@
       filter,
       deployContract,
       writeAction,
-      toArrayBuffer,
+      toArrayBuffer
     })
   );
   // setup hash router mode

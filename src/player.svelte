@@ -1,6 +1,5 @@
 <script>
-    import Loader from "./loader.svelte";
+  import Loader from "./loader.svelte";
 </script>
-  
-<Loader active={true}/>
-  
+
+<Loader active={true} />

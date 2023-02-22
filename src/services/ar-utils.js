@@ -19,8 +19,7 @@ export async function dispatch({ data, tags }) {
 }
 
 export function query({ query, variables = {} }) {
-  return arweave.api.post("graphql", { query, variables })
-    .then(prop("data"));
+  return arweave.api.post("graphql", { query, variables }).then(prop("data"));
 }
 
 export function get(tx) {
@@ -28,7 +27,7 @@ export function get(tx) {
 }
 
 export function toArrayBuffer(file) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const fr = new FileReader();
     fr.readAsArrayBuffer(file);
     fr.addEventListener("loadend", (evt) => {

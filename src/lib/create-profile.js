@@ -18,14 +18,14 @@ export function createProfile(profile) {
             bio: p.bio,
             name: p.handle,
             links: {},
-            wallets: {},
+            wallets: {}
           }),
           tags: [
             { name: "Protocol-Name", value: "Account-0.3" },
             { name: "Content-Type", value: "application/json" },
             { name: "handle", value: p.handle },
-            { name: "avatar", value: p.avatar },
-          ],
+            { name: "avatar", value: p.avatar }
+          ]
         })
       )
     )

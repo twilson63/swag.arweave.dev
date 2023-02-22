@@ -34,7 +34,7 @@ export function register(player) {
               initState: {
                 balances: { [player.address]: 1 },
                 pairs: [],
-                swag: player.code,
+                swag: player.code
               },
               tags: [
                 { name: "Type", value: "profile" },
@@ -42,8 +42,8 @@ export function register(player) {
                 { name: "Title", value: player.handle },
                 { name: "Render-With", value: "swag" },
                 { name: "SWAG-Code", value: player.code },
-                { name: "Profile", value: player.profileTxId },
-              ],
+                { name: "Profile", value: player.profileTxId }
+              ]
             })
               // register Player on game contract
               .chain(({ contractTxId }) =>
@@ -51,13 +51,14 @@ export function register(player) {
                   contract: "",
                   function: "register",
                   code: player.code,
-                  token: contractTxId,
+                  token: contractTxId
                 })
               )
           )
           .map(always({ ok: true }))
       )
-    ).chain(lift);
+    )
+    .chain(lift);
 }
 
 /**

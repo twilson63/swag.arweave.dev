@@ -7,12 +7,12 @@ import tailwindConfig from "./tailwind.config.js";
 export default defineConfig({
   base: "",
   define: {
-    __SWAG_CONTRACT__: "pcciYWuObwPtQOhdnoQmg9jXDvEwXFryeUOGHY59c1k",
+    __SWAG_CONTRACT__: "pcciYWuObwPtQOhdnoQmg9jXDvEwXFryeUOGHY59c1k"
   },
   plugins: [svelte()],
   css: {
     postcss: {
-      plugins: [tailwind(tailwindConfig), autoprefixer],
-    },
-  },
+      plugins: [tailwind(tailwindConfig), autoprefixer]
+    }
+  }
 });
