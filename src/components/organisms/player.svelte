@@ -161,7 +161,7 @@
   <PlayerRegister id={queryId} />
 {:else if !stampCompleted}
   {#if showWalletConnect}
-    <div>wallet connect</div>
+    <div>Wallet Connect</div>
   {:else}
     <Modal
       handleAction={stampConfirmed ? handleComplete : handleStamp}
