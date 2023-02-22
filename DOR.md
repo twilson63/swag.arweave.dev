@@ -41,7 +41,7 @@ Acceptance criteria can be provided in a `gerkin` scenario format.
 
 ```
 GIVEN
-WHEN 
+WHEN
 THEN
 ```
 
@@ -84,6 +84,6 @@ format.
 
 ```
 GIVEN
-WHEN 
+WHEN
 THEN
 ```

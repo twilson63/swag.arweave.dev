@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [svelte()],
   css: {
     postcss: {
-      plugins: [tailwind(tailwindConfig), autoprefixer],
-    },
-  },
+      plugins: [tailwind(tailwindConfig), autoprefixer]
+    }
+  }
 });

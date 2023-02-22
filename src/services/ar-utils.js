@@ -1,5 +1,7 @@
+// @ts-nocheck
 import { prop } from "ramda";
 
+const parseJSON = (s) => JSON.parse(s);
 const arweave = window.location
   ? import.meta.env.MODE === "development"
     ? window.Arweave.init({ host: "arweave.net", port: 443, protocol: "https" })
@@ -17,10 +19,23 @@ export async function dispatch({ data, tags }) {
 }
 
 export function query({ query, variables = {} }) {
-  return arweave.api.post("graphql", { query, variables })
-    .then(prop("data"));
+  return arweave.api.post("graphql", { query, variables }).then(prop("data"));
 }
 
 export function get(tx) {
-  return arweave.api.get(tx).then(prop("data"));
+  return arweave.api.get(tx).then(prop("data")).then(parseJSON);
+}
+
+export function toArrayBuffer(file) {
+  return new Promise((resolve) => {
+    const fr = new FileReader();
+    fr.readAsArrayBuffer(file);
+    fr.addEventListener("loadend", (evt) => {
+      resolve(evt.target.result);
+    });
+  });
+}
+
+export function createTransaction(data) {
+  return arweave.createTransaction({ data });
 }

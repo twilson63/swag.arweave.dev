@@ -1,38 +1,43 @@
-import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
+/* global Deno */
+// @ts-nocheck
+import { assertEquals } from "asserts";
 import { player } from "./player.js";
+import { Async } from "./utils.js";
 
 const { test } = Deno;
 
 const query = () =>
-  Promise.resolve({
+  Async.Resolved({
     data: {
       transactions: {
-        edges: [{
-          node: {
-            id: "1234",
-            owner: { address: "5436" },
-            tags: [
-              { name: "Type", value: "profile" },
-              { name: "Title", value: "Rakis Profile" },
-            ],
-          },
-        }],
-      },
-    },
+        edges: [
+          {
+            node: {
+              id: "1234",
+              owner: { address: "5436" },
+              tags: [
+                { name: "Type", value: "profile" },
+                { name: "Title", value: "Rakis Profile" }
+              ]
+            }
+          }
+        ]
+      }
+    }
   });
 
 const get = (id) =>
-  Promise.resolve({
-    handle: "rakis",
+  Async.Resolved({
+    handle: "rakis"
   });
 
-const filter = (x) => Promise.resolve([{ asset: "1", address: "2" }]);
+const filter = (x) => Async.Resolved([{ asset: "1", address: "2" }]);
 
 test("get player by qr id", async () => {
   const p = await player("1").runWith({ query, get, filter }).toPromise();
   assertEquals(p, {
     handle: "rakis",
     collected: [{ asset: "1", address: "2" }],
-    given: [{ asset: "1", address: "2" }],
+    given: [{ asset: "1", address: "2" }]
   });
 });
