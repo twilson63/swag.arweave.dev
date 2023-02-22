@@ -6,6 +6,7 @@
   export let actionLabel;
   export let handleAction;
   export let actionIcon;
+  export let actionDisabled;
 </script>
 
 <Portal>
@@ -21,6 +22,7 @@
           handlePress={handleAction}
           icon={actionIcon.icon}
           iconStart={actionIcon.start}
+          disabled={actionDisabled}
         />
       </div>
     </div>

@@ -1,6 +1,7 @@
 <script>
     export let type;
     export let label;
+    export let disabled;
     export let handlePress;
     export let icon;
     export let iconStart;
@@ -21,7 +22,7 @@
     let styleType = getStyleType(type);
 </script>
 
-<button on:click={handlePress} class={styleType.wrapper}>
+<button on:click={handlePress} class={styleType.wrapper} disabled={disabled}>
     <div class="label-wrapper">
         {#if icon && iconStart}
             <div class={styleType.icon}>
@@ -46,6 +47,11 @@
         border-bottom-right-radius: 24px;
         background: #FF5F15;
     }
+    .mb-wrapper:disabled {
+        background: #AAAAAA;
+        cursor: not-allowed;
+    }
+
     .mb-wrapper:hover {
         background: #FC5203;
     }

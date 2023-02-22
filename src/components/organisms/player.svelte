@@ -86,14 +86,30 @@
       avatarURL:
         "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
     },
+    {
+      name: "seb",
+      avatarURL:
+        "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    },
+    {
+      name: "seb",
+      avatarURL:
+        "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    },
+    {
+      name: "seb",
+      avatarURL:
+        "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    },
   ];
 
-  // import { getContext, onMount } from "svelte";
+  import { onMount } from "svelte";
 
   // const { player } = getContext("data");
 
   import PlayerCard from "../molecules/player-card.svelte";
   import PlayerStampCount from "../molecules/player-stamp-count.svelte";
+  import PlayerRegister from "../molecules/player-register.svelte";
 
   import Loader from "../atoms/loader.svelte";
   import Modal from "../molecules/modal.svelte";
@@ -112,6 +128,15 @@
   // TODO: stampCompleted = true if stamp clicked, wallet connected and continue clicked
   let stampCompleted = false;
 
+  // TODO: fetch player(id), if null then check how many players that user has stamped, if >= 3 then stampQueueCompleted = true
+  let player = null;
+  let stampQueueCompleted = true;
+
+  onMount(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    queryId = searchParams.get("id");
+  });
+
   // TODO: if wallet is not connected, connect wallet -> show stamp success -> continue -> get stamp count modal -> if 3/3, register
   function handleStamp() {
     if (walletConnected) {
@@ -122,16 +147,19 @@
   }
 
   function handleComplete() {
+    // TODO: get stamp count of player, if >= 3 then stampQueueCompleted = true
     stampCompleted = true;
   }
 
   function handleGoToLeaderboard() {
-    window.location.href = '/';
+    window.location.href = "/";
   }
 </script>
 
 <!-- <Loader active={true} /> -->
-{#if !stampCompleted}
+{#if !player && stampQueueCompleted}
+  <PlayerRegister id={queryId} />
+{:else if !stampCompleted}
   {#if showWalletConnect}
     <div>wallet connect</div>
   {:else}
@@ -141,6 +169,7 @@
       actionIcon={stampConfirmed
         ? { icon: continueIcon, start: false }
         : { icon: stampIcon, start: false }}
+      actionDisabled={false}
     >
       <PlayerCard
         completed={stampConfirmed}
@@ -156,6 +185,7 @@
     handleAction={handleGoToLeaderboard}
     actionLabel={"Go to Leaderboard"}
     actionIcon={{ icon: continueIcon, start: false }}
+    actionDisabled={false}
   >
     <PlayerStampCount />
   </Modal>

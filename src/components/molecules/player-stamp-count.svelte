@@ -4,7 +4,7 @@
   import hoodieIcon from "../../assets/hoodie-icon.svg";
   import completedIcon from "../../assets/completed.svg";
 
-  // TODO: get players that user has stamped,
+  // TODO: get players that user has stamped
   let stampList = [
     {
       name: "seb",
@@ -82,9 +82,9 @@
               style={`width: ${((stampList.length / 3) * 100).toString()}%`}
             >
               {#if completed}
-              <img src={completedIcon} alt="Completed Icon" />
+                <img src={completedIcon} alt="Completed Icon" />
               {/if}
-             </div>
+            </div>
           </div>
         </div>
       </div>
@@ -99,7 +99,7 @@
 
 <style>
   .psc-wrapper {
-    min-height: 400px;
+    min-height: 425px;
     height: 100%;
     width: 100%;
     border-top-left-radius: 24px;
@@ -120,7 +120,7 @@
   }
   .psc-header p {
     color: #ffffff;
-    font-size: 25px;
+    font-size: clamp(18px, 2.25vw, 25px);
     font-weight: 700;
     text-transform: uppercase;
   }
@@ -168,6 +168,7 @@
     padding: 0 25px;
   }
   .psc-d-status-container {
+    min-height: 190px;
     height: calc(100% - 40px);
     width: 100%;
     display: flex;
@@ -186,27 +187,26 @@
     right: 0;
     bottom: 26.5px;
     padding: 20px;
-    background: #515359;
     border-radius: 11px;
   }
   .psd-d-status-content {
     height: 100%;
     width: 100%;
-    padding: 0 0 0 70px;
+    padding: 0 0 0 30.5%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
   .psd-d-status-content-header {
     color: #ffffff !important;
-    font-size: 18px !important;
+    font-size: clamp(14px, 2vw, 18px) !important;
     font-weight: 700 !important;
     text-transform: uppercase !important;
     margin: 0 0 5px 0;
   }
   .psd-d-status-content p {
     color: #bfbfc0;
-    font-size: 15px;
+    font-size: clamp(13px, 1vw, 16px);
     font-weight: 500;
   }
   .psd-d-status-bar {
@@ -214,6 +214,7 @@
     width: 100%;
     background: #383838;
     border-radius: 125px;
+    margin: 5px 0 0 0;
   }
   .psd-d-status-bar-current {
     height: 100%;
@@ -224,7 +225,7 @@
     border-radius: 125px;
   }
   .psd-d-status-bar-completed {
-    background: #5AFF7F;
+    background: #5aff7f;
   }
   .psd-d-status-bar-completed img {
     width: 12.5px;
@@ -245,5 +246,13 @@
     color: #ffffff;
     font-size: 14px;
     font-weight: 700;
+  }
+  @media (max-width: 540px) {
+    .psc-d-status-container img {
+      max-height: 20.5vh;
+    }
+    .psd-d-status {
+      max-width: 66.5vw;
+    }
   }
 </style>
