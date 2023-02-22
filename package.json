@@ -13,7 +13,7 @@
     "prepare": "husky install",
     "preview": "vite preview",
     "staged": "lint-staged",
-    "test": "yarn check"
+    "test": "yarn lint"
   },
   "dependencies": {
     "@permaweb/stampjs": "^0.0.11",
@@ -28,8 +28,13 @@
     "@sveltejs/vite-plugin-svelte": "^2.0.2",
     "@tailwindcss/typography": "^0.5.9",
     "@tsconfig/svelte": "^3.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.53.0",
+    "@typescript-eslint/parser": "^5.53.0",
     "autoprefixer": "^10.4.13",
     "daisyui": "^2.50.1",
+    "eslint": "^8.34.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-svelte3": "^4.0.0",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "markdown-toc-gen": "^1.0.1",

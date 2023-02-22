@@ -76,7 +76,7 @@ deno task test
 ## Lint
 
 ```sh
-deno task lint
+yarn lint
 ```
 
 ## Tech Stack
