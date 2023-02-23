@@ -1,22 +1,23 @@
 <script>
   import Portal from "./portal.svelte";
-  import loader from "./assets/loader.gif";
-  import loaderIcon from "./assets/loader-icon.svg";
+
+  import loader from "../../assets/loader.gif";
+  import loaderIcon from "../../assets/loader-logo.svg";
 
   export let active;
 </script>
 
 {#if active}
   <Portal>
-    <div class="loader-wrapper">
-      <div class="loader-gif-container">
-        <div class="loader-gif">
-          <img class="loader-gif-img" src={loader} alt="Loading..." />
+    <div class="l-wrapper">
+      <div class="l-gif-container">
+        <div class="l-gif">
+          <img class="l-gif-img" src={loader} alt="Loading..." />
         </div>
       </div>
-      <div class="loader-icon-container">
-        <div class="loader-icon">
-          <img class="loader-icon-img" src={loaderIcon} alt="Icon" />
+      <div class="l-icon-container">
+        <div class="l-icon">
+          <img class="l-icon-img" src={loaderIcon} alt="Icon" />
         </div>
       </div>
     </div>
@@ -24,7 +25,7 @@
 {/if}
 
 <style>
-  .loader-wrapper {
+  .l-wrapper {
     height: 100%;
     width: 100%;
     display: flex;
@@ -35,24 +36,24 @@
     top: 0;
     left: 0;
   }
-  .loader-gif-container {
-    height: 200px;
-    width: 200px;
+  .l-gif-container {
+    height: 300px;
+    width: 300px;
   }
-  .loader-gif {
+  .l-gif {
     height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  .loader-gif-img {
+  .l-gif-img {
     width: 100%;
   }
-  .loader-icon-container {
+  .l-icon-container {
     width: 100%;
   }
-  .loader-icon {
+  .l-icon {
     height: 100%;
     width: 100%;
     display: flex;
@@ -60,7 +61,7 @@
     align-items: center;
     margin: -30px 0 0 0;
   }
-  .loader-icon-img {
+  .l-icon-img {
     width: 100%;
     max-width: 250px;
   }

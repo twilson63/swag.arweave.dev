@@ -5,34 +5,44 @@
   import LeaderboardSearchBar from "./components/leaderboard-search-bar.svelte";
   import pixelsAnimatingOne from "./assets/pixels-animating-1.svg";
   import pixelsAnimatingTwo from "./assets/pixels-animating-2.svg";
-
 </script>
+
+<div class="leaderboard-wrapper">
+  <div class="leaderboard-header">
+    <img class="pixels moving" src={pixelsAnimatingOne} alt="pixels animating" />
+    <img class="pixels-two moving-delay" src={pixelsAnimatingTwo} alt="pixels animating" />
+    <LeaderboardTopPlayers />
+    <LeaderboardSearchBar />
+  </div>
+  <div class="leaderboard-detail">
+    <LeaderboardTable />
+  </div>
+</div>
 
 <style>
   .leaderboard-wrapper {
-      height: 100%;
-      width: 100%;
-      position: absolute; 
-      top: 0; 
-      left: 0; 
-      background-color: #F2F3F4;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #f2f3f4;
   }
   .leaderboard-header {
-      height: 56%;
-      min-height: 500px;
-      width: 100%;
-      background-color: #222326;
-      border-bottom-left-radius: 10%;
-      border-bottom-right-radius: 10%;
-      position: relative; /* add this line to create a new stacking context */
-      z-index: 1; 
+    height: 56%;
+    min-height: 500px;
+    width: 100%;
+    background-color: #222326;
+    border-bottom-left-radius: 10%;
+    border-bottom-right-radius: 10%;
+    position: relative; /* add this line to create a new stacking context */
+    z-index: 1;
   }
   .leaderboard-detail {
-      height: 44%;
-      min-height: 400px;
-      width: 100%;
+    height: 44%;
+    min-height: 400px;
+    width: 100%;
   }
-
 
   @keyframes animating {
     0% {
@@ -83,26 +93,4 @@
   .moving-delay {
     animation: animatingTwo infinite 30s linear;
   }
-    
 </style>
-
-
-<div class="leaderboard-wrapper">
-    <div class="leaderboard-header">
-      <img
-        class="pixels moving"
-        src={pixelsAnimatingOne}
-        alt="pixels animating"
-      />
-      <img
-        class="pixels-two moving-delay"
-        src={pixelsAnimatingTwo}
-        alt="pixels animating"
-      />
-      <LeaderboardTopPlayers />
-      <LeaderboardSearchBar />
-    </div>
-    <div class="leaderboard-detail">
-      <LeaderboardTable />
-    </div>
-</div>

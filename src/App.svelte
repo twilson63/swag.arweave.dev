@@ -1,9 +1,9 @@
 <script lang="ts">
   import { Route } from "tinro";
-  import Leaderboard from "./leaderboard.svelte";
-  import Player from "./player.svelte";
-  import Splash from "./splash.svelte";
-  import Register from "./register.svelte";
+
+  import Leaderboard from "./components/organisms/leaderboard.svelte";
+  import Player from "./components/organisms/player.svelte";
+  import Splash from "./components/atoms/splash.svelte";
 
   import { setContext } from "svelte";
   import Lib from "./lib/index.js";
@@ -45,16 +45,12 @@
 
 <Route path="/" let:meta>
   {#if meta.query.id}
-    <div>ID Route: {meta.query.id}</div>
-  {:else if meta.query.tx}
     <Player />
+  {:else if meta.query.tx}
+    <div>Tx: {meta.query.tx}</div>
   {:else}
     <Leaderboard />
   {/if}
-</Route>
-
-<Route path="/register">
-  <Register />
 </Route>
 
 <Route path="/splash">
