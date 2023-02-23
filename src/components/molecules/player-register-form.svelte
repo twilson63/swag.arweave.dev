@@ -32,7 +32,6 @@
 </script>
 
 <Modal
-  on:click
   handleAction={confirmed ? handleJoin : handleContinue}
   actionLabel={confirmed ? "Join" : "Enter Username"}
   actionIcon={confirmed
@@ -47,35 +46,31 @@
     <div class="pc-u-container">
       <p>{`Stamp Hoodie #${id}`}</p>
     </div>
-    {#if confirmed}
-      <div class="pc-a-container">
-        <img src={profileIcon} alt={"Avatar"} />
-      </div>
-    {/if}
+
+    <div class="pc-a-container">
+      <img src={profileIcon} alt={"Avatar"} />
+    </div>
+
     <div class="psr-d-container" style={confirmed ? "" : "margin: 40px 0 0 0;"}>
-      {#if confirmed}
-        <div class="psr-d-form-container">
-          <input
-            id="avatar-file-input"
-            style="display: none;"
-            type="file"
-            on:change={handleFileInput}
-          />
-          <button
-            class="psr-p-button"
-            on:click={() => document.getElementById("avatar-file-input").click()}
-          >
-            set profile pic
-          </button>
-          <FormField
-            placeholder={"enter username ..."}
-            value={username}
-            handleChange={(event) => (username = event.target.value)}
-          />
-        </div>
-      {:else}
-        <img src={hoodieIcon} alt="Hoodie Icon" />
-      {/if}
+      <div class="psr-d-form-container">
+        <input
+          id="avatar-file-input"
+          style="display: none;"
+          type="file"
+          on:change={handleFileInput}
+        />
+        <button
+          class="psr-p-button"
+          on:click={() => document.getElementById("avatar-file-input").click()}
+        >
+          set profile pic
+        </button>
+        <FormField
+          placeholder={"enter username ..."}
+          value={username}
+          handleChange={(event) => (username = event.target.value)}
+        />
+      </div>
     </div>
   </div>
 </Modal>

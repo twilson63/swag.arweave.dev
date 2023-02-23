@@ -2,6 +2,8 @@
   import { robot } from "./store";
   import PlayerList from "./components/organisms/leaderboard.svelte";
   import Player from "./components/organisms/player.svelte";
+  import PlayerRegister from "./components/molecules/player-register.svelte";
+  import PlayerRegisterForm from "./components/molecules/player-register-form.svelte";
   import Splash from "./components/atoms/splash.svelte";
   export let tx;
   export let qr;
@@ -25,12 +27,12 @@
   }
 </script>
 
+{current}
 {#if current === "loading"}
   <Splash />
 {:else if current === "leaderboard"}
   <PlayerList players={context.players} on:show={show} />
 {:else if current === "player"}
-  {console.log(context)}
   <Player
     player={context.player}
     on:stamp={() => send({ type: "stamp" })}
@@ -41,4 +43,8 @@
 {:else if current === "confirmation"}
   <div>Stamp Confirmed</div>
   <pre>{JSON.stringify(context, null, 2)}</pre>
+{:else if current === "register"}
+  <PlayerRegister id={qr} on:click={() => send("continue")} />
+{:else if current === "form"}
+  <PlayerRegisterForm />
 {/if}

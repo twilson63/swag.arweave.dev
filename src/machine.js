@@ -128,7 +128,7 @@ export default function ({ leaderboard, player, stamp, register }, wallet) {
         "id",
         "loading",
         reduce((ctx, ev) => {
-          console.log("data", ev);
+          console.log("app data", ev);
           return { ...ctx, code: ev.id };
         })
       ),
@@ -145,7 +145,12 @@ export default function ({ leaderboard, player, stamp, register }, wallet) {
     loading: invoke(
       async () => {
         await new Promise((resolve) => setTimeout(resolve, 3000));
-        return Promise.resolve(players);
+        const results = await leaderboard().catch((e) => {
+          console.log(e);
+          return [];
+        });
+        console.log("results", results);
+        return players;
       },
       transition(
         "done",
@@ -168,19 +173,19 @@ export default function ({ leaderboard, player, stamp, register }, wallet) {
     ),
     // getPlayer: invoke((_, ev) => player(ev.id),
     getPlayer: invoke(
-      (_, ev) => Promise.resolve(players.find(propEq("qrcode", ev.id))),
+      (ctx, ev) => {
+        const player = ctx.players.find(propEq("qrcode", ev.id));
+        return player ? Promise.resolve(player) : Promise.reject(null);
+        //return ctx.players[0]
+      },
       transition(
         "done",
         "player",
-        reduce((ctx, ev) => ({ ...ctx, player: ev.data }))
-      ),
-      transition(
-        "error",
-        "player",
         reduce((ctx, ev) => {
-          console.log(ev);
+          return { ...ctx, player: ev.data };
         })
-      )
+      ),
+      transition("error", "register")
     ),
     player: state(
       transition("stamp", "stamping"),

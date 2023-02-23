@@ -10,9 +10,5 @@
 </script>
 
 <Route path="/" let:meta>
-  <Leaderboard tx={meta.query.tx} id={meta.query.id} />
-</Route>
-
-<Route path="/splash">
-  <Splash />
+  <Leaderboard tx={meta.query.tx} qr={meta.query.id} />
 </Route>
