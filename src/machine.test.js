@@ -1,61 +1,19 @@
 import { expect, test } from "vitest";
 import { interpret } from "robot3";
+import createMachine from './machine.js'
 
-import { WarpFactory } from "warp-contracts";
-import Arweave from "arweave";
+const machine = createMachine({
+  stamp: () => Promise.resolve({ok: true})
+}, {
+  connect: () => Promise.resolve(true)
+})
 
-globalThis.window = {
-  warp: {
-    WarpFactory: {
-      forMainnet() {
-        return {
-          syncState: () => Promise.resolve(null),
-          contract() {
-            return {
-              setEvaluationOptions: () => ({
-                readState() {
-                  return {
-                    stamps: {},
-                  };
-                },
-              }),
-            };
-          },
-        };
-      },
-    },
-  },
-  Arweave: {
-    init() {
-      return {
-        api: {
-          get: (tx) => {
-            return Promise.resolve({
-              data: JSON.stringify({ id: tx }),
-            });
-          },
-          post: (m) => {
-            if (m === "graphql") {
-              return Promise.resolve({
-                data: {
-                  data: {
-                    transactions: {
-                      edges: [],
-                    },
-                  },
-                },
-              });
-            }
-          },
-        },
-      };
-    },
-  },
-};
+test("register -> close", async () => {
+  
+})
 
 test("ok", async () => {
-  const machine = (await import("./machine.js")).default;
-  const service = interpret(machine, (x) => null);
+  const service = interpret(machine, (x) => null, {});
   expect(service.machine.current).toBe("loading");
   await new Promise((resolve) => setTimeout(resolve, 500));
   console.log("context", service.context);

@@ -1,12 +1,20 @@
 <script>
   import { robot } from "./store";
   export let tx;
-  export let id;
+  export let qr;
 
   const send = $robot.send;
 
   $: context = $robot.context;
   $: current = $robot.machine.current;
+
+  if (qr) {
+    send({ type: "id", id: qr });
+  } else if (tx) {
+    send({ type: "tx", tx });
+  } else {
+    send("load");
+  }
 </script>
 
 {#if current === "loading"}
@@ -19,6 +27,7 @@
       >Show Player</button
     >
   {/each}
+  {JSON.stringify(context)}
   <!--
   <Leaderboard
     players={context.players}

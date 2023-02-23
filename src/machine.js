@@ -1,7 +1,30 @@
-import { createMachine, invoke, reduce, state, transition, action } from "robot3";
+import {
+  action,
+  createMachine,
+  invoke,
+  reduce,
+  state,
+  transition,
+  immediate,
+  guard
+} from "robot3";
 
-export default function({leaderboard, player}, wallet) {
+export default function ({ leaderboard, player, stamp }, wallet) {
   return createMachine({
+    idle: state(
+      transition('id', 'loading', 
+        reduce((ctx, ev) => {
+          console.log('data', ev)
+          return ({...ctx, code: ev.id })
+      })
+      ),
+      transition('tx', 'loading', 
+        reduce((ctx, ev) => {
+          return ({...ctx, tx: ev.tx})
+        })
+      ),
+      transition('load', 'loading')
+    ),
     // loading: invoke(leaderboard,
     loading: invoke(
       () =>
@@ -22,6 +45,8 @@ export default function({leaderboard, player}, wallet) {
       transition("error", "leaderboard"),
     ),
     leaderboard: state(
+      immediate('getPlayer', guard((ctx) => ctx.code)),
+      immediate('getPlayer', guard((ctx) => ctx.tx)),
       transition("show", "getPlayer"),
       transition("register", "register"),
     ),
@@ -56,26 +81,22 @@ export default function({leaderboard, player}, wallet) {
       transition("close", "leaderboard"),
     ),
     stamping: invoke(async (ctx) => {
-      await wallet.connect()
-      return await stamp(ctx.player.id) 
-    },
-      transition('done', 'confirmation')
-    ),
+      await wallet.connect();
+      return await stamp(ctx.player.id);
+    }, transition("done", "confirmation")),
     confirmation: state(
-      transition('close', 'leaderboard')
+      transition("close", "leaderboard"),
     ),
     register: state(
-      transition('continue', 'form')
+      transition("continue", "form"),
     ),
     form: state(
-      transition('register', 'submitting')
+      transition("register", "submitting"),
     ),
     submitting: invoke(async (ctx, ev) => {
-      await wallet.connect()
-      return await register(ev.data)
-    },
-      transition('done', 'leaderboard')
-    ),
+      await wallet.connect();
+      return await register(ev.data);
+    }, transition("done", "leaderboard")),
     resetPlayer: state(),
   });
-} 
+}
