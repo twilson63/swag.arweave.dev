@@ -8,19 +8,16 @@
   let stampList = [
     {
       name: "seb",
-      avatarURL:
-        "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+      avatarURL: "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"
     },
     {
       name: "seb",
-      avatarURL:
-        "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+      avatarURL: "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"
     },
     {
       name: "seb",
-      avatarURL:
-        "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
-    },
+      avatarURL: "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI"
+    }
   ];
 
   // TODO: get remaining count
@@ -44,15 +41,9 @@
           <img src={element.avatarURL} alt={"Avatar"} />
         {/each}
       </div>
-      <div
-        class={`psc-sl-container-e ${
-          completed ? "psc-sl-container-e-completed" : ""
-        }`}
-      >
+      <div class={`psc-sl-container-e ${completed ? "psc-sl-container-e-completed" : ""}`}>
         <div class="psc-c-container">
-          <span class="psc-span-active"
-            >{completed ? "🎉" : "+"} {stampList.length}</span
-          >
+          <span class="psc-span-active">{completed ? "🎉" : "+"} {stampList.length}</span>
           &nbsp;
           <span class="psc-span-inactive">/ 3</span>
         </div>
@@ -76,9 +67,7 @@
           </div>
           <div class="psd-d-status-bar">
             <div
-              class={`psd-d-status-bar-current ${
-                completed ? `psd-d-status-bar-completed` : ""
-              }`}
+              class={`psd-d-status-bar-current ${completed ? `psd-d-status-bar-completed` : ""}`}
               style={`width: ${((stampList.length / 3) * 100).toString()}%`}
             >
               {#if completed}

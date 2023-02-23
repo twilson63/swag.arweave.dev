@@ -16,10 +16,10 @@
   function handleJoin() {
     console.log("Registering ...");
     console.log({
-        username: username,
-        avatar: avatar
+      username: username,
+      avatar: avatar
     });
-    window.location.href= "/";
+    window.location.href = "/";
   }
 
   function handleContinue() {
@@ -62,8 +62,7 @@
           />
           <button
             class="psr-p-button"
-            on:click={() =>
-              document.getElementById("avatar-file-input").click()}
+            on:click={() => document.getElementById("avatar-file-input").click()}
           >
             set profile pic
           </button>

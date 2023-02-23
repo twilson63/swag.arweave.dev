@@ -10,6 +10,26 @@ conferences.
 
 - [SWAG Game](https://swag.arweave.dev)
 
+<!-- toc -->
+
+- [Design](#design)
+- [App Game Play Flow](#app-game-play-flow)
+- [Contributing Guide](#contributing-guide)
+- [API Docs](#api-docs)
+- [Dev Environment](#dev-environment)
+- [Technical Stack](#technical-stack)
+- [Tests](#tests)
+- [Lint](#lint)
+- [Tech Stack](#tech-stack)
+- [Game Logistics](#game-logistics)
+- [Setup](#setup)
+- [Game Play](#game-play)
+- [Realtime Leaderboard](#realtime-leaderboard)
+- [Player Card View](#player-card-view)
+- [Bonus:](#bonus)
+
+<!-- tocstop -->
+
 ## Design
 
 - Figma -
@@ -36,12 +56,6 @@ yarn
 yarn dev
 ```
 
-## Testing
-
-```sh
-deno task test
-```
-
 ## Technical Stack
 
 - Typescript or Javascript (w/JSDocs)
@@ -62,7 +76,7 @@ deno task test
 ## Lint
 
 ```sh
-deno task lint
+yarn lint
 ```
 
 ## Tech Stack
@@ -77,7 +91,7 @@ testing, and security.
 
 ## Game Logistics
 
-# Setup
+## Setup
 
 When you get your SWAG gear scan the qr code on the shirt to register your gear.
 You will be asked to sign your wallet and use your ArProfile, and the name of
@@ -85,14 +99,14 @@ the conference to register in the SWAG STAMP Game. Once registered, you will
 appear on the SWAG Game Leaderboard, and your QR Code will be STAMPable by other
 players.
 
-# Game Play
+## Game Play
 
 Anyone with a smartphone can scan your tag and view your stampable card and
 choose to stamp it. They will need an Arweave Wallet from Arweave App, or they
 can generate a wallet within in the game and save it as a keyFile on their
 phone. They also can leave or post a note when they stamp.
 
-# Realtime Leaderboard
+## Realtime Leaderboard
 
 As registered players get stamped throughout the game, their position on the
 leaderboard grows, and of course the goal is to be the top player in the SWAG
@@ -102,7 +116,7 @@ Only one person can STAMP a member per event. As people STAMP their favorite
 players these stamp cards will also appear on now.arweave.dev using the
 render-with to show their player card.
 
-# Player Card View
+## Player Card View
 
 The player card view will be clickable from the leaderboard or from
 now.arweave.dev, it is a render-with pattern
@@ -115,7 +129,7 @@ Avatar, the handle of the STAMPER or the first 5 characters of the wallet
 address, and their profile description, and finally a comment and datetime of
 the STAMP
 
-# Bonus:
+## Bonus:
 
 Players can re-register to different conferences to play the game and view a
 feed specific for that conference.
