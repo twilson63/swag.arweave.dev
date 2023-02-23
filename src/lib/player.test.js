@@ -1,3 +1,4 @@
+/* global Deno */
 // @ts-nocheck
 import { assertEquals } from "asserts";
 import { player } from "./player.js";
@@ -9,23 +10,25 @@ const query = () =>
   Async.Resolved({
     data: {
       transactions: {
-        edges: [{
-          node: {
-            id: "1234",
-            owner: { address: "5436" },
-            tags: [
-              { name: "Type", value: "profile" },
-              { name: "Title", value: "Rakis Profile" },
-            ],
-          },
-        }],
-      },
-    },
+        edges: [
+          {
+            node: {
+              id: "1234",
+              owner: { address: "5436" },
+              tags: [
+                { name: "Type", value: "profile" },
+                { name: "Title", value: "Rakis Profile" }
+              ]
+            }
+          }
+        ]
+      }
+    }
   });
 
 const get = (id) =>
   Async.Resolved({
-    handle: "rakis",
+    handle: "rakis"
   });
 
 const filter = (x) => Async.Resolved([{ asset: "1", address: "2" }]);
@@ -35,6 +38,6 @@ test("get player by qr id", async () => {
   assertEquals(p, {
     handle: "rakis",
     collected: [{ asset: "1", address: "2" }],
-    given: [{ asset: "1", address: "2" }],
+    given: [{ asset: "1", address: "2" }]
   });
 });

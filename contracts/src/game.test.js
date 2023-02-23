@@ -1,3 +1,5 @@
+/* global Deno, globalThis */
+
 import { assert } from "asserts";
 import { handle } from "./game.js";
 
@@ -12,13 +14,13 @@ globalThis.SmartWeave = {
       if (id === "zIT-ic0CKaGNg-ZblqhW4G5rru0I3jSknOvLdmz-x-Y") {
         return Promise.resolve({
           balances: {
-            "lxZ38bR9ABqIDINHuHlJI7o5aYQeJeSlYOz3UWBoMao": 1,
-          },
+            lxZ38bR9ABqIDINHuHlJI7o5aYQeJeSlYOz3UWBoMao: 1
+          }
         });
       }
       return Promise.reject("Not Found!");
-    },
-  },
+    }
+  }
 };
 test("register should be successful", async () => {
   const result = await handle(getState(), {
@@ -26,8 +28,8 @@ test("register should be successful", async () => {
     input: {
       function: "register",
       code: "3",
-      token: "zIT-ic0CKaGNg-ZblqhW4G5rru0I3jSknOvLdmz-x-Y",
-    },
+      token: "zIT-ic0CKaGNg-ZblqhW4G5rru0I3jSknOvLdmz-x-Y"
+    }
   });
   assert(result.state.players["3"].code === "3");
 });
@@ -38,8 +40,8 @@ test("register should be unsuccessful", async () => {
     input: {
       function: "register",
       code: "4",
-      token: "zIT-ic0CKaGNg-ZblqhW4G5rru0I3jSknOvLdmz-x-Y",
-    },
+      token: "zIT-ic0CKaGNg-ZblqhW4G5rru0I3jSknOvLdmz-x-Y"
+    }
   });
   assert(!result.state.players["4"]);
 });
@@ -49,8 +51,8 @@ test("evolve", async () => {
     caller: "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI",
     input: {
       function: "evolve",
-      value: "0gf7KpDmLMfCq8oqVeQqqJChzRnx0ZOtWsvHfVYKACo",
-    },
+      value: "0gf7KpDmLMfCq8oqVeQqqJChzRnx0ZOtWsvHfVYKACo"
+    }
   });
   assert(result.state.evolve === "0gf7KpDmLMfCq8oqVeQqqJChzRnx0ZOtWsvHfVYKACo");
 });
@@ -60,8 +62,8 @@ test("slash", async () => {
     caller: "K92n-x2kHiRIBmS0yRGz5ii3OEXFw58__742Qu0DTgA",
     input: {
       function: "slash",
-      code: "1",
-    },
+      code: "1"
+    }
   });
 
   assert(!result.state.players["1"]);
@@ -72,8 +74,8 @@ test("slash is unsuccessful", async () => {
     caller: "0gf7KpDmLMfCq8oqVeQqqJChzRnx0ZOtWsvHfVYKACo",
     input: {
       function: "slash",
-      code: "1",
-    },
+      code: "1"
+    }
   });
 
   assert(result.state.players["1"]);
@@ -85,8 +87,8 @@ test("setAdmin", async () => {
     input: {
       function: "setAdmin",
       address: "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI",
-      token: "XFvaK9uJOBzU55sx3MG5aBeDNs8x1PIeOkN8PQY4atc",
-    },
+      token: "XFvaK9uJOBzU55sx3MG5aBeDNs8x1PIeOkN8PQY4atc"
+    }
   });
 
   assert(result.state.players["1"]);
@@ -98,8 +100,8 @@ test("reset", async () => {
     input: {
       function: "reset",
       name: "SwagFest",
-      description: "Lets get started!",
-    },
+      description: "Lets get started!"
+    }
   });
 
   assert(Object.keys(result.state.players).length === 0);
@@ -108,22 +110,22 @@ test("reset", async () => {
 function getState() {
   return {
     players: {
-      "1": {
+      1: {
         address: "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI",
         token: "XFvaK9uJOBzU55sx3MG5aBeDNs8x1PIeOkN8PQY4atc",
         code: "1",
-        admin: false,
+        admin: false
       },
-      "2": {
+      2: {
         address: "K92n-x2kHiRIBmS0yRGz5ii3OEXFw58__742Qu0DTgA",
         token: "TQApWCL4xuNS1Gl8Nvi06DC5jOEWTgqnZPkBOTMHB2w",
         code: "2",
-        admin: true,
-      },
+        admin: true
+      }
     },
     name: "testConf",
     description: "test swag game",
     creator: "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI",
-    canEvolve: true,
+    canEvolve: true
   };
 }

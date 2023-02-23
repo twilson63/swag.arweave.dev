@@ -23,9 +23,7 @@
   {#each context.players as player}
     <div>Leaderboard view</div>
     <pre>{JSON.stringify(player, null, 2)}</pre>
-    <button class="btn" on:click={() => send({ type: "show", id: "1" })}
-      >Show Player</button
-    >
+    <button class="btn" on:click={() => send({ type: "show", id: "1" })}>Show Player</button>
   {/each}
   {JSON.stringify(context)}
   <!--

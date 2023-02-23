@@ -1,3 +1,4 @@
+/* global Deno */
 // @ts-nocheck
 import { assert } from "asserts";
 import warp from "warp-contracts";

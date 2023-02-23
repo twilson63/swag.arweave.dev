@@ -1,5 +1,6 @@
+/* global Deno */
 // @ts-nocheck
-import { assert, assertEquals } from "asserts";
+import { assert } from "asserts";
 import { register } from "./register.js";
 import { Async } from "./utils.js";
 
@@ -15,11 +16,13 @@ function writeAction() {
 
 test("Register Player", async () => {
   const result = await register({
-    "address": "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI",
-    "handle": "rakis",
-    "avatar": "fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
-    "bio": "Permaweb Developer",
-    "code": "1",
-  }).runWith({ deployContract, writeAction }).toPromise();
+    address: "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI",
+    handle: "rakis",
+    avatar: "fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    bio: "Permaweb Developer",
+    code: "1"
+  })
+    .runWith({ deployContract, writeAction })
+    .toPromise();
   assert(result.ok);
 });

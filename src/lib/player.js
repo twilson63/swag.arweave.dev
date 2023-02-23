@@ -11,10 +11,8 @@ export function player(id) {
   return of(id)
     .map(buildQuery)
     .chain((gql) =>
-      ask(({ query, get, filter }) =>
-        query(gql)
-          .map(getFirstId)
-          .chain(get)
+      ask(
+        ({ query, get, filter }) => query(gql).map(getFirstId).chain(get)
         // need to get stamps collected and add to the player card
         // .chain((player) =>
         //   filter(getAssetIds(player)).map((collected) => ({
@@ -27,7 +25,8 @@ export function player(id) {
         //   filter(getAddressIds(player)).map((given) => ({ ...player, given }))
         // )
       )
-    ).chain(lift);
+    )
+    .chain(lift);
 }
 
 function buildQuery(id) {
@@ -43,26 +42,16 @@ transactions(tags: [
     }
   }
 }}`,
-    variables: { codes: [id] },
+    variables: { codes: [id] }
   };
 }
 
 function getFirstId(result) {
-  return compose(
-    prop("id"),
-    head,
-    pluck("node"),
-    path(["data", "transactions", "edges"]),
-  )(result);
+  return compose(prop("id"), head, pluck("node"), path(["data", "transactions", "edges"]))(result);
 }
 
 function getAssetIds(player) {
-  return [
-    "compose",
-    ["filter", ["propEq", "asset", player.id]],
-    ["values"],
-    ["prop", "stamps"],
-  ];
+  return ["compose", ["filter", ["propEq", "asset", player.id]], ["values"], ["prop", "stamps"]];
 }
 
 function getAddressIds(player) {
@@ -70,6 +59,6 @@ function getAddressIds(player) {
     "compose",
     ["filter", ["propEq", "address", player.address]],
     ["values"],
-    ["prop", "stamps"],
+    ["prop", "stamps"]
   ];
 }

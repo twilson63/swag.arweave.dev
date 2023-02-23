@@ -1,3 +1,4 @@
+/* global Deno */
 // @ts-nocheck
 import { assert } from "asserts";
 import { createProfile } from "./create-profile.js";
@@ -13,7 +14,9 @@ test("create profile", async () => {
   const result = await createProfile({
     handle: "rakis",
     avatar: "fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
-    bio: "Permaweb Developer",
-  }).runWith({ dispatch }).toPromise();
+    bio: "Permaweb Developer"
+  })
+    .runWith({ dispatch })
+    .toPromise();
   assert(result.id === "1234");
 });

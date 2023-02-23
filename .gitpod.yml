@@ -1,2 +1,12 @@
 image:
   file: .gitpod.Dockerfile
+
+tasks:
+  - name: Install Deps
+    init: |
+      yarn
+
+vscode:
+  extensions:
+    - svelte.svelte-vscode
+    - bradlc.vscode-tailwindcss

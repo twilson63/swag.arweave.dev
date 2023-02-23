@@ -2,13 +2,7 @@
   import { getContext } from "svelte";
   import { user } from "./store.js";
 
-  import type {
-    Player,
-    Profile,
-    Register,
-    UploadAvatar,
-    CreateProfile,
-  } from "./lib/index.js";
+  import type { Player, Profile, Register, UploadAvatar, CreateProfile } from "./lib/index.js";
 
   export let code: string;
 
@@ -38,7 +32,7 @@
         handle,
         bio,
         avatar: avatar.id,
-        address: wallet.address,
+        address: wallet.address
       };
       // create ar profile tx
       const { id } = await data.createProfile($user.profile);
@@ -49,7 +43,7 @@
       address: wallet.address,
       handle: $user.profile.handle,
       avatar: $user.profile.avatar,
-      code,
+      code
     });
     if (result) {
       alert("successfully registered as player");
@@ -88,11 +82,7 @@
         <div class="form-control">
           <label class="label"
             >Username
-            <input
-              type="input"
-              class="input input-bordered"
-              bind:value={handle}
-            />
+            <input type="input" class="input input-bordered" bind:value={handle} />
           </label>
         </div>
         <div class="form-control">
@@ -103,9 +93,7 @@
         </div>
         <div>
           <button class="btn">Register</button>
-          <button type="button" class="btn" on:click={loadArprofile}
-            >Use existing ArProfile</button
-          >
+          <button type="button" class="btn" on:click={loadArprofile}>Use existing ArProfile</button>
         </div>
       </form>
     {/if}

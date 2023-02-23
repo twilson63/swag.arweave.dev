@@ -10,13 +10,8 @@ const { of, ask, lift } = AsyncReader;
 export function profile(address) {
   return of(address)
     .map(buildQuery)
-    .chain((gql) =>
-      ask(({ query, get }) =>
-        query(gql)
-          .map(getFirstIdforArProfile)
-          .chain(get)
-      )
-    ).chain(lift);
+    .chain((gql) => ask(({ query, get }) => query(gql).map(getFirstIdforArProfile).chain(get)))
+    .chain(lift);
 }
 
 function buildQuery(address) {
@@ -35,15 +30,10 @@ transactions(
   }
 }
   }`,
-    variables: { "owners": [address] },
+    variables: { owners: [address] }
   };
 }
 
 function getFirstIdforArProfile(result) {
-  return compose(
-    prop("id"),
-    head,
-    pluck("node"),
-    path(["data", "transactions", "edges"]),
-  )(result);
+  return compose(prop("id"), head, pluck("node"), path(["data", "transactions", "edges"]))(result);
 }

@@ -1,16 +1,15 @@
 import { expect, test } from "vitest";
 import { interpret } from "robot3";
-import createMachine from './machine.js'
+import createMachine from "./machine.js";
 
-const machine = createMachine({
-  stamp: () => Promise.resolve({ok: true})
-}, {
-  connect: () => Promise.resolve(true)
-})
-
-test("register -> close", async () => {
-  
-})
+const machine = createMachine(
+  {
+    stamp: () => Promise.resolve({ ok: true })
+  },
+  {
+    connect: () => Promise.resolve(true)
+  }
+);
 
 test("ok", async () => {
   const service = interpret(machine, (x) => null, {});

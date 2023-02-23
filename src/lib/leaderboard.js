@@ -9,11 +9,12 @@ const { of, ask, lift } = AsyncReader;
 export function leaderboard() {
   return of(buildQuery())
     .chain((gql) =>
-      ask(({ query, filter, getState }) =>
-        //getPlayers(query, gql)
-        getState("pcciYWuObwPtQOhdnoQmg9jXDvEwXFryeUOGHY59c1k")
-          .map(prop("players"))
-          .map((x) => (console.log(x), x))
+      ask(
+        ({ query, filter, getState }) =>
+          //getPlayers(query, gql)
+          getState("pcciYWuObwPtQOhdnoQmg9jXDvEwXFryeUOGHY59c1k")
+            .map(prop("players"))
+            .map((x) => (console.log(x), x))
         //.chain(getAndCountStamps(filter))
       )
     )
@@ -28,7 +29,7 @@ function transform(node) {
     handle: getTag("handle"),
     name: getTag("Title"),
     bio: getTag("Description"),
-    code: getTag("SWAG-CODE"),
+    code: getTag("SWAG-CODE")
   };
 }
 
@@ -53,46 +54,37 @@ function buildQuery() {
       }
     }
   }`,
-    variables: { "protocols": ["Account-0.3"], "apps": ["SmartWeaveContract"] },
+    variables: { protocols: ["Account-0.3"], apps: ["SmartWeaveContract"] }
   };
 }
 
 function countStamps(players) {
   return (stamps) =>
-    players.reduce(
-      (a, v) => {
-        const collected = stamps.filter(propEq("asset", v.id)).length;
-        return [...a, assoc("collected", collected, v)];
-      },
-      [],
-    );
+    players.reduce((a, v) => {
+      const collected = stamps.filter(propEq("asset", v.id)).length;
+      return [...a, assoc("collected", collected, v)];
+    }, []);
 }
 
 function getStampsforPlayers(filter) {
   return (players) =>
     filter([
       "compose",
-      ["filter", [
-        "compose",
-        [["flip", ["includes"]], map(prop("id", players))],
-        ["prop", "asset"],
-      ]],
+      [
+        "filter",
+        ["compose", [["flip", ["includes"]], map(prop("id", players))], ["prop", "asset"]]
+      ],
       ["values"],
-      ["prop", "stamps"],
+      ["prop", "stamps"]
     ]);
 }
 
 function getPlayers(query, gql) {
-  return query(gql)
-    .map(compose(
-      map(transform),
-      pluck("node"),
-      path(["data", "transactions", "edges"]),
-    ));
+  return query(gql).map(
+    compose(map(transform), pluck("node"), path(["data", "transactions", "edges"]))
+  );
 }
 
 function getAndCountStamps(filter) {
-  return (players) =>
-    getStampsforPlayers(filter)(players)
-      .map(countStamps(players));
+  return (players) => getStampsforPlayers(filter)(players).map(countStamps(players));
 }
