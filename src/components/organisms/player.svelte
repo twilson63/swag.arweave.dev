@@ -1,17 +1,15 @@
 <script>
-  // onMount(() => {
-  //   const searchParams = new URLSearchParams(window.location.search);
-  //   queryId = searchParams.get("id");
+  import { onMount } from "svelte";
 
-  //   (async function () {
-  //     try {
-  //       fetchedPlayer = await player(queryId);
-  //     } catch {
-  //       fetchedPlayer = null;
-  //     }
-  //     console.log(fetchedPlayer);
-  //   })();
-  // });
+  import PlayerCard from "../molecules/player-card.svelte";
+  import PlayerStampCount from "../molecules/player-stamp-count.svelte";
+  import PlayerRegister from "../molecules/player-register.svelte";
+
+  import Loader from "../atoms/loader.svelte";
+  import Modal from "../molecules/modal.svelte";
+
+  import stampIcon from "../../assets/stamp.svg";
+  import continueIcon from "../../assets/continue.svg";
 
   const TEMP_PROFILE_STAMPED = {
     id: "O48r5xi5Vlvu4hNIZeO45PDQf-B36vQ-4vSX65t9Tfw",
@@ -87,19 +85,7 @@
     }
   ];
 
-  import { onMount } from "svelte";
-
-  // const { player } = getContext("data");
-
-  import PlayerCard from "../molecules/player-card.svelte";
-  import PlayerStampCount from "../molecules/player-stamp-count.svelte";
-  import PlayerRegister from "../molecules/player-register.svelte";
-
-  import Loader from "../atoms/loader.svelte";
-  import Modal from "../molecules/modal.svelte";
-
-  import stampIcon from "../../assets/stamp.svg";
-  import continueIcon from "../../assets/continue.svg";
+  export let player = null;
 
   let queryId;
   let fetchedPlayer;
@@ -112,8 +98,6 @@
   // TODO: stampCompleted = true if stamp clicked, wallet connected and continue clicked
   let stampCompleted = false;
 
-  // TODO: fetch player(id), if null then check how many players that user has stamped, if >= 3 then stampQueueCompleted = true
-  let player = null;
   let stampQueueCompleted = true;
 
   onMount(() => {
@@ -148,6 +132,8 @@
     <div>Wallet Connect</div>
   {:else}
     <Modal
+      on:click
+      on:stamp
       handleAction={stampConfirmed ? handleComplete : handleStamp}
       actionLabel={stampConfirmed ? "Continue" : "Stamp"}
       actionIcon={stampConfirmed
@@ -157,15 +143,16 @@
     >
       <PlayerCard
         completed={stampConfirmed}
-        username={`@${TEMP_PROFILE_STAMPED.handleName}`}
-        avatar={TEMP_PROFILE_STAMPED.avatarURL}
-        bio={TEMP_PROFILE_STAMPED.bio}
+        username={`@${player.handleName}`}
+        avatar={`https://arweave.net/${player.avatar}`}
+        bio={player.bio}
         stampList={TEMP_STAMP_LIST}
       />
     </Modal>
   {/if}
 {:else}
   <Modal
+    on:click
     handleAction={handleGoToLeaderboard}
     actionLabel={"Go to Leaderboard"}
     actionIcon={{ icon: continueIcon, start: false }}

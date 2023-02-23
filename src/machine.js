@@ -1,4 +1,125 @@
 import { action, createMachine, invoke, reduce, state, transition, immediate, guard } from "robot3";
+import { propEq } from "ramda";
+
+let players = [
+  {
+    id: "O48r5xi5Vlvu4hNIZeO45PDQf-B36vQ-4vSX65t9Tfw",
+    handleName: "rakis",
+    avatar: "fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    avatarURL: "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    banner: "ar://a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
+    bannerURL: "https://arweave.net:443/a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
+    name: "rakis",
+    bio: "Permaweb Developer",
+    email: "",
+    links: {
+      twitter: "rakis_me",
+      github: "rakis-me",
+      discord: "tom-permapages#3217"
+    },
+    wallets: {
+      "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI": 1
+    },
+    stamps: {},
+    qrcode: 10
+  },
+  {
+    id: "O48r5xi5Vlvu4hNIZeO45PDQf-B36vQ-4vSX65t9Tfw",
+    handleName: "dmac",
+    avatar: "fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    avatarURL: "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    banner: "ar://a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
+    bannerURL: "https://arweave.net:443/a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
+    name: "dmac",
+    bio: "Permaweb Developer",
+    email: "",
+    wallets: {
+      "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI": 1
+    },
+    stamps: {},
+    qrcode: 11
+  },
+  {
+    id: "O48r5xi5Vlvu4hNIZeO45PDQf-B36vQ-4vSX65t9Tfw",
+    handleName: "vince",
+    avatar: "fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    avatarURL: "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    banner: "ar://a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
+    bannerURL: "https://arweave.net:443/a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
+    name: "vince",
+    bio: "Permaweb Developer",
+    email: "",
+    wallets: {
+      "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI": 1
+    },
+    stamps: {},
+    qrcode: 12
+  },
+  {
+    id: "O48r5xi5Vlvu4hNIZeO45PDQf-B36vQ-4vSX65t9Tfw",
+    handleName: "nickj",
+    avatar: "fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    avatarURL: "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    banner: "ar://a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
+    bannerURL: "https://arweave.net:443/a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
+    name: "nickj",
+    bio: "Permaweb Developer",
+    email: "",
+    wallets: {
+      "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI": 1
+    },
+    stamps: {},
+    qrcode: 13
+  },
+  {
+    id: "O48r5xi5Vlvu4hNIZeO45PDQf-B36vQ-4vSX65t9Tfw",
+    handleName: "justin",
+    avatar: "fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    avatarURL: "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    banner: "ar://a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
+    bannerURL: "https://arweave.net:443/a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
+    name: "jshaw",
+    bio: "Permaweb Developer",
+    email: "",
+    wallets: {
+      "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI": 1
+    },
+    stamps: {},
+    qrcode: 14
+  },
+  {
+    id: "O48r5xi5Vlvu4hNIZeO45PDQf-B36vQ-4vSX65t9Tfw",
+    handleName: "geoffrey",
+    avatar: "fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    avatarURL: "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    banner: "ar://a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
+    bannerURL: "https://arweave.net:443/a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
+    name: "geoffrey",
+    bio: "Permaweb Developer",
+    email: "",
+    wallets: {
+      "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI": 1
+    },
+    stamps: {},
+    qrcode: 15
+  },
+  {
+    id: "O48r5xi5Vlvu4hNIZeO45PDQf-B36vQ-4vSX65t9Tfw",
+    handleName: "saif",
+    avatar: "fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    avatarURL: "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
+    banner: "ar://a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
+    bannerURL: "https://arweave.net:443/a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
+    name: "mrsaif",
+    bio: "Permaweb Developer",
+    email: "",
+    wallets: {
+      "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI": 1
+    },
+    stamps: {},
+    qrcode: 16
+  }
+];
 
 export default function ({ leaderboard, player, stamp, register }, wallet) {
   return createMachine({
@@ -22,18 +143,10 @@ export default function ({ leaderboard, player, stamp, register }, wallet) {
     ),
     // loading: invoke(leaderboard,
     loading: invoke(
-      () =>
-        Promise.resolve([
-          {
-            id: "XFvaK9uJOBzU55sx3MG5aBeDNs8x1PIeOkN8PQY4atc",
-            handle: "rakis",
-            address: "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI",
-            bio: "developer",
-            avatar: "fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
-            collected: [],
-            given: []
-          }
-        ]),
+      async () => {
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+        return Promise.resolve(players);
+      },
       transition(
         "done",
         "leaderboard",
@@ -55,16 +168,7 @@ export default function ({ leaderboard, player, stamp, register }, wallet) {
     ),
     // getPlayer: invoke((_, ev) => player(ev.id),
     getPlayer: invoke(
-      (_, ev) =>
-        Promise.resolve({
-          id: "XFvaK9uJOBzU55sx3MG5aBeDNs8x1PIeOkN8PQY4atc",
-          handle: "rakis",
-          address: "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI",
-          bio: "developer",
-          avatar: "fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
-          collected: [],
-          given: []
-        }),
+      (_, ev) => Promise.resolve(players.find(propEq("qrcode", ev.id))),
       transition(
         "done",
         "player",
@@ -85,7 +189,9 @@ export default function ({ leaderboard, player, stamp, register }, wallet) {
     ),
     stamping: invoke(async (ctx) => {
       await wallet.connect();
-      return await stamp(ctx.player.id);
+      await new Promise((resolve) => setTimeout(resolve, 2500));
+      //return await stamp(ctx.player.id);
+      return;
     }, transition("done", "confirmation")),
     confirmation: state(transition("close", "leaderboard")),
     register: state(transition("continue", "form")),

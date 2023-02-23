@@ -4,17 +4,19 @@
   import LeaderboardSearchBar from "../leaderboard-search-bar.svelte";
   import pixelsAnimatingOne from "../../assets/pixels-animating-1.svg";
   import pixelsAnimatingTwo from "../../assets/pixels-animating-2.svg";
+
+  export let players;
 </script>
 
 <div class="leaderboard-wrapper">
   <div class="leaderboard-header">
     <img class="pixels moving" src={pixelsAnimatingOne} alt="pixels animating" />
     <img class="pixels-two moving-delay" src={pixelsAnimatingTwo} alt="pixels animating" />
-    <LeaderboardTopPlayers />
+    <LeaderboardTopPlayers {players} on:show />
     <LeaderboardSearchBar />
   </div>
   <div class="leaderboard-detail">
-    <LeaderboardTable />
+    <LeaderboardTable {players} />
   </div>
 </div>
 

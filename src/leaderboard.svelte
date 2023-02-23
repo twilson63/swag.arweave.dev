@@ -1,5 +1,8 @@
 <script>
   import { robot } from "./store";
+  import PlayerList from "./components/organisms/leaderboard.svelte";
+  import Player from "./components/organisms/player.svelte";
+  import Splash from "./components/atoms/splash.svelte";
   export let tx;
   export let qr;
 
@@ -15,31 +18,26 @@
   } else {
     send("load");
   }
+
+  async function show(e) {
+    console.log(e.detail);
+    await send({ type: "show", id: e.detail.code });
+  }
 </script>
 
 {#if current === "loading"}
-  <div>Loading...</div>
+  <Splash />
 {:else if current === "leaderboard"}
-  {#each context.players as player}
-    <div>Leaderboard view</div>
-    <pre>{JSON.stringify(player, null, 2)}</pre>
-    <button class="btn" on:click={() => send({ type: "show", id: "1" })}>Show Player</button>
-  {/each}
-  {JSON.stringify(context)}
-  <!--
-  <Leaderboard
-    players={context.players}
-    on:show={(id) => send({ type: "show", id })}
-  />
-    
-  -->
+  <PlayerList players={context.players} on:show={show} />
 {:else if current === "player"}
-  <div>Show Player</div>
-  <pre>{JSON.stringify(context.player, null, 2)}</pre>
-  <button class="btn" on:click={() => send({ type: "stamp" })}>Stamp</button>
-  <button class="btn" on:click={() => send({ type: "close" })}>Close</button>
+  {console.log(context)}
+  <Player
+    player={context.player}
+    on:stamp={() => send({ type: "stamp" })}
+    on:click={() => send({ type: "close" })}
+  />
 {:else if current === "stamping"}
-  <div>Stamping...</div>
+  <Splash />
 {:else if current === "confirmation"}
   <div>Stamp Confirmed</div>
   <pre>{JSON.stringify(context, null, 2)}</pre>

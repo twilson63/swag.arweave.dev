@@ -1,4 +1,5 @@
 <script>
+  import { createEventDispatcher } from "svelte";
   // TODO: Use theme
   import Portal from "../atoms/portal.svelte";
   import Button from "../atoms/button.svelte";
@@ -7,16 +8,21 @@
   export let handleAction;
   export let actionIcon;
   export let actionDisabled;
+  const dispatch = createEventDispatcher();
 </script>
 
 <Portal>
-  <div class="m-wrapper fadeIn">
+  <div class="m-wrapper fadeIn" on:click>
     <div class="m-container">
       <div class="m-body-container">
         <slot />
       </div>
       <div class="m-action-container">
         <Button
+          on:click={() => {
+            console.log("clicked stamp button");
+            dispatch("stamp");
+          }}
           type={"modal"}
           label={actionLabel}
           handlePress={handleAction}
