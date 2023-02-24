@@ -68,12 +68,17 @@ export default function ({ leaderboard, uploadAvatar, player, stamp, register },
       transition("reset", "resetPlayer"),
       transition("close", "leaderboard")
     ),
-    stamping: invoke(async (ctx) => {
-      await wallet.connect();
-      await new Promise((resolve) => setTimeout(resolve, 2500));
-      //return await stamp(ctx.player.id);
-      return;
-    }, transition("done", "confirmation")),
+    stamping: invoke(
+      async (ctx) => {
+        if (!window["arweaveWallet"]) {
+          await wallet.connect();
+          await new Promise((resolve) => setTimeout(resolve, 500));
+        }
+        return await stamp(ctx.player.token);
+      },
+      transition("done", "confirmation"),
+      transition("error", "leaderboard")
+    ),
     confirmation: state(transition("close", "leaderboard")),
     register: state(transition("continue", "form")),
     form: state(transition("register", "submitting")),

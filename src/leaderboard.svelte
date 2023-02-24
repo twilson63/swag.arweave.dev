@@ -5,6 +5,7 @@
   import PlayerRegister from "./components/register.svelte";
   import PlayerForm from "./components/form.svelte";
   import Splash from "./components/atoms/splash.svelte";
+  import Confirmation from "./components/confirm-stamp.svelte";
   export let tx;
   export let qr;
 
@@ -49,8 +50,7 @@
 {:else if current === "stamping"}
   <Splash />
 {:else if current === "confirmation"}
-  <div>Stamp Confirmed</div>
-  <pre>{JSON.stringify(context, null, 2)}</pre>
+  <Confirmation bind:current player={context.player} on:click={() => send("close")} />
 {:else if current === "register"}
   <PlayerRegister bind:current id={qr} on:click={() => send("continue")} />
 {:else if current === "form"}
