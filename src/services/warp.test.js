@@ -13,8 +13,12 @@ window.warp = {
         },
         contract() {
           return {
-            writeInteraction() {
-              return Promise.resolve({ originalTxId: "3" });
+            connect() {
+              return {
+                writeInteraction() {
+                  return Promise.resolve({ originalTxId: "3" });
+                }
+              };
             }
           };
         }
