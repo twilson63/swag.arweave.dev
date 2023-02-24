@@ -10,10 +10,9 @@ export function leaderboard() {
   return of("PN1UdRoELsWRulkWwmO6n_27d5lFPo4q8VCWvQw7U14")
     .chain((contract) =>
       ask(
-        ({ query, filter, getState }) =>
-          //getPlayers(query, gql)
-          getState(contract).map(compose(values, prop("players")))
+        ({ filter, getState }) => getState(contract).map(compose(values, prop("players")))
         //.chain(getAndCountStamps(filter))
+        //.map(x => (console.log('players', x), x))
       )
     )
     .chain(lift);
