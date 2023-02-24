@@ -1,6 +1,5 @@
 import { leaderboard } from "./leaderboard.js";
 import { playerStamps } from "./player-stamps.js";
-import { player } from "./player.js";
 import { stamp } from "./stamp.js";
 import { register } from "./register.js";
 import { profile } from "./profile.js";
@@ -26,12 +25,6 @@ const { Async } = crocks;
 /**
  * @callback Leaderboard
  * @returns {Promise<Player[]>}
- */
-
-/**
- * @callback GetPlayer
- * @param {string} code - qr-code identifier
- * @returns {Promise<Player>}
  */
 
 /**
@@ -74,7 +67,6 @@ const { Async } = crocks;
 /**
  * @typedef {Object} Swag
  * @property {Leaderboard} leaderboard
- * @property {GetPlayer} player
  * @property {Stamp} stamp
  * @property {Register} register
  * @property {Profile} profile
@@ -100,7 +92,6 @@ export default {
 
     return Object.freeze({
       leaderboard: fork(leaderboard),
-      player: fork(player),
       stamp: fork(stamp),
       register: fork(register),
       profile: fork(profile),
