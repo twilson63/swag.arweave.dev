@@ -1,5 +1,6 @@
 <script>
   import { robot } from "./store";
+  import { compressAndResizeImage } from "./lib/upload-avatar";
   import PlayerList from "./components/organisms/leaderboard.svelte";
   import Player from "./components/organisms/player.svelte";
   import PlayerRegister from "./components/register.svelte";
@@ -26,11 +27,13 @@
     await send({ type: "show", id: e.detail.code });
   }
   async function createPlayer({ target }) {
+    // compress & resize file
+    const avatar = await compressAndResizeImage(target.avatar.files[0]);
     await send({
       type: "register",
       code: qr,
       handle: target.handle.value,
-      file: target.avatar.files[0],
+      file: avatar,
       bio: target.bio.value
     });
   }
