@@ -2,7 +2,7 @@
   import { robot } from "./store";
   import { compressAndResizeImage } from "./lib/upload-avatar";
   import PlayerList from "./components/organisms/leaderboard.svelte";
-  import Player from "./components/organisms/player.svelte";
+  import Player from "./components/player.svelte";
   import PlayerRegister from "./components/register.svelte";
   import PlayerForm from "./components/form.svelte";
   import Splash from "./components/atoms/splash.svelte";
@@ -24,6 +24,7 @@
   }
 
   async function show(e) {
+    console.log("show");
     console.log(e.detail);
     await send({ type: "show", id: e.detail.code });
   }
@@ -46,9 +47,10 @@
   <PlayerList players={context.players} on:show={show} />
 {:else if current === "player"}
   <Player
+    bind:current
     player={context.player}
     on:stamp={() => send({ type: "stamp" })}
-    on:click={() => send({ type: "close" })}
+    on:click={() => send({ type: "stamp" })}
   />
 {:else if current === "stamping"}
   <Splash />

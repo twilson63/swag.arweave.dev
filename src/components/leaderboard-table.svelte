@@ -15,7 +15,7 @@
 <div class="leaderboard-table">
   {#await rankPlayers() then players}
     {#each players as player}
-      <LeaderboardTableRow {player} />
+      <LeaderboardTableRow {player} on:show />
     {/each}
   {/await}
 </div>

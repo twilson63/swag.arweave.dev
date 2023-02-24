@@ -37,8 +37,5 @@ function getStampsforPlayers(filter) {
 }
 
 function getAndCountStamps(filter) {
-  return (players) =>
-    getStampsforPlayers(filter)(players)
-      .map((x) => (console.log("stamps", x), x))
-      .map(countStamps(players));
+  return (players) => getStampsforPlayers(filter)(players).map(countStamps(players));
 }

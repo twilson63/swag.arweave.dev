@@ -16,7 +16,7 @@
     <LeaderboardSearchBar />
   </div>
   <div class="leaderboard-detail">
-    <LeaderboardTable {players} />
+    <LeaderboardTable {players} on:show />
   </div>
 </div>
 

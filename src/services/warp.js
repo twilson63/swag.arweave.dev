@@ -35,7 +35,15 @@ export function writeAction({ contract, input, tags }) {
 }
 
 export function getState(contract) {
-  return fetch(`https://dre-1.warp.cc/contract?id=${contract}`)
-    .then((res) => res.json())
-    .then(prop("state"));
+  // return fetch(`https://dre-1.warp.cc/contract?id=${contract}`)
+  //   .then((res) => res.json())
+  //   .then(prop("state"));
+  return warp
+    .contract(contract)
+    .setEvaluationOptions({
+      allowBigInt: true
+    })
+    .readState()
+    .then((result) => result.cachedValue)
+    .then((result) => result.state);
 }

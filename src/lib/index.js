@@ -1,4 +1,5 @@
 import { leaderboard } from "./leaderboard.js";
+import { playerStamps } from "./player-stamps.js";
 import { player } from "./player.js";
 import { stamp } from "./stamp.js";
 import { register } from "./register.js";
@@ -65,6 +66,12 @@ const { Async } = crocks;
  */
 
 /**
+ * @callback PlayerStamps
+ * @param {string} token
+ * @returns {Promise<any>}
+ */
+
+/**
  * @typedef {Object} Swag
  * @property {Leaderboard} leaderboard
  * @property {GetPlayer} player
@@ -73,6 +80,7 @@ const { Async } = crocks;
  * @property {Profile} profile
  * @property {CreateProfile} createProfile
  * @property {UploadAvatar} uploadAvatar
+ * @property {PlayerStamps} playerStamps
  */
 // application libary
 export default {
@@ -97,7 +105,8 @@ export default {
       register: fork(register),
       profile: fork(profile),
       createProfile: fork(createProfile),
-      uploadAvatar: fork(uploadAvatar)
+      uploadAvatar: fork(uploadAvatar),
+      playerStamps: fork(playerStamps)
     });
   }
 };
