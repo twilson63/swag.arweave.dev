@@ -30,3 +30,45 @@ export function uploadAvatar(file, mimeType) {
     )
     .chain(lift);
 }
+
+export async function compressAndResizeImage(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      const img = new Image();
+      img.src = event.target.result.toString();
+
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        // @ts-ignore
+        ctx.webkitImageSmoothingEnabled = false;
+        // @ts-ignore
+        ctx.msImageSmoothingEnabled = false;
+        ctx.imageSmoothingEnabled = false;
+
+        const width = 300;
+        const height = 300;
+        canvas.width = width;
+        canvas.height = height;
+
+        ctx.drawImage(img, 0, 0, width, height);
+
+        canvas.toBlob(
+          (blob) => {
+            const compressed = new File([blob], file.name, {
+              type: file.type,
+              lastModified: Date.now()
+            });
+            resolve(compressed);
+          },
+          file.type,
+          0.6
+        );
+      };
+    };
+  });
+}
