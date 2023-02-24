@@ -1,20 +1,11 @@
 <script>
   import LeaderboardStampCounter from "./leaderboard-stamp-counter.svelte";
   import { createEventDispatcher } from "svelte";
+  import profileIcon from "../assets/profile.svg";
   const dispatch = createEventDispatcher();
   export let players = [];
 
-  /*
-  async function getTopThree() {
-    let players = await leaderboardTest();
-    console.log(players);
-    players.splice(0, 3);
-    return players.map((p, i) => {
-      console.log(p.stamps);
-      return { ...p, ...{ index: i + 1, stampCount: 50 } };
-    });
-  }
-  */
+  console.log("players", players);
   function truncatePubkey(pubkey) {
     return pubkey.slice(0, 7) + ".." + pubkey.slice(-3);
   }
@@ -34,16 +25,29 @@
       <div class="top-players-avatar-placement">
         {2}
       </div>
-      <img src={players[1].avatarURL} alt="avatar" />
-      <div class="top-players-label">
-        <div class="top-players-label-name">
-          {players[1].handleName}
+      {#if players[1]}
+        <img src={"https://arweave.net/" + players[1].avatar} alt="avatar" />
+        <div class="top-players-label">
+          <div class="top-players-label-name">
+            {players[1].handle}
+          </div>
+          <div class="top-players-label-pubkey">
+            {truncatePubkey(players[1].address)}
+          </div>
+          <LeaderboardStampCounter count={12} on:click={show(players[1].code)} />
         </div>
-        <div class="top-players-label-pubkey">
-          {truncatePubkey(Object.keys(players[1].wallets)[0])}
+      {:else}
+        <img src={profileIcon} alt="avatar" />
+        <div class="top-players-label">
+          <div class="top-players-label-name">
+            {"Unknown"}
+          </div>
+          <div class="top-players-label-pubkey">
+            {truncatePubkey("XXXXXX")}
+          </div>
+          <LeaderboardStampCounter count={0} />
         </div>
-        <LeaderboardStampCounter count={12} on:click={show(players[1].qrcode)} />
-      </div>
+      {/if}
     </div>
     <div class="top-players-avatar-mid">
       <div class="top-players-avatar-placement-mid">
@@ -61,31 +65,57 @@
           />
         </svg>
       </div>
-      <img src={players[0].avatarURL} alt="avatar" />
-      <div class="top-players-label top-players-label-mid">
-        <div class="top-players-label-name top-players-label-name-mid">
-          {players[0].handleName}
+      {#if players[0]}
+        <img src={"https://arweave.net/" + players[0].avatar} alt="avatar" />
+        <div class="top-players-label top-players-label-mid">
+          <div class="top-players-label-name top-players-label-name-mid">
+            {players[0].handle}
+          </div>
+          <div class="top-players-label-pubkey">
+            {truncatePubkey(players[0].address)}
+          </div>
+          <LeaderboardStampCounter count={15} on:click={show(players[0].code)} />
         </div>
-        <div class="top-players-label-pubkey">
-          {truncatePubkey(Object.keys(players[0].wallets)[0])}
+      {:else}
+        <img src={profileIcon} alt="avatar" />
+        <div class="top-players-label">
+          <div class="top-players-label-name">
+            {"Unknown"}
+          </div>
+          <div class="top-players-label-pubkey">
+            {truncatePubkey("XXXXXX")}
+          </div>
+          <LeaderboardStampCounter count={0} />
         </div>
-        <LeaderboardStampCounter count={15} on:click={show(players[0].qrcode)} />
-      </div>
+      {/if}
     </div>
     <div class="top-players-avatar">
       <div class="top-players-avatar-placement">
         {3}
       </div>
-      <img src={players[2].avatarURL} alt="avatar" />
-      <div class="top-players-label">
-        <div class="top-players-label-name">
-          {players[2].handleName}
+      {#if players[2]}
+        <img src={"https://arweave.net/" + players[2].avatar} alt="avatar" />
+        <div class="top-players-label">
+          <div class="top-players-label-name">
+            {players[2].handle}
+          </div>
+          <div class="top-players-label-pubkey">
+            {truncatePubkey("XXXX")}
+          </div>
+          <LeaderboardStampCounter count={10} on:click={show(players[2].code)} />
         </div>
-        <div class="top-players-label-pubkey">
-          {truncatePubkey(Object.keys(players[2].wallets)[0])}
+      {:else}
+        <img src={profileIcon} alt="avatar" />
+        <div class="top-players-label">
+          <div class="top-players-label-name">
+            {"Unknown"}
+          </div>
+          <div class="top-players-label-pubkey">
+            {truncatePubkey("XXXXXX")}
+          </div>
+          <LeaderboardStampCounter count={0} />
         </div>
-        <LeaderboardStampCounter count={10} on:click={show(players[2].qrcode)} />
-      </div>
+      {/if}
     </div>
   </div>
 </div>

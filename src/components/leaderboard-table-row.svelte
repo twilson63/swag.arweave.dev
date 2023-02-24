@@ -14,14 +14,14 @@
       <p>{player.index}</p>
     </div>
     <div class="leaderboard-table-row-player">
-      <img src={player.avatarURL} alt="avatar" />
+      <img src={"https://arweave.net/" + player.avatar} alt="avatar" />
     </div>
     <div class="leaderboard-table-row-labels">
       <div class="leaderboard-table-row-labels-name">
-        {player.handleName}
+        {player.handle}
       </div>
       <div class="leaderboard-table-row-labels-pubkey">
-        {truncatePubkey(Object.keys(player.wallets)[0])}
+        {truncatePubkey(player.address)}
       </div>
     </div>
   </div>

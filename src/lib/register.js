@@ -41,18 +41,17 @@ export function register(player) {
                 { name: "Description", value: player.bio },
                 { name: "Title", value: player.handle },
                 { name: "Render-With", value: "swag" },
-                { name: "SWAG-Code", value: player.swag }
+                { name: "SWAG-Code", value: player.code }
                 //{ name: "Profile", value: player.profileTxId }
               ]
             })
-              .map((x) => (console.log("contract", x), x))
               // register Player on game contract
               .chain(({ contractTxId }) =>
                 writeAction({
                   contract: "PN1UdRoELsWRulkWwmO6n_27d5lFPo4q8VCWvQw7U14",
                   input: {
                     function: "register",
-                    code: player.swag,
+                    code: player.code,
                     token: contractTxId,
                     handle: player.handle,
                     address: player.address,

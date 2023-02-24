@@ -1,5 +1,7 @@
 <script>
   import profileIcon from "../assets/profile.svg";
+
+  let files = [];
 </script>
 
 <form class="m-0 p-0" on:submit|preventDefault>
@@ -8,12 +10,26 @@
       <h3 class="text-[25px] pb-16 font-robo-mono-700 uppercase">Join the game</h3>
       <div class="flex flex-col space-y-8 items-center">
         <div>
-          <img class="h-[102px] w-[102px]" src={profileIcon} alt="avatar" />
+          {#if files[0]}
+            <img
+              class="h-[102px] w-[102px] object-contain"
+              src={URL.createObjectURL(files[0])}
+              alt="avatar"
+            />
+          {:else}
+            <img class="h-[102px] w-[102px]" src={profileIcon} alt="avatar" />
+          {/if}
         </div>
         <div class="form-control">
           <label class="underline text-white font-work-sans-400"
             >set profile pic
-            <input name="avatar" type="file" class="hidden" />
+            <input
+              bind:files
+              name="avatar"
+              type="file"
+              class="hidden"
+              accept="image/png, image/jpeg, image/gif, image/jpg, image/webp, image/svg+xml"
+            />
           </label>
         </div>
         <div class="form-control">

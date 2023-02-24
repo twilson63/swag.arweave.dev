@@ -1,126 +1,6 @@
 import { action, createMachine, invoke, reduce, state, transition, immediate, guard } from "robot3";
 import { propEq } from "ramda";
 
-let players = [
-  {
-    id: "O48r5xi5Vlvu4hNIZeO45PDQf-B36vQ-4vSX65t9Tfw",
-    handleName: "rakis",
-    avatar: "fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
-    avatarURL: "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
-    banner: "ar://a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
-    bannerURL: "https://arweave.net:443/a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
-    name: "rakis",
-    bio: "Permaweb Developer",
-    email: "",
-    links: {
-      twitter: "rakis_me",
-      github: "rakis-me",
-      discord: "tom-permapages#3217"
-    },
-    wallets: {
-      "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI": 1
-    },
-    stamps: {},
-    qrcode: 10
-  },
-  {
-    id: "O48r5xi5Vlvu4hNIZeO45PDQf-B36vQ-4vSX65t9Tfw",
-    handleName: "dmac",
-    avatar: "fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
-    avatarURL: "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
-    banner: "ar://a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
-    bannerURL: "https://arweave.net:443/a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
-    name: "dmac",
-    bio: "Permaweb Developer",
-    email: "",
-    wallets: {
-      "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI": 1
-    },
-    stamps: {},
-    qrcode: 11
-  },
-  {
-    id: "O48r5xi5Vlvu4hNIZeO45PDQf-B36vQ-4vSX65t9Tfw",
-    handleName: "vince",
-    avatar: "fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
-    avatarURL: "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
-    banner: "ar://a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
-    bannerURL: "https://arweave.net:443/a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
-    name: "vince",
-    bio: "Permaweb Developer",
-    email: "",
-    wallets: {
-      "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI": 1
-    },
-    stamps: {},
-    qrcode: 12
-  },
-  {
-    id: "O48r5xi5Vlvu4hNIZeO45PDQf-B36vQ-4vSX65t9Tfw",
-    handleName: "nickj",
-    avatar: "fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
-    avatarURL: "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
-    banner: "ar://a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
-    bannerURL: "https://arweave.net:443/a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
-    name: "nickj",
-    bio: "Permaweb Developer",
-    email: "",
-    wallets: {
-      "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI": 1
-    },
-    stamps: {},
-    qrcode: 13
-  },
-  {
-    id: "O48r5xi5Vlvu4hNIZeO45PDQf-B36vQ-4vSX65t9Tfw",
-    handleName: "justin",
-    avatar: "fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
-    avatarURL: "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
-    banner: "ar://a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
-    bannerURL: "https://arweave.net:443/a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
-    name: "jshaw",
-    bio: "Permaweb Developer",
-    email: "",
-    wallets: {
-      "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI": 1
-    },
-    stamps: {},
-    qrcode: 14
-  },
-  {
-    id: "O48r5xi5Vlvu4hNIZeO45PDQf-B36vQ-4vSX65t9Tfw",
-    handleName: "geoffrey",
-    avatar: "fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
-    avatarURL: "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
-    banner: "ar://a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
-    bannerURL: "https://arweave.net:443/a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
-    name: "geoffrey",
-    bio: "Permaweb Developer",
-    email: "",
-    wallets: {
-      "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI": 1
-    },
-    stamps: {},
-    qrcode: 15
-  },
-  {
-    id: "O48r5xi5Vlvu4hNIZeO45PDQf-B36vQ-4vSX65t9Tfw",
-    handleName: "saif",
-    avatar: "fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
-    avatarURL: "https://arweave.net:443/fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
-    banner: "ar://a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
-    bannerURL: "https://arweave.net:443/a0ieiziq2JkYhWamlrUCHxrGYnHWUAMcONxRmfkWt-k",
-    name: "mrsaif",
-    bio: "Permaweb Developer",
-    email: "",
-    wallets: {
-      "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI": 1
-    },
-    stamps: {},
-    qrcode: 16
-  }
-];
-
 export default function ({ leaderboard, uploadAvatar, player, stamp, register }, wallet) {
   return createMachine({
     idle: state(
@@ -144,13 +24,9 @@ export default function ({ leaderboard, uploadAvatar, player, stamp, register },
     // loading: invoke(leaderboard,
     loading: invoke(
       async () => {
-        await new Promise((resolve) => setTimeout(resolve, 3000));
-        const results = await leaderboard().catch((e) => {
-          console.log(e);
-          return [];
-        });
-        console.log("results", results);
-        return players;
+        //await new Promise((resolve) => setTimeout(resolve, 3000));
+
+        return await leaderboard();
       },
       transition(
         "done",
@@ -174,7 +50,7 @@ export default function ({ leaderboard, uploadAvatar, player, stamp, register },
     // getPlayer: invoke((_, ev) => player(ev.id),
     getPlayer: invoke(
       (ctx, ev) => {
-        const player = ctx.players.find(propEq("qrcode", ev.id));
+        const player = ctx.players.find(propEq("code", ev.id));
         return player ? Promise.resolve(player) : Promise.reject(null);
         //return ctx.players[0]
       },
@@ -201,9 +77,8 @@ export default function ({ leaderboard, uploadAvatar, player, stamp, register },
     confirmation: state(transition("close", "leaderboard")),
     register: state(transition("continue", "form")),
     form: state(transition("register", "submitting")),
-    submitting: invoke(async (ctx, ev) => {
-      try {
-        console.log(wallet);
+    submitting: invoke(
+      async (ctx, ev) => {
         if (!window["arweaveWallet"]) {
           await wallet.connect();
           await new Promise((resolve) => setTimeout(resolve, 500));
@@ -211,7 +86,7 @@ export default function ({ leaderboard, uploadAvatar, player, stamp, register },
         const address = await window.arweaveWallet.getActiveAddress();
         const avatar = await uploadAvatar(ev.file, ev.file.type);
         const result = await register({
-          swag: ev.code,
+          code: ev.code,
           address: address,
           handle: ev.handle,
           bio: ev.bio,
@@ -221,10 +96,11 @@ export default function ({ leaderboard, uploadAvatar, player, stamp, register },
         location.search = "";
         // reset to leaderboard
         return result;
-      } catch (e) {
-        console.log(e);
-      }
-    }, transition("done", "leaderboard")),
+      },
+      transition("done", "leaderboard"),
+      transition("error", "error")
+    ),
+    error: state(),
     resetPlayer: state()
   });
 }

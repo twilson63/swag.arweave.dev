@@ -55,4 +55,11 @@
   <PlayerRegister bind:current id={qr} on:click={() => send("continue")} />
 {:else if current === "form"}
   <PlayerForm on:submit={createPlayer} />
+{:else if current === "error"}
+  <div class="hero min-h-screen">
+    <div class="hero-contain">
+      <h3 class="text-2xl">Error Occurred</h3>
+      <p><a href="/">Back to Leaderboard</a></p>
+    </div>
+  </div>
 {/if}
