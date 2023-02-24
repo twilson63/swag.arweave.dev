@@ -8,7 +8,6 @@ const { of, ask, lift } = AsyncReader;
  * @returns { AsyncReader }
  */
 export function uploadAvatar(file, mimeType) {
-  // compress and resize image
   // convert file to Uint8Array
   return of(file)
     .chain((f) =>
