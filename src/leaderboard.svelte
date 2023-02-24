@@ -2,8 +2,8 @@
   import { robot } from "./store";
   import PlayerList from "./components/organisms/leaderboard.svelte";
   import Player from "./components/organisms/player.svelte";
-  import PlayerRegister from "./components/molecules/player-register.svelte";
-  import PlayerRegisterForm from "./components/molecules/player-register-form.svelte";
+  import PlayerRegister from "./components/register.svelte";
+  import PlayerForm from "./components/form.svelte";
   import Splash from "./components/atoms/splash.svelte";
   export let tx;
   export let qr;
@@ -25,9 +25,12 @@
     console.log(e.detail);
     await send({ type: "show", id: e.detail.code });
   }
+  async function createPlayer(e) {
+    console.log(e.target.username.value);
+    console.log(e.target.avatar.files);
+  }
 </script>
 
-{current}
 {#if current === "loading"}
   <Splash />
 {:else if current === "leaderboard"}
@@ -44,7 +47,7 @@
   <div>Stamp Confirmed</div>
   <pre>{JSON.stringify(context, null, 2)}</pre>
 {:else if current === "register"}
-  <PlayerRegister id={qr} on:click={() => send("continue")} />
+  <PlayerRegister bind:current id={qr} on:click={() => send("continue")} />
 {:else if current === "form"}
-  <PlayerRegisterForm />
+  <PlayerForm on:submit={createPlayer} />
 {/if}

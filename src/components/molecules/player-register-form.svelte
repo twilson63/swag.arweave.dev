@@ -13,15 +13,6 @@
   let avatar = null;
   let username = "";
 
-  function handleJoin() {
-    console.log("Registering ...");
-    console.log({
-      username: username,
-      avatar: avatar
-    });
-    window.location.href = "/";
-  }
-
   function handleContinue() {
     confirmed = true;
   }
@@ -32,11 +23,9 @@
 </script>
 
 <Modal
-  handleAction={confirmed ? handleJoin : handleContinue}
-  actionLabel={confirmed ? "Join" : "Enter Username"}
-  actionIcon={confirmed
-    ? { icon: null, iconStart: null }
-    : { icon: continueIcon, iconStart: false }}
+  on:click
+  actionLabel="join"
+  actionIcon={{ icon: continueIcon }}
   actionDisabled={confirmed && !username}
 >
   <div class="pc-wrapper">
