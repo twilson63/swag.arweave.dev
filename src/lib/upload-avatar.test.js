@@ -1,7 +1,7 @@
 /* global Deno */
 // @ts-nocheck
 import { assert } from "asserts";
-import { uploadAvatar } from "./upload-avatar.js";
+import { uploadAvatar, compressAndResizeImage } from "./upload-avatar.js";
 import { Async } from "./utils.js";
 
 const { test } = Deno;
@@ -30,4 +30,16 @@ test("uploadAvatar", async () => {
     })
     .toPromise();
   assert(result.id === "1234");
+});
+
+test("compressAndResizeImage", async () => {
+  const file = new File([""], "darthvader.png");
+  Object.defineProperty(file, "size", { value: 1024 * 1024 + 1 });
+  const result = await compressAndResizeImage(file, file.type)
+    .runWith({
+      dispatch,
+      toArrayBuffer: Async.fromPromise(toArrayBuffer)
+    })
+    .toPromise();
+  assert(file.size > result.size);
 });
