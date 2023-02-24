@@ -13,7 +13,6 @@ export function leaderboard() {
         getState(contract)
           .map(compose(values, prop("players")))
           .chain(getAndCountStamps(filter))
-          .map((x) => (console.log("players", x), x))
       )
     )
     .chain(lift);
@@ -31,7 +30,7 @@ function getStampsforPlayers(filter) {
   return (players) =>
     filter([
       "compose",
-      //["filter", [["flip", ["includes"]], pluck('token', players)], ["prop", "asset"]],
+      //["filter", ["compose", ["flip", ["includes"]], pluck('token', players), ["prop", "asset"]]],
       ["values"],
       ["prop", "stamps"]
     ]);

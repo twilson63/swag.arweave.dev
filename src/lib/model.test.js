@@ -9,7 +9,8 @@ test("validate player", async () => {
     address: "vh-NTHVvlKZqRxc8LyyTNok65yQ55a_PJ1zWLb9G2JI",
     handle: "rakis",
     avatar: "fYmFNZbRCbPhBWqmOJLNiJFoLFiFchIBSZNI6jRwWaI",
-    bio: "A developer who likes to build things forever"
+    bio: "A developer who likes to build things forever",
+    code: "1"
   });
 
   assert(true);
