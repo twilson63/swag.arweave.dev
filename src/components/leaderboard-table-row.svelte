@@ -29,7 +29,7 @@
     <div class="leaderboard-table-row-stamps">
       <div class="leaderboard-table-row-stamps-action">Collected</div>
       <div class="leaderboard-table-row-stamps-count">
-        <StampCount count={player.stampCount} color="#222326" />
+        <StampCount count={player.collected} color="#222326" />
       </div>
     </div>
   </div>

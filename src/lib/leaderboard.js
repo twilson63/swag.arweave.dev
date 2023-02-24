@@ -9,10 +9,11 @@ const { of, ask, lift } = AsyncReader;
 export function leaderboard() {
   return of("PN1UdRoELsWRulkWwmO6n_27d5lFPo4q8VCWvQw7U14")
     .chain((contract) =>
-      ask(
-        ({ filter, getState }) => getState(contract).map(compose(values, prop("players")))
-        //.chain(getAndCountStamps(filter))
-        //.map(x => (console.log('players', x), x))
+      ask(({ filter, getState }) =>
+        getState(contract)
+          .map(compose(values, prop("players")))
+          .chain(getAndCountStamps(filter))
+          .map((x) => (console.log("players", x), x))
       )
     )
     .chain(lift);
@@ -21,7 +22,7 @@ export function leaderboard() {
 function countStamps(players) {
   return (stamps) =>
     players.reduce((a, v) => {
-      const collected = stamps.filter(propEq("asset", v.id)).length;
+      const collected = stamps.filter(propEq("asset", v.token)).length;
       return [...a, assoc("collected", collected, v)];
     }, []);
 }
@@ -30,15 +31,15 @@ function getStampsforPlayers(filter) {
   return (players) =>
     filter([
       "compose",
-      [
-        "filter",
-        ["compose", [["flip", ["includes"]], map(prop("id", players))], ["prop", "asset"]]
-      ],
+      //["filter", [["flip", ["includes"]], pluck('token', players)], ["prop", "asset"]],
       ["values"],
       ["prop", "stamps"]
     ]);
 }
 
 function getAndCountStamps(filter) {
-  return (players) => getStampsforPlayers(filter)(players).map(countStamps(players));
+  return (players) =>
+    getStampsforPlayers(filter)(players)
+      .map((x) => (console.log("stamps", x), x))
+      .map(countStamps(players));
 }
