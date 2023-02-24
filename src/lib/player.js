@@ -16,7 +16,6 @@ export function player(player) {
           filter(getAssetIds(player))
             .map((x) => (console.log(x), x))
             .map((stamps) => stamps.filter(propEq("asset", player.token)))
-            .map((x) => (console.log(x), x))
 
         // need to get stamps given and add to the player card
         //.chain((player) => filter(getAddressIds(player)).map((given) => ({ ...player, given })))
