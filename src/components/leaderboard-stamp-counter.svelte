@@ -4,7 +4,7 @@
   export let count;
 </script>
 
-<div class="top-players-label-stamps">
+<div class="top-players-label-stamps cursor-pointer" on:click>
   <IconButton />
   <StampCount {count} color="white" />
 </div>

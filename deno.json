@@ -17,6 +17,8 @@
     "warp-contracts": "npm:warp-contracts",
     "zod": "https://deno.land/x/zod/mod.ts",
     "asserts": "https://deno.land/std/testing/asserts.ts",
-    "@permaweb/stampjs": "https://esm.sh/@permaweb/stampjs"
+    "@permaweb/stampjs": "https://esm.sh/@permaweb/stampjs",
+    "robot3": "npm:robot3",
+    "svelte-robot-factory": "npm:svelte-robot-factory"
   }
 }

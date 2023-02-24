@@ -14,9 +14,9 @@ export default {
   daisyui: {
     themes: [
       {
-        mytheme: {
+        swag: {
           primary: "#293241",
-          secondary: "#FF8500",
+          secondary: "#FF5F15",
           accent: "#F2F3F4",
           neutral: "#FCFCFC",
           "base-100": "#2A303C",

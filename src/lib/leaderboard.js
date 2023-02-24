@@ -1,4 +1,4 @@
-import { assoc, compose, find, map, path, pluck, prop, propEq } from "ramda";
+import { assoc, compose, find, map, path, pluck, prop, propEq, values } from "ramda";
 import { AsyncReader } from "./utils.js";
 
 const { of, ask, lift } = AsyncReader;
@@ -7,48 +7,16 @@ const { of, ask, lift } = AsyncReader;
  * @returns {AsyncReader}
  */
 export function leaderboard() {
-  return of(buildQuery())
-    .chain((gql) =>
-      ask(({ query, filter }) => getPlayers(query, gql).chain(getAndCountStamps(filter)))
+  return of("PN1UdRoELsWRulkWwmO6n_27d5lFPo4q8VCWvQw7U14")
+    .chain((contract) =>
+      ask(
+        ({ query, filter, getState }) =>
+          //getPlayers(query, gql)
+          getState(contract).map(compose(values, prop("players")))
+        //.chain(getAndCountStamps(filter))
+      )
     )
     .chain(lift);
-}
-
-function transform(node) {
-  const getTag = (name) => prop("value", find(propEq("name", name), node.tags));
-  return {
-    id: node.id,
-    address: path(["owner", "address"], node),
-    handle: getTag("handle"),
-    name: getTag("Title"),
-    bio: getTag("Description"),
-    code: getTag("SWAG-CODE")
-  };
-}
-
-function buildQuery() {
-  return {
-    query: `query($protocols:[String!]!, $apps:[String!]!) {
-    transactions(tags: [
-      {name:"Protocol-Name", values: $protocols},
-      {name:"App-Name", values: $apps}
-    ]) {
-      edges {
-        node {
-          id 
-          owner {
-            address 
-          }
-          tags {
-            name
-            value 
-          }
-        }
-      }
-    }
-  }`,
-    variables: { protocols: ["Account-0.3"], apps: ["SmartWeaveContract"] }
-  };
 }
 
 function countStamps(players) {
@@ -70,12 +38,6 @@ function getStampsforPlayers(filter) {
       ["values"],
       ["prop", "stamps"]
     ]);
-}
-
-function getPlayers(query, gql) {
-  return query(gql).map(
-    compose(map(transform), pluck("node"), path(["data", "transactions", "edges"]))
-  );
 }
 
 function getAndCountStamps(filter) {

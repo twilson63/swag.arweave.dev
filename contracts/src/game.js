@@ -4,8 +4,18 @@ const propEq = (k, v) => (o) => o[k] === v;
 const functions = { register, slash, reset, evolve, setAdmin };
 
 /**
+ * @typedef Player
+ * @property {string} token
+ * @property {string} code
+ * @property {string} handle
+ * @property {string} avatar
+ * @property {string} bio
+ * @property {string} address
+ */
+
+/**
  * @typedef {Object} State
- * @property {Record<string, {code: string, address: string, token: string, admin: boolean}>[]} players
+ * @property {Record<string, Player>[]} players
  * @property {string} name
  * @property {string} creator
  * @property {boolean} canEvolve
@@ -22,7 +32,7 @@ export async function handle(state, action) {
 
 /**
  * @param {State} state
- * @param {{input: {code: string, token: string}, caller: string}} action
+ * @param {{input: {code: string, token: string, avatar: string, handle: string, bio: string}, caller: string}} action
  */
 async function register(state, action) {
   ContractAssert(action.input.code, "QR Code is Required!");
@@ -31,10 +41,16 @@ async function register(state, action) {
     "Player Token Contract Id is required!"
   );
   ContractAssert(action.caller && action.caller.length === 43, "caller is invalid");
+  ContractAssert(action.input.avatar, "avatar id is required!");
+  ContractAssert(action.input.bio, "bio is required!");
+  ContractAssert(action.input.handle, "handle is required!");
 
   const code = action.input.code;
   const address = action.caller;
   const token = action.input.token;
+  const avatar = action.input.avatar;
+  const bio = action.input.bio;
+  const handle = action.input.handle;
 
   if (state.players[code]) {
     throw new ContractError("Player already registered!");
@@ -47,7 +63,10 @@ async function register(state, action) {
       address,
       token,
       admin: false,
-      code
+      code,
+      avatar,
+      handle,
+      bio
     };
   }
 

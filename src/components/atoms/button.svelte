@@ -22,7 +22,7 @@
   let styleType = getStyleType(type);
 </script>
 
-<button on:click={handlePress} class={styleType.wrapper} {disabled}>
+<button on:click|stopPropagation class={styleType.wrapper} {disabled}>
   <div class="label-wrapper">
     {#if icon && iconStart}
       <div class={styleType.icon}>
