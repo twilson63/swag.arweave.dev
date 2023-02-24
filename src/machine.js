@@ -121,7 +121,7 @@ let players = [
   }
 ];
 
-export default function ({ leaderboard, player, stamp, register }, wallet) {
+export default function ({ leaderboard, uploadAvatar, player, stamp, register }, wallet) {
   return createMachine({
     idle: state(
       transition(
@@ -202,8 +202,28 @@ export default function ({ leaderboard, player, stamp, register }, wallet) {
     register: state(transition("continue", "form")),
     form: state(transition("register", "submitting")),
     submitting: invoke(async (ctx, ev) => {
-      await wallet.connect();
-      return await register(ev.data);
+      try {
+        console.log(wallet);
+        if (!window["arweaveWallet"]) {
+          await wallet.connect();
+          await new Promise((resolve) => setTimeout(resolve, 500));
+        }
+        const address = await window.arweaveWallet.getActiveAddress();
+        const avatar = await uploadAvatar(ev.file, ev.file.type);
+        const result = await register({
+          swag: ev.code,
+          address: address,
+          handle: ev.handle,
+          bio: ev.bio,
+          avatar: avatar.id
+        });
+
+        location.search = "";
+        // reset to leaderboard
+        return result;
+      } catch (e) {
+        console.log(e);
+      }
     }, transition("done", "leaderboard")),
     resetPlayer: state()
   });

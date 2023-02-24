@@ -25,9 +25,14 @@
     console.log(e.detail);
     await send({ type: "show", id: e.detail.code });
   }
-  async function createPlayer(e) {
-    console.log(e.target.username.value);
-    console.log(e.target.avatar.files);
+  async function createPlayer({ target }) {
+    await send({
+      type: "register",
+      code: qr,
+      handle: target.handle.value,
+      file: target.avatar.files[0],
+      bio: target.bio.value
+    });
   }
 </script>
 

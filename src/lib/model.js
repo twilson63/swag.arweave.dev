@@ -12,6 +12,7 @@ const PlayerSchema = z.object({
   address: z.string().min(43).max(43),
   avatar: z.string().min(43).max(43),
   bio: z.string().max(250),
+  swag: z.string(),
   collected: z.array(StampSchema).optional(),
   given: z.array(StampSchema).optional()
 });

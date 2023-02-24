@@ -5,7 +5,7 @@
 <form class="m-0 p-0" on:submit|preventDefault>
   <div class="hero min-h-screen bg-base-100 relative">
     <div class="hero-content flex-col">
-      <h3 class="text-[25px] font-robo-mono-700 uppercase">Join the game</h3>
+      <h3 class="text-[25px] pb-16 font-robo-mono-700 uppercase">Join the game</h3>
       <div class="flex flex-col space-y-8 items-center">
         <div>
           <img class="h-[102px] w-[102px]" src={profileIcon} alt="avatar" />
@@ -18,9 +18,19 @@
         </div>
         <div class="form-control">
           <input
-            name="username"
+            name="handle"
             placeholder="enter username..."
             class="font-work-sans-400 input rounded-full bg-white color-black"
+            required
+          />
+        </div>
+        <div class="form-control">
+          <textarea
+            name="bio"
+            rows="3"
+            placeholder="enter bio..."
+            class="font-work-sans-400 textarea rounded-50% w-[250px] bg-white color-black"
+            required
           />
         </div>
       </div>
