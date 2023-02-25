@@ -1,6 +1,7 @@
 import { leaderboard } from "./leaderboard.js";
 import { playerStamps } from "./player-stamps.js";
 import { stamp } from "./stamp.js";
+import { reset } from "./reset.js";
 import { register } from "./register.js";
 import { profile } from "./profile.js";
 import { createProfile } from "./create-profile.js";
@@ -32,6 +33,12 @@ const { Async } = crocks;
  * @callback Stamp
  * @param {string} tx - player tx to stamp
  * @returns {Promise<number>} - returns new count
+ */
+
+/**
+ * @callback Reset
+ * @param {string} tx - player tx to stamp
+ * @returns {Promise<any>} - returns new count
  */
 
 /**
@@ -81,6 +88,7 @@ const { Async } = crocks;
  * @property {UploadAvatar} uploadAvatar
  * @property {PlayerStamps} playerStamps
  * @property {UserStamps} userStamps
+ * @property {Reset} reset
  */
 // application libary
 export default {
@@ -106,7 +114,8 @@ export default {
       createProfile: fork(createProfile),
       uploadAvatar: fork(uploadAvatar),
       playerStamps: fork(playerStamps),
-      userStamps: fork(userStamps)
+      userStamps: fork(userStamps),
+      reset: fork(reset)
     });
   }
 };

@@ -54,6 +54,7 @@
     player={context.player}
     on:stamp={() => send({ type: "stamp" })}
     on:click={() => send({ type: "stamp" })}
+    on:reset={() => send({ type: "reset" })}
   />
 {:else if current === "stamping"}
   <Splash />
@@ -67,4 +68,6 @@
   <PlayerForm on:submit={createPlayer} />
 {:else if current === "error"}
   <Error error={context.error} on:click={() => send("continue")} />
+{:else if current === "resetPlayer"}
+  <Splash />
 {/if}

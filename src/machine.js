@@ -2,7 +2,7 @@ import { action, createMachine, invoke, reduce, state, transition, immediate, gu
 import { propEq } from "ramda";
 
 export default function (
-  { leaderboard, uploadAvatar, playerStamps, stamp, register, userStamps },
+  { leaderboard, uploadAvatar, playerStamps, stamp, register, userStamps, reset },
   wallet
 ) {
   return createMachine({
@@ -138,6 +138,12 @@ export default function (
       transition("error", "error")
     ),
     error: state(transition("continue", "leaderboard")),
-    resetPlayer: state()
+    resetPlayer: invoke(async (ctx) => {
+      if (!window["arweaveWallet"]) {
+        await wallet.connect();
+        await new Promise((resolve) => setTimeout(resolve, 500));
+      }
+      return await reset(ctx.player.code);
+    }, transition("done", "loading"))
   });
 }
