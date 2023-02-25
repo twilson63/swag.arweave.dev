@@ -1,4 +1,16 @@
-import { assoc, compose, find, map, path, pluck, prop, propEq, values } from "ramda";
+import {
+  assoc,
+  compose,
+  find,
+  map,
+  path,
+  pluck,
+  prop,
+  propEq,
+  values,
+  sortWith,
+  descend
+} from "ramda";
 import { AsyncReader } from "./utils.js";
 
 const { of, ask, lift } = AsyncReader;
@@ -13,6 +25,7 @@ export function leaderboard() {
         getState(contract)
           .map(compose(values, prop("players")))
           .chain(getAndCountStamps(filter))
+          .map(sortWith([descend(prop("collected"))]))
       )
     )
     .chain(lift);
