@@ -3,6 +3,13 @@
 import { assert } from "asserts";
 
 window.warp = {
+  LoggerFactory: {
+    INST: {
+      logLevel() {
+        return null;
+      }
+    }
+  },
   WarpFactory: {
     forMainnet() {
       return {
