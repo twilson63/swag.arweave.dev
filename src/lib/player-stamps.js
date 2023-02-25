@@ -10,11 +10,21 @@ export function playerStamps(token) {
   return of(token)
     .chain((token) =>
       ask(({ getState }) =>
-        getState("61vg8n54MGSC9ZHfSVAtQp4WjNb20TaThu6bkQ86pPI")
-          .map(prop("stamps"))
-          .map(values)
+        fetchStamps()
+          // getState("61vg8n54MGSC9ZHfSVAtQp4WjNb20TaThu6bkQ86pPI")
+          //   .map(prop("stamps"))
+          //   .map(values)
           .map(filter(propEq("asset", token)))
       )
     )
     .chain(lift);
+}
+
+function fetchStamps() {
+  return Async.fromPromise(fetch)(
+    "https://cache.permapages.app/61vg8n54MGSC9ZHfSVAtQp4WjNb20TaThu6bkQ86pPI"
+  )
+    .chain((res) => Async.fromPromise(res.json.bind(res))())
+    .map(prop("stamps"))
+    .map(values);
 }

@@ -11,7 +11,7 @@ import {
   sortWith,
   descend
 } from "ramda";
-import { AsyncReader } from "./utils.js";
+import { AsyncReader, Async } from "./utils.js";
 
 const { of, ask, lift } = AsyncReader;
 
@@ -24,11 +24,24 @@ export function leaderboard() {
       ask(({ filter, getState }) =>
         getState(contract)
           .map(compose(values, prop("players")))
-          .chain(getAndCountStamps(filter))
+          // .chain(getAndCountStamps(filter))
+          .chain(fetchStamps)
           .map(sortWith([descend(prop("collected"))]))
       )
     )
     .chain(lift);
+}
+
+// get stamps data fast!
+function fetchStamps(players) {
+  return Async.fromPromise(fetch)(
+    "https://cache.permapages.app/61vg8n54MGSC9ZHfSVAtQp4WjNb20TaThu6bkQ86pPI"
+  )
+    .chain((res) => Async.fromPromise(res.json.bind(res))())
+    .map(prop("stamps"))
+    .map(values)
+
+    .map(countStamps(players));
 }
 
 function countStamps(players) {

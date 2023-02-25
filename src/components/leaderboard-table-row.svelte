@@ -1,6 +1,5 @@
 <script>
   import { createEventDispatcher } from "svelte";
-  import StampCount from "./stamp-count.svelte";
 
   export let player;
 
@@ -36,7 +35,9 @@
     <div class="leaderboard-table-row-stamps">
       <div class="leaderboard-table-row-stamps-action">Collected</div>
       <div class="leaderboard-table-row-stamps-count">
-        <StampCount count={player.collected} color="#222326" />
+        <div class="text-[18px] text-[#222326]">
+          +{player.collected}
+        </div>
       </div>
     </div>
   </div>

@@ -1,7 +1,19 @@
 <script>
+  import { ArweaveWebWallet } from "arweave-wallet-connector";
+  import { createEventDispatcher, onMount } from "svelte";
+
   import profileIcon from "../assets/profile.svg";
 
+  const dispatch = createEventDispatcher();
   let files = [];
+  onMount(async (e) => {
+    const wallet = new ArweaveWebWallet({
+      name: "SWAG STAMPER"
+    });
+    wallet.setUrl("arweave.app");
+    await wallet.connect().catch((e) => console.log(e));
+    dispatch("register", e);
+  });
 </script>
 
 <form class="m-0 p-0" on:submit|preventDefault>

@@ -1,11 +1,10 @@
 <script>
-  import LeaderboardStampCounter from "./leaderboard-stamp-counter.svelte";
+  import LeaderboardStampCounter from "./stamp-button.svelte";
   import { createEventDispatcher } from "svelte";
-  import profileIcon from "../assets/profile.svg";
+  import profileIcon from "../../assets/profile.svg";
   const dispatch = createEventDispatcher();
   export let players = [];
 
-  console.log("players", players);
   function truncatePubkey(pubkey) {
     return pubkey.slice(0, 7) + ".." + pubkey.slice(-3);
   }

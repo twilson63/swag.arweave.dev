@@ -34,6 +34,7 @@
   async function createPlayer({ target }) {
     // compress & resize file
     const avatar = await compressAndResizeImage(target.avatar.files[0]);
+
     await send({
       type: "register",
       code: qr,
@@ -46,8 +47,10 @@
 
 {#if current === "loading"}
   <Splash />
+{:else if current === "submitting"}
+  <Splash />
 {:else if current === "leaderboard"}
-  <PlayerList players={context.players} on:show={show} />
+  <PlayerList players={context.players} />
 {:else if current === "player"}
   <Player
     bind:current
