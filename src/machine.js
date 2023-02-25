@@ -116,10 +116,7 @@ export default function (
     form: state(transition("register", "submitting")),
     submitting: invoke(
       async (ctx, ev) => {
-        if (!window["arweaveWallet"]) {
-          await wallet.connect();
-          await new Promise((resolve) => setTimeout(resolve, 500));
-        }
+        //await wallet.connect().catch(e)
         const address = await window.arweaveWallet.getActiveAddress();
         const avatar = await uploadAvatar(ev.file, ev.file.type);
         const result = await register({
@@ -135,7 +132,14 @@ export default function (
         return result;
       },
       transition("done", "leaderboard"),
-      transition("error", "error")
+      transition(
+        "error",
+        "error",
+        reduce(({ ctx }) => ({
+          ...ctx,
+          error: { title: "Error", message: "Could not register player!" }
+        }))
+      )
     ),
     error: state(transition("continue", "leaderboard")),
     resetPlayer: invoke(async (ctx) => {

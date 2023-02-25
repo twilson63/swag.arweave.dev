@@ -34,10 +34,11 @@ export function writeAction({ contract, input, tags }) {
   return warp.contract(contract).connect("use_wallet").writeInteraction(input, options);
 }
 
-export function getState(contract) {
-  // return fetch(`https://dre-1.warp.cc/contract?id=${contract}`)
+export async function getState(contract) {
+  // return fetch(`https://dre-2.warp.cc/contract?id=${contract}`)
   //   .then((res) => res.json())
   //   .then(prop("state"));
+  //await warp.contract(contract).syncState('https://dre-2.warp.cc/contract', { validity: true })
   return warp
     .contract(contract)
     .setEvaluationOptions({

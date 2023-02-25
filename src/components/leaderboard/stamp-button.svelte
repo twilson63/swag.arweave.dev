@@ -1,5 +1,5 @@
 <script>
-  import stampIcon from "../assets/stamp.svg";
+  import stampIcon from "../../assets/stamp.svg";
 
   export let count;
 </script>
