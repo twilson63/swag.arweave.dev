@@ -1,5 +1,6 @@
 <script>
   import { fly } from "svelte/transition";
+  import { createEventDispatcher } from "svelte";
   import profileIcon from "../assets/profile.svg";
   import hoodieIcon from "../assets/hoodie-icon.svg";
   //import stampIcon from "../assets/stamp.svg";
@@ -7,9 +8,15 @@
   export let current;
   export let hoodie;
 
+  const dispatch = createEventDispatcher();
+
   $: open = current === "hoodie";
 
   //let completed = false;
+  function handleClick() {
+    location.search = "";
+    dispatch("click");
+  }
 </script>
 
 <input type="checkbox" id="hoodie" bind:checked={open} class="modal-toggle" />
@@ -44,7 +51,10 @@
       {/if}
     </div>
     <div class="modal-actions">
-      <button on:click class="btn btn-block btn-secondary rounded-none text-white font-roboto-mono">
+      <button
+        on:click={handleClick}
+        class="btn btn-block btn-secondary rounded-none text-white font-roboto-mono"
+      >
         GO TO LEADERBOARD
         <img class="ml-2" src={continueIcon} alt="continue" />
       </button>

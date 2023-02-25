@@ -78,7 +78,7 @@ export default function (
           await new Promise((resolve) => setTimeout(resolve, 500));
         }
 
-        return await stamp(ctx.player.token).then((result) => ((location.search = ""), result));
+        return await stamp(ctx.player.token); //.then((result) => ((location.search = ""), result));
       },
       transition("done", "confirmation"),
       transition(
