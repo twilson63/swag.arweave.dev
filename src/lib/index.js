@@ -5,6 +5,7 @@ import { register } from "./register.js";
 import { profile } from "./profile.js";
 import { createProfile } from "./create-profile.js";
 import { uploadAvatar } from "./upload-avatar.js";
+import { userStamps } from "./user-stamps.js";
 import crocks from "crocks";
 import { keys } from "ramda";
 
@@ -65,6 +66,12 @@ const { Async } = crocks;
  */
 
 /**
+ * @callback UserStamps
+ * @param {string} address
+ * @returns {Promise<any>}
+ */
+
+/**
  * @typedef {Object} Swag
  * @property {Leaderboard} leaderboard
  * @property {Stamp} stamp
@@ -73,6 +80,7 @@ const { Async } = crocks;
  * @property {CreateProfile} createProfile
  * @property {UploadAvatar} uploadAvatar
  * @property {PlayerStamps} playerStamps
+ * @property {UserStamps} userStamps
  */
 // application libary
 export default {
@@ -97,7 +105,8 @@ export default {
       profile: fork(profile),
       createProfile: fork(createProfile),
       uploadAvatar: fork(uploadAvatar),
-      playerStamps: fork(playerStamps)
+      playerStamps: fork(playerStamps),
+      userStamps: fork(userStamps)
     });
   }
 };

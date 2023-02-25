@@ -3,10 +3,11 @@
   import { compressAndResizeImage } from "./lib/upload-avatar";
   import PlayerList from "./components/organisms/leaderboard.svelte";
   import Player from "./components/player.svelte";
+  import StampConfirm from "./components/confirm-stamp.svelte";
   import PlayerRegister from "./components/register.svelte";
   import PlayerForm from "./components/form.svelte";
   import Splash from "./components/atoms/splash.svelte";
-  import Confirmation from "./components/confirm-stamp.svelte";
+  import Hoodie from "./components/hoodie-status.svelte";
   export let tx;
   export let qr;
 
@@ -55,7 +56,9 @@
 {:else if current === "stamping"}
   <Splash />
 {:else if current === "confirmation"}
-  <Confirmation bind:current player={context.player} on:click={() => send("close")} />
+  <StampConfirm player={context.players[0]} bind:current on:click={() => send("continue")} />
+{:else if current === "hoodie"}
+  <Hoodie bind:current hoodie={context.hoodie} on:click={() => send("close")} />
 {:else if current === "register"}
   <PlayerRegister bind:current id={qr} on:click={() => send("continue")} />
 {:else if current === "form"}

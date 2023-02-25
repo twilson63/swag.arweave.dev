@@ -1,7 +1,10 @@
 import { action, createMachine, invoke, reduce, state, transition, immediate, guard } from "robot3";
 import { propEq } from "ramda";
 
-export default function ({ leaderboard, uploadAvatar, playerStamps, stamp, register }, wallet) {
+export default function (
+  { leaderboard, uploadAvatar, playerStamps, stamp, register, userStamps },
+  wallet
+) {
   return createMachine({
     idle: state(
       transition(
@@ -84,7 +87,26 @@ export default function ({ leaderboard, uploadAvatar, playerStamps, stamp, regis
       transition("done", "confirmation"),
       transition("error", "leaderboard")
     ),
-    confirmation: state(transition("close", "leaderboard")),
+    confirmation: state(transition("continue", "getHoodie")),
+    getHoodie: invoke(
+      async (ctx, ev) => {
+        const address = await window.arweaveWallet.getActiveAddress();
+        const result = await userStamps(
+          address,
+          ctx.players.map((p) => p.token)
+        );
+
+        return { stamps: result.length, players: ctx.players.length };
+      },
+      transition(
+        "done",
+        "hoodie",
+        reduce((ctx, ev) => {
+          return { ...ctx, hoodie: ev.data };
+        })
+      )
+    ),
+    hoodie: state(transition("close", "loading")),
     register: state(transition("continue", "form")),
     form: state(transition("register", "submitting")),
     submitting: invoke(
