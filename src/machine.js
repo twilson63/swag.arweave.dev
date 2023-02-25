@@ -80,7 +80,17 @@ export default function (
         return await stamp(ctx.player.token);
       },
       transition("done", "confirmation"),
-      transition("error", "leaderboard")
+      transition(
+        "error",
+        "error",
+        reduce((ctx) => ({
+          ...ctx,
+          error: {
+            title: "Already Stamped!",
+            message: "Looks like you have already stamped this player."
+          }
+        }))
+      )
     ),
     confirmation: state(transition("continue", "getHoodie")),
     getHoodie: invoke(
@@ -127,7 +137,7 @@ export default function (
       transition("done", "leaderboard"),
       transition("error", "error")
     ),
-    error: state(),
+    error: state(transition("continue", "leaderboard")),
     resetPlayer: state()
   });
 }
