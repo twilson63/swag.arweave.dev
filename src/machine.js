@@ -77,19 +77,22 @@ export default function (
           await wallet.connect();
           await new Promise((resolve) => setTimeout(resolve, 500));
         }
-        return await stamp(ctx.player.token);
+
+        return await stamp(ctx.player.token).then((result) => ((location.search = ""), result));
       },
       transition("done", "confirmation"),
       transition(
         "error",
         "error",
-        reduce((ctx) => ({
-          ...ctx,
-          error: {
-            title: "Already Stamped!",
-            message: "Looks like you have already stamped this player."
-          }
-        }))
+        reduce((ctx) => {
+          return {
+            ...ctx,
+            error: {
+              title: "Already Stamped!",
+              message: "Looks like you have already stamped this player."
+            }
+          };
+        })
       )
     ),
     confirmation: state(transition("continue", "getHoodie")),
