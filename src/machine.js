@@ -1,7 +1,10 @@
 import { action, createMachine, invoke, reduce, state, transition, immediate, guard } from "robot3";
 import { propEq } from "ramda";
 
-export default function ({ leaderboard, uploadAvatar, player, stamp, register }, wallet) {
+export default function (
+  { leaderboard, uploadAvatar, playerStamps, stamp, register, userStamps },
+  wallet
+) {
   return createMachine({
     idle: state(
       transition(
@@ -49,10 +52,15 @@ export default function ({ leaderboard, uploadAvatar, player, stamp, register },
     ),
     // getPlayer: invoke((_, ev) => player(ev.id),
     getPlayer: invoke(
-      (ctx, ev) => {
-        const player = ctx.players.find(propEq("code", ev.id));
-        return player ? Promise.resolve(player) : Promise.reject(null);
-        //return ctx.players[0]
+      async (ctx, ev) => {
+        try {
+          const player = ctx.players.find(propEq("code", ev.id));
+          const stamps = await playerStamps(player.token);
+          return player ? Promise.resolve({ ...player, stamps }) : Promise.reject(null);
+          //return ctx.players[0]
+        } catch (e) {
+          console.log(e);
+        }
       },
       transition(
         "done",
@@ -61,7 +69,7 @@ export default function ({ leaderboard, uploadAvatar, player, stamp, register },
           return { ...ctx, player: ev.data };
         })
       ),
-      transition("error", "register")
+      transition("error", "error")
     ),
     player: state(
       transition("stamp", "stamping"),
@@ -79,7 +87,26 @@ export default function ({ leaderboard, uploadAvatar, player, stamp, register },
       transition("done", "confirmation"),
       transition("error", "leaderboard")
     ),
-    confirmation: state(transition("close", "leaderboard")),
+    confirmation: state(transition("continue", "getHoodie")),
+    getHoodie: invoke(
+      async (ctx, ev) => {
+        const address = await window.arweaveWallet.getActiveAddress();
+        const result = await userStamps(
+          address,
+          ctx.players.map((p) => p.token)
+        );
+
+        return { stamps: result.length, players: ctx.players.length };
+      },
+      transition(
+        "done",
+        "hoodie",
+        reduce((ctx, ev) => {
+          return { ...ctx, hoodie: ev.data };
+        })
+      )
+    ),
+    hoodie: state(transition("close", "loading")),
     register: state(transition("continue", "form")),
     form: state(transition("register", "submitting")),
     submitting: invoke(

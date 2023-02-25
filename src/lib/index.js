@@ -1,10 +1,11 @@
 import { leaderboard } from "./leaderboard.js";
-import { player } from "./player.js";
+import { playerStamps } from "./player-stamps.js";
 import { stamp } from "./stamp.js";
 import { register } from "./register.js";
 import { profile } from "./profile.js";
 import { createProfile } from "./create-profile.js";
 import { uploadAvatar } from "./upload-avatar.js";
+import { userStamps } from "./user-stamps.js";
 import crocks from "crocks";
 import { keys } from "ramda";
 
@@ -25,12 +26,6 @@ const { Async } = crocks;
 /**
  * @callback Leaderboard
  * @returns {Promise<Player[]>}
- */
-
-/**
- * @callback GetPlayer
- * @param {string} code - qr-code identifier
- * @returns {Promise<Player>}
  */
 
 /**
@@ -65,14 +60,27 @@ const { Async } = crocks;
  */
 
 /**
+ * @callback PlayerStamps
+ * @param {string} token
+ * @returns {Promise<any>}
+ */
+
+/**
+ * @callback UserStamps
+ * @param {string} address
+ * @returns {Promise<any>}
+ */
+
+/**
  * @typedef {Object} Swag
  * @property {Leaderboard} leaderboard
- * @property {GetPlayer} player
  * @property {Stamp} stamp
  * @property {Register} register
  * @property {Profile} profile
  * @property {CreateProfile} createProfile
  * @property {UploadAvatar} uploadAvatar
+ * @property {PlayerStamps} playerStamps
+ * @property {UserStamps} userStamps
  */
 // application libary
 export default {
@@ -92,12 +100,13 @@ export default {
 
     return Object.freeze({
       leaderboard: fork(leaderboard),
-      player: fork(player),
       stamp: fork(stamp),
       register: fork(register),
       profile: fork(profile),
       createProfile: fork(createProfile),
-      uploadAvatar: fork(uploadAvatar)
+      uploadAvatar: fork(uploadAvatar),
+      playerStamps: fork(playerStamps),
+      userStamps: fork(userStamps)
     });
   }
 };

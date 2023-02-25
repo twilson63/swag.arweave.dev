@@ -1,14 +1,21 @@
 <script>
+  import { createEventDispatcher } from "svelte";
   import StampCount from "./stamp-count.svelte";
 
   export let player;
 
+  const dispatch = createEventDispatcher();
+
   function truncatePubkey(pubkey) {
     return pubkey.slice(0, 7) + ".." + pubkey.slice(-3);
   }
+
+  function show(code) {
+    dispatch("show", { code });
+  }
 </script>
 
-<div class="leaderboard-table-row">
+<div class="leaderboard-table-row cursor-pointer" on:click={() => show(player.code)}>
   <div class="leaderboard-table-row-left">
     <div class="leaderboard-table-row-place">
       <p>{player.index}</p>
