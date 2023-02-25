@@ -60,7 +60,7 @@
 {:else if current === "stamping"}
   <Splash />
 {:else if current === "confirmation"}
-  <StampConfirm player={context.players[0]} bind:current on:click={() => send("continue")} />
+  <StampConfirm player={context.player} bind:current on:click={() => send("continue")} />
 {:else if current === "hoodie"}
   <Hoodie bind:current hoodie={context.hoodie} on:click={() => send("close")} />
 {:else if current === "register"}
