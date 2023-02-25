@@ -1,7 +1,8 @@
 // @ts-nocheck
 import { prop } from "ramda";
-const { WarpFactory } = window.warp;
+const { WarpFactory, LoggerFactory } = window.warp;
 
+//LoggerFactory.INST.logLevel('fatal')
 const warp = WarpFactory.forMainnet();
 
 /**
@@ -35,10 +36,9 @@ export function writeAction({ contract, input, tags }) {
 }
 
 export async function getState(contract) {
-  // return fetch(`https://dre-2.warp.cc/contract?id=${contract}`)
-  //   .then((res) => res.json())
-  //   .then(prop("state"));
-  //await warp.contract(contract).syncState('https://dre-2.warp.cc/contract', { validity: true })
+  console.time("warp");
+  await warp.contract(contract).syncState("https://dre-1.warp.cc/contract", { validity: true });
+
   return warp
     .contract(contract)
     .setEvaluationOptions({
@@ -46,5 +46,6 @@ export async function getState(contract) {
     })
     .readState()
     .then((result) => result.cachedValue)
-    .then((result) => result.state);
+    .then((result) => result.state)
+    .then((r) => (console.timeEnd("warp"), r));
 }

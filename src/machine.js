@@ -53,7 +53,7 @@ export default function (
     // getPlayer: invoke((_, ev) => player(ev.id),
     getPlayer: invoke(
       async (ctx, ev) => {
-        const player = ctx.players.find(propEq("code", ev.id));
+        const player = ctx.players.find(propEq("code", ctx.code));
         const stamps = await playerStamps(player.token);
         return player ? Promise.resolve({ ...player, stamps }) : Promise.reject(null);
       },

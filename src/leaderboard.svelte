@@ -50,7 +50,7 @@
 {:else if current === "submitting"}
   <Splash />
 {:else if current === "leaderboard"}
-  <PlayerList players={context.players} on:show={show} />
+  <PlayerList players={context.players} />
 {:else if current === "player"}
   <Player
     bind:current
