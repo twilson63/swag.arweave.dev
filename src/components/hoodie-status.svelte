@@ -21,14 +21,14 @@
       <div
         class="border-[#5AFF7F] border-2 py-2 px-4 rounded-full bg-primary text-white font-roboto-mono-700 text-2xl"
       >
-        🎉 {hoodie.stamps} / 3
+        🎉 {hoodie.stamps > 3 ? 3 : hoodie.stamps} / 3
       </div>
       {#if hoodie.stamps >= 3}
         <div class="mt-4 flex relative w-full items-center justify-center">
-          <img class="absolute" style="left: 10px;" src={hoodieIcon} alt="hoodie" />
+          <!-- <img class="absolute" style="left: 10px;" src={hoodieIcon} alt="hoodie" /> -->
           <div class="bg-[#515359] w-4/5 border-0 rounded-16 py-8 px-8">
             <h3 class="text-white font-roboto-mono-700 text-2xl">HOODIE UNLOCKED!</h3>
-            <p class="ml-8 text-right">Find us @ FwdResearch <br />booth to claim your hoodie.</p>
+            <p class="ml-8">Find us @ FwdResearch <br />booth to claim your hoodie.</p>
           </div>
         </div>
       {:else}
