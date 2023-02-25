@@ -8,15 +8,7 @@ const { of, ask, lift } = AsyncReader;
  */
 export function playerStamps(token) {
   return of(token)
-    .chain((token) =>
-      ask(({ getState }) =>
-        fetchStamps()
-          // getState("61vg8n54MGSC9ZHfSVAtQp4WjNb20TaThu6bkQ86pPI")
-          //   .map(prop("stamps"))
-          //   .map(values)
-          .map(filter(propEq("asset", token)))
-      )
-    )
+    .chain((token) => ask(() => fetchStamps().map(filter(propEq("asset", token)))))
     .chain(lift);
 }
 

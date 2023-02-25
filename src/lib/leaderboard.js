@@ -1,16 +1,4 @@
-import {
-  assoc,
-  compose,
-  find,
-  map,
-  path,
-  pluck,
-  prop,
-  propEq,
-  values,
-  sortWith,
-  descend
-} from "ramda";
+import { assoc, compose, prop, propEq, values, sortWith, descend } from "ramda";
 import { AsyncReader, Async } from "./utils.js";
 
 const { of, ask, lift } = AsyncReader;
@@ -21,10 +9,9 @@ const { of, ask, lift } = AsyncReader;
 export function leaderboard() {
   return of("PN1UdRoELsWRulkWwmO6n_27d5lFPo4q8VCWvQw7U14")
     .chain((contract) =>
-      ask(({ filter, getState }) =>
+      ask(({ getState }) =>
         getState(contract)
           .map(compose(values, prop("players")))
-          // .chain(getAndCountStamps(filter))
           .chain(fetchStamps)
           .map(sortWith([descend(prop("collected"))]))
       )
@@ -50,18 +37,4 @@ function countStamps(players) {
       const collected = stamps.filter(propEq("asset", v.token)).length;
       return [...a, assoc("collected", collected, v)];
     }, []);
-}
-
-function getStampsforPlayers(filter) {
-  return (players) =>
-    filter([
-      "compose",
-      //["filter", ["compose", ["flip", ["includes"]], pluck('token', players), ["prop", "asset"]]],
-      ["values"],
-      ["prop", "stamps"]
-    ]);
-}
-
-function getAndCountStamps(filter) {
-  return (players) => getStampsforPlayers(filter)(players).map(countStamps(players));
 }

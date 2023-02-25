@@ -6,7 +6,7 @@ import { Async } from "./utils.js";
 
 const { test } = Deno;
 
-function _stamp(tx) {
+function _stamp() {
   return Async.Resolved({ ok: true });
 }
 

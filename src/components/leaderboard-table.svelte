@@ -1,5 +1,4 @@
 <script>
-  import { getContext } from "svelte";
   import LeaderboardTableRow from "./leaderboard-table-row.svelte";
 
   export let players = [];

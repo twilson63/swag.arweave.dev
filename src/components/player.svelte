@@ -1,9 +1,9 @@
 <script>
   import { fly } from "svelte/transition";
   import { createEventDispatcher } from "svelte";
-  import profileIcon from "../assets/profile.svg";
-  import hoodieIcon from "../assets/hoodie-icon.svg";
-  import continueIcon from "../assets/continue.svg";
+  // import profileIcon from "../assets/profile.svg";
+  // import hoodieIcon from "../assets/hoodie-icon.svg";
+  // import continueIcon from "../assets/continue.svg";
   import stampIcon from "../assets/stamp.svg";
 
   export let current;

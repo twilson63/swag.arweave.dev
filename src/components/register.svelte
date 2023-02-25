@@ -1,6 +1,6 @@
 <script>
   import { fly } from "svelte/transition";
-  import profileIcon from "../assets/profile.svg";
+  //import profileIcon from "../assets/profile.svg";
   import hoodieIcon from "../assets/hoodie-icon.svg";
   import continueIcon from "../assets/continue.svg";
   export let current;

@@ -1,14 +1,14 @@
 <script>
   import { fly } from "svelte/transition";
   import checked from "../assets/check.svg";
-  import profileIcon from "../assets/profile.svg";
-  import hoodieIcon from "../assets/hoodie-icon.svg";
-  import stampIcon from "../assets/stamp.svg";
+  // import profileIcon from "../assets/profile.svg";
+  // import hoodieIcon from "../assets/hoodie-icon.svg";
+  // import stampIcon from "../assets/stamp.svg";
   import continueIcon from "../assets/continue.svg";
   export let current;
   export let player;
   $: open = current === "confirmation" || current === "leaderboard";
-  let completed = false;
+  //let completed = false;
 </script>
 
 <input type="checkbox" id="confirmation" bind:checked={open} class="modal-toggle" />

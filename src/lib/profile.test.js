@@ -22,7 +22,7 @@ const query = () =>
     }
   });
 
-const get = (id) =>
+const get = () =>
   Async.Resolved({
     handle: "rakis"
   });
