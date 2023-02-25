@@ -17,7 +17,7 @@
 
 <div class="top-players">
   <div class="top-players-header">
-    <h1>LEADERBOARD</h1>
+    <h1 class="font-roboto-mono-700 font-bold uppercase">LEADERBOARD</h1>
     <p>Stamps Collected</p>
   </div>
   <div class="top-players-avatars">

@@ -8,6 +8,8 @@
   import PlayerForm from "./components/form.svelte";
   import Splash from "./components/atoms/splash.svelte";
   import Hoodie from "./components/hoodie-status.svelte";
+  import Error from "./components/error.svelte";
+
   export let tx;
   export let qr;
 
@@ -64,10 +66,5 @@
 {:else if current === "form"}
   <PlayerForm on:submit={createPlayer} />
 {:else if current === "error"}
-  <div class="hero min-h-screen">
-    <div class="hero-contain">
-      <h3 class="text-2xl">Error Occurred</h3>
-      <p><a href="/">Back to Leaderboard</a></p>
-    </div>
-  </div>
+  <Error error={context.error} on:click={() => send("continue")} />
 {/if}
