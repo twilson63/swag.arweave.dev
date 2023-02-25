@@ -13,6 +13,7 @@ const PlayerSchema = z.object({
   avatar: z.string().min(43).max(43),
   bio: z.string().max(250),
   code: z.string(),
+  admin: z.boolean().optional(),
   collected: z.array(StampSchema).optional(),
   given: z.array(StampSchema).optional()
 });

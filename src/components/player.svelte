@@ -43,6 +43,14 @@
         </div>
       </div>
       <div class="modal-actions">
+        {#if player.admin}
+          <button
+            on:click|stopPropagation={() => dispatch("reset")}
+            class="btn btn-block btn-secondary rounded-none text-white font-roboto-mono text-xl mb-8"
+          >
+            RESET
+          </button>
+        {/if}
         <button
           on:click|stopPropagation={() => dispatch("stamp")}
           class="btn btn-block btn-secondary rounded-none text-white font-roboto-mono text-xl"
