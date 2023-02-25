@@ -48,7 +48,7 @@
 {#if current === "loading"}
   <Splash />
 {:else if current === "submitting"}
-  <Splash />
+  <Splash msg="Check tabs for arweave.app to sign transactions" />
 {:else if current === "leaderboard"}
   <PlayerList players={context.players} />
 {:else if current === "player"}
