@@ -12,7 +12,7 @@
   }
 </script>
 
-<div class="leaderboard-table">
+<div class="leaderboard-table ">
   {#await rankPlayers() then players}
     {#each players as player}
       <LeaderboardTableRow {player} on:show />
