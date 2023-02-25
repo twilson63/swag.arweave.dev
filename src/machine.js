@@ -53,14 +53,9 @@ export default function (
     // getPlayer: invoke((_, ev) => player(ev.id),
     getPlayer: invoke(
       async (ctx, ev) => {
-        try {
-          const player = ctx.players.find(propEq("code", ev.id));
-          const stamps = await playerStamps(player.token);
-          return player ? Promise.resolve({ ...player, stamps }) : Promise.reject(null);
-          //return ctx.players[0]
-        } catch (e) {
-          console.log(e);
-        }
+        const player = ctx.players.find(propEq("code", ev.id));
+        const stamps = await playerStamps(player.token);
+        return player ? Promise.resolve({ ...player, stamps }) : Promise.reject(null);
       },
       transition(
         "done",
@@ -69,7 +64,7 @@ export default function (
           return { ...ctx, player: ev.data };
         })
       ),
-      transition("error", "error")
+      transition("error", "register")
     ),
     player: state(
       transition("stamp", "stamping"),
