@@ -1,5 +1,4 @@
 // @ts-nocheck
-import { prop } from "ramda";
 const { WarpFactory, LoggerFactory } = window.warp;
 
 LoggerFactory.INST.logLevel("fatal");

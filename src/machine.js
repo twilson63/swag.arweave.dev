@@ -1,4 +1,4 @@
-import { action, createMachine, invoke, reduce, state, transition, immediate, guard } from "robot3";
+import { createMachine, invoke, reduce, state, transition, immediate, guard } from "robot3";
 import { propEq } from "ramda";
 
 export default function (
@@ -52,7 +52,7 @@ export default function (
     ),
     // getPlayer: invoke((_, ev) => player(ev.id),
     getPlayer: invoke(
-      async (ctx, ev) => {
+      async (ctx) => {
         const player = ctx.players.find(propEq("code", ctx.code));
         const stamps = await playerStamps(player.token);
         return player ? Promise.resolve({ ...player, stamps }) : Promise.reject(null);
@@ -97,7 +97,7 @@ export default function (
     ),
     confirmation: state(transition("continue", "getHoodie")),
     getHoodie: invoke(
-      async (ctx, ev) => {
+      async (ctx) => {
         const address = await window.arweaveWallet.getActiveAddress();
         const result = await userStamps(
           address,

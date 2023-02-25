@@ -2,14 +2,14 @@
   import { fly } from "svelte/transition";
   import profileIcon from "../assets/profile.svg";
   import hoodieIcon from "../assets/hoodie-icon.svg";
-  import stampIcon from "../assets/stamp.svg";
+  //import stampIcon from "../assets/stamp.svg";
   import continueIcon from "../assets/continue.svg";
   export let current;
   export let hoodie;
 
   $: open = current === "hoodie";
 
-  let completed = false;
+  //let completed = false;
 </script>
 
 <input type="checkbox" id="hoodie" bind:checked={open} class="modal-toggle" />

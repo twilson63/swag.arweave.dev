@@ -26,11 +26,9 @@
     send("load");
   }
 
-  async function show(e) {
-    console.log("show");
-    console.log(e.detail);
-    await send({ type: "show", id: e.detail.code });
-  }
+  // async function show(e) {
+  //   await send({ type: "show", id: e.detail.code });
+  // }
   async function createPlayer({ target }) {
     // compress & resize file
     const avatar = await compressAndResizeImage(target.avatar.files[0]);

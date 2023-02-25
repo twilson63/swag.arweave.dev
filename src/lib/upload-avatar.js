@@ -32,7 +32,7 @@ export function uploadAvatar(file, mimeType) {
 }
 
 export async function compressAndResizeImage(file) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const reader = new FileReader();
 
     reader.readAsDataURL(file);
