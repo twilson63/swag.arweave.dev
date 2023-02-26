@@ -48,7 +48,7 @@
           <input
             name="handle"
             placeholder="enter username..."
-            class="font-work-sans-400 input rounded-full bg-white color-black"
+            class="font-work-sans-400 input rounded-full bg-white text-black"
             required
           />
         </div>
@@ -57,7 +57,7 @@
             name="bio"
             rows="3"
             placeholder="enter bio..."
-            class="font-work-sans-400 textarea rounded-50% w-[250px] bg-white color-black"
+            class="font-work-sans-400 textarea rounded-50% w-[250px] bg-white text-black"
             required
           />
         </div>
