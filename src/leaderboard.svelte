@@ -6,7 +6,7 @@
   import StampConfirm from "./components/confirm-stamp.svelte";
   import PlayerRegister from "./components/register.svelte";
   import PlayerForm from "./components/form.svelte";
-  import Splash from "./components/atoms/splash.svelte";
+  import Splash from "./components/splash.svelte";
   import Hoodie from "./components/hoodie-status.svelte";
   import Error from "./components/error.svelte";
 

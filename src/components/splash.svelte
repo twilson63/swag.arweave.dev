@@ -1,6 +1,6 @@
 <script>
-  import loader from "../../assets/loader.gif";
-  import loaderIcon from "../../assets/loader-logo.svg";
+  import loader from "../assets/loader.gif";
+  import loaderIcon from "../assets/loader-logo.svg";
 
   export let msg;
 </script>
