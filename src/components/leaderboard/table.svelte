@@ -1,5 +1,5 @@
 <script>
-  import LeaderboardTableRow from "./leaderboard-table-row.svelte";
+  import LeaderboardTableRow from "./row.svelte";
 
   export let players = [];
 

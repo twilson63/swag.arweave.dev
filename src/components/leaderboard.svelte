@@ -1,9 +1,9 @@
 <script>
-  import LeaderboardTable from "../leaderboard-table.svelte";
-  import LeaderboardTopPlayers from "../leaderboard/top-players.svelte";
-  import LeaderboardSearchBar from "../leaderboard-search-bar.svelte";
-  import pixelsAnimatingOne from "../../assets/pixels-animating-1.svg";
-  import pixelsAnimatingTwo from "../../assets/pixels-animating-2.svg";
+  import LeaderboardTable from "./leaderboard/table.svelte";
+  import LeaderboardTopPlayers from "./leaderboard/top-players.svelte";
+  import LeaderboardSearchBar from "./leaderboard/search.svelte";
+  import pixelsAnimatingOne from "../assets/pixels-animating-1.svg";
+  import pixelsAnimatingTwo from "../assets/pixels-animating-2.svg";
 
   export let players;
 </script>

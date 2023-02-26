@@ -1,7 +1,7 @@
 <script>
   import { robot } from "./store";
   import { compressAndResizeImage } from "./lib/upload-avatar";
-  import PlayerList from "./components/organisms/leaderboard.svelte";
+  import PlayerList from "./components/leaderboard.svelte";
   import Player from "./components/player.svelte";
   import StampConfirm from "./components/confirm-stamp.svelte";
   import PlayerRegister from "./components/register.svelte";
