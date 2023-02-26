@@ -12,6 +12,7 @@ export default {
     }
   },
   daisyui: {
+    darkTheme: "light",
     themes: [
       {
         swag: {
