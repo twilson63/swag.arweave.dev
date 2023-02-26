@@ -28,7 +28,7 @@
       <div
         class="border-[#5AFF7F] border-2 py-2 px-4 rounded-full bg-primary text-white font-roboto-mono-700 text-2xl"
       >
-        🎉 {hoodie.stamps > 3 ? 3 : hoodie.stamps} / 3
+        🎉 {hoodie.stamps} / 3
       </div>
       {#if hoodie.stamps >= 3}
         <div class="mt-4 flex relative w-full items-center justify-center">
@@ -44,7 +44,7 @@
           <div class="bg-[#515359] w-4/5 border-0 rounded-16 py-8 px-8">
             <p class="ml-8 text-right">
               Stamp {3 - hoodie.stamps} more Hoodies <br />to unlock your <br />Arweave Stamper
-              hoodie
+              <br />hoodie
             </p>
           </div>
         </div>
