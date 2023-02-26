@@ -4,6 +4,12 @@ const { WarpFactory, LoggerFactory } = window.warp;
 LoggerFactory.INST.logLevel("fatal");
 const warp = WarpFactory.forMainnet();
 
+const arweave = window.location
+  ? import.meta.env.MODE === "development"
+    ? window.Arweave.init({ host: "arweave.net", port: 443, protocol: "https" })
+    : window.Arweave.init({})
+  : window.Arweave.init({ host: "arweave.net", port: 443, protocol: "https" });
+
 /**
  * @param {string} txId
  * @returns {Promise<any>}
@@ -29,9 +35,27 @@ export function deployContract({ srcTxId, initState, tags }) {
  * @param {{contract: string, fn: string, input: Record<name, any>, tags?: {name:string, value: string}[]}}
  * @returns {Promise<{originalTxId: string}>}
  */
-export function writeAction({ contract, input, tags }) {
-  const options = tags ? { tags } : {};
-  return warp.contract(contract).connect("use_wallet").writeInteraction(input, options);
+export async function writeAction({ contract, input, tags }) {
+  try {
+    const _tx = await arweave.createTransaction({ data: "swag" });
+    _tx.addTag("App-Name", "SmartWeaveAction");
+    _tx.addTag("App-Version", "0.3.0");
+    _tx.addTag("Contract", contract);
+    _tx.addTag("Input", JSON.stringify(input));
+    await arweave.transactions.sign(_tx);
+    return fetch("https://gateway.warp.cc/gateway/sequencer/register", {
+      method: "POST",
+      body: JSON.stringify(_tx),
+      headers: {
+        "Accept-Encoding": "gzip, deflate, br",
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      }
+    }).then((res) => res.json());
+  } catch (e) {
+    const options = tags ? { tags } : {};
+    return warp.contract(contract).connect("use_wallet").writeInteraction(input, options);
+  }
 }
 
 export async function getState(contract) {
