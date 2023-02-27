@@ -25,7 +25,7 @@
         src={"https://arweave.net/" + player.avatar}
         alt={"Avatar"}
       />
-      <div class="absolute top-16 right-32">
+      <div class="absolute top-16 right-8">
         <div class="">Stamps</div>
         <StampButton count={player.stamps.length} />
       </div>

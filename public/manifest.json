@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "name": "SwagStamper",
+  "short_name": "SwagStamper",
+  "start_url": ".",
+  "display": "standalone",
+  "description": "Swag Stamper QR Code App",
+  "icons": [{ "src": "arweave.svg", "sizes": "any" }],
+  "orientation": "portrait"
+}
