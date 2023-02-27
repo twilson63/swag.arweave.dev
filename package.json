@@ -19,6 +19,7 @@
     "@permaweb/stampjs": "^0.0.11",
     "arweave-wallet-connector": "0.0.31",
     "crocks": "^0.12.4",
+    "date-fns": "^2.29.3",
     "ramda": "^0.28.0",
     "robot3": "^0.4.0",
     "svelte-robot-factory": "^2.0.4",

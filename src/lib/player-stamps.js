@@ -1,5 +1,5 @@
 import { AsyncReader, Async } from "./utils.js";
-import { filter, prop, propEq, values } from "ramda";
+import { filter, prop, propEq, values, sortWith, descend } from "ramda";
 const { of, ask, lift } = AsyncReader;
 
 /**
@@ -8,7 +8,13 @@ const { of, ask, lift } = AsyncReader;
  */
 export function playerStamps(token) {
   return of(token)
-    .chain((token) => ask(() => fetchStamps().map(filter(propEq("asset", token)))))
+    .chain((token) =>
+      ask(() =>
+        fetchStamps()
+          .map(filter(propEq("asset", token)))
+          .map(sortWith([descend(prop("timestamp"))]))
+      )
+    )
     .chain(lift);
 }
 

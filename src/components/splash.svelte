@@ -9,6 +9,6 @@
   <img src={loader} alt="heading" />
   <img src={loaderIcon} alt="arweave-loader" />
   {#if msg}
-    <div class="mt-8 text-xl bg-secondary text-white">{msg}</div>
+    <div class="mt-8 text-xl bg-secondary text-white w-full">{msg}</div>
   {/if}
 </section>

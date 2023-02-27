@@ -1,5 +1,5 @@
 import { createMachine, invoke, reduce, state, transition, immediate, guard } from "robot3";
-import { propEq } from "ramda";
+import { propEq, over, lensProp, assoc } from "ramda";
 
 export default function (
   { leaderboard, uploadAvatar, playerStamps, stamp, register, userStamps, reset },
@@ -49,10 +49,20 @@ export default function (
       ),
       transition(
         "show",
-        "viewPlayer",
+        "loadPlayer",
         reduce((ctx, ev) => ({ ...ctx, player: ctx.players.find(propEq("code", ev.code)) }))
       ),
       transition("register", "register")
+    ),
+    loadPlayer: invoke(
+      (ctx) => playerStamps(ctx.player.token),
+      transition(
+        "done",
+        "viewPlayer",
+        reduce((ctx, ev) => {
+          return over(lensProp("player"), assoc("stamps", ev.data), ctx);
+        })
+      )
     ),
     viewPlayer: state(transition("close", "leaderboard")),
     // getPlayer: invoke((_, ev) => player(ev.id),

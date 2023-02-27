@@ -45,7 +45,9 @@
 </script>
 
 {#if current === "loading"}
-  <Splash />
+  <Splash msg="loading leaderboard..." />
+{:else if current === "loadPlayer"}
+  <Splash msg="loading player..." />
 {:else if current === "submitting"}
   <Splash msg="Check tabs for arweave.app to sign transactions" />
 {:else if current === "leaderboard"}
