@@ -2,6 +2,7 @@
   import { robot } from "./store";
   import { compressAndResizeImage } from "./lib/upload-avatar";
   import PlayerList from "./components/leaderboard.svelte";
+  import PlayerShow from "./components/show.svelte";
   import Player from "./components/player.svelte";
   import StampConfirm from "./components/confirm-stamp.svelte";
   import PlayerRegister from "./components/register.svelte";
@@ -48,7 +49,12 @@
 {:else if current === "submitting"}
   <Splash msg="Check tabs for arweave.app to sign transactions" />
 {:else if current === "leaderboard"}
-  <PlayerList players={context.players} />
+  <PlayerList
+    players={context.players}
+    on:show={(e) => send({ type: "show", code: e.detail.code })}
+  />
+{:else if current === "viewPlayer"}
+  <PlayerShow bind:current player={context.player} on:close={() => send("close")} />
 {:else if current === "player"}
   <Player
     bind:current

@@ -47,9 +47,14 @@ export default function (
         "getPlayer",
         guard((ctx) => ctx.tx)
       ),
-      transition("show", "getPlayer"),
+      transition(
+        "show",
+        "viewPlayer",
+        reduce((ctx, ev) => ({ ...ctx, player: ctx.players.find(propEq("code", ev.code)) }))
+      ),
       transition("register", "register")
     ),
+    viewPlayer: state(transition("close", "leaderboard")),
     // getPlayer: invoke((_, ev) => player(ev.id),
     getPlayer: invoke(
       async (ctx) => {

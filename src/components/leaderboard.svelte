@@ -13,7 +13,7 @@
     <img class="pixels moving" src={pixelsAnimatingOne} alt="pixels animating" />
     <img class="pixels-two moving-delay" src={pixelsAnimatingTwo} alt="pixels animating" />
     <LeaderboardTopPlayers {players} on:show />
-    <LeaderboardSearchBar />
+    <!-- <LeaderboardSearchBar /> -->
   </div>
   <div class="leaderboard-detail">
     <LeaderboardTable {players} on:show />
