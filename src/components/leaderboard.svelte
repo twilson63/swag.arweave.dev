@@ -38,6 +38,7 @@
     border-bottom-right-radius: 10%;
     position: relative; /* add this line to create a new stacking context */
     z-index: 1;
+    overflow: hidden;
   }
   .leaderboard-detail {
     height: 44%;
