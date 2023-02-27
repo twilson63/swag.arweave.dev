@@ -16,7 +16,7 @@
 
 <div class="leaderboard-table-row cursor-pointer" on:click={() => show(player.code)}>
   <div class="leaderboard-table-row-left">
-    <div class="leaderboard-table-row-place">
+    <div class="leaderboard-table-row-place flex items-center justify-center">
       <p>{player.index}</p>
     </div>
     <div class="leaderboard-table-row-player">
@@ -68,13 +68,14 @@
   }
 
   .leaderboard-table-row-place {
-    font-size: 17px;
+    font-size: 11px;
     margin-left: 10px;
     color: #222326;
     width: 28px;
     height: 28px;
     border: 3px solid #222326;
     border-radius: 25px;
+    padding: 2px;
   }
 
   .leaderboard-table-row-place p {
