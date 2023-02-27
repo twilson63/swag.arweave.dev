@@ -43,7 +43,7 @@ export default function (
         guard((ctx) => ctx.code)
       ),
       immediate(
-        "getPlayer",
+        "loadPlayer",
         guard((ctx) => ctx.tx)
       ),
       transition(
@@ -54,12 +54,21 @@ export default function (
       transition("register", "register")
     ),
     loadPlayer: invoke(
-      (ctx) => playerStamps(ctx.player.token),
+      async (ctx) => {
+        let player;
+        if (ctx.tx) {
+          player = ctx.players.find(propEq("token", ctx.tx));
+        } else {
+          player = ctx.player;
+        }
+        player.stamps = await playerStamps(ctx.tx ? ctx.tx : ctx.player.token);
+        return player;
+      },
       transition(
         "done",
         "viewPlayer",
         reduce((ctx, ev) => {
-          return over(lensProp("player"), assoc("stamps", ev.data), ctx);
+          return over(lensProp("player"), () => ev.data, ctx);
         })
       )
     ),
