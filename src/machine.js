@@ -11,7 +11,6 @@ export default function (
         "id",
         "loading",
         reduce((ctx, ev) => {
-          console.log("app data", ev);
           return { ...ctx, code: ev.id };
         })
       ),
@@ -159,7 +158,7 @@ export default function (
         }))
       )
     ),
-    error: state(transition("continue", "leaderboard")),
+    error: state(transition("continue", "form")),
     resetPlayer: invoke(async (ctx) => {
       if (!window["arweaveWallet"]) {
         await wallet.connect();

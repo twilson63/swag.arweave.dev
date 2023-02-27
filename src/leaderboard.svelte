@@ -45,7 +45,7 @@
 </script>
 
 {#if current === "loading"}
-  <Splash msg="loading leaderboard..." />
+  <Splash />
 {:else if current === "loadPlayer"}
   <Splash msg="loading player..." />
 {:else if current === "submitting"}
