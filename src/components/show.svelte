@@ -52,7 +52,12 @@
     </div>
     <div class="modal-actions">
       <button
-        on:click|stopPropagation={() => dispatch("close")}
+        on:click|stopPropagation={() => {
+          if (location.search) {
+            location.search = "";
+          }
+          dispatch("close");
+        }}
         class="btn btn-block btn-secondary rounded-none text-white font-roboto-mono text-xl"
       >
         GO TO LEADERBOARD
