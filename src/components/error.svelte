@@ -4,7 +4,7 @@
 
   const dispatch = createEventDispatcher();
   function handleClick() {
-    location.search = "";
+    //location.search = "";
     dispatch("click");
   }
 </script>
@@ -16,7 +16,7 @@
     <div>
       <button
         class="btn btn-secondary font-roboto-mono-700 font-bold btn-block"
-        on:click={handleClick}>Continue</button
+        on:click={handleClick}>Try Again</button
       >
     </div>
   </div>

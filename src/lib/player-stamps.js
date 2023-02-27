@@ -20,9 +20,12 @@ export function playerStamps(token) {
 
 function fetchStamps() {
   return Async.fromPromise(fetch)(
-    "https://cache.permapages.app/61vg8n54MGSC9ZHfSVAtQp4WjNb20TaThu6bkQ86pPI"
+    "https://cache-1.permaweb.tools/contract?id=61vg8n54MGSC9ZHfSVAtQp4WjNb20TaThu6bkQ86pPI"
+    //"https://cache.permapages.app/61vg8n54MGSC9ZHfSVAtQp4WjNb20TaThu6bkQ86pPI"
   )
     .chain((res) => Async.fromPromise(res.json.bind(res))())
+    .map(prop("state"))
     .map(prop("stamps"))
+
     .map(values);
 }
