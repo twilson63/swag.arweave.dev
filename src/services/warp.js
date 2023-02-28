@@ -22,13 +22,35 @@ export function register(txId) {
  * @param {{srcTxId: string, initState: Record<string, any>, tags: {name:string, value: string}[]}} data
  * @returns {Promise<{contractTxId: string, srcTxId: string }>}
  */
-export function deployContract({ srcTxId, initState, tags }) {
+export async function deployContract({ srcTxId, initState, tags }) {
+  const _tx = await arweave.createTransaction({ data: "swag" });
+  tags.map((t) => _tx.addTag(t.name, t.value));
+  _tx.addTag("Content-Type", "text/plain");
+  _tx.addTag("App-Name", "SmartWeaveContract");
+  _tx.addTag("App-Version", "0.3.0");
+  _tx.addTag("Contract-Src", srcTxId);
+  _tx.addTag("Init-State", JSON.stringify(initState));
+  const result = await window.arweaveWallet.dispatch(_tx);
+  //await new Promise((resolve) => setTimeout(resolve, 1500))
+  //await warp.register(result.id, 'node2')
+  await fetch("https://gateway.warp.cc/gateway/contracts/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json"
+    },
+    body: JSON.stringify({ id: result.id, bundlrNode: "node2" })
+  });
+  //await new Promise((resolve) => setTimeout(resolve, 1500))
+  return { contractTxId: result.id };
+  /*
   return warp.createContract.deployFromSourceTx({
     wallet: "use_wallet",
     srcTxId,
     initState: JSON.stringify(initState),
     tags
   });
+  */
 }
 
 /**
