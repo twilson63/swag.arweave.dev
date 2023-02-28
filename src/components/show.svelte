@@ -2,7 +2,7 @@
   import { fly } from "svelte/transition";
   import { createEventDispatcher } from "svelte";
   import continueIcon from "../assets/continue.svg";
-  import { formatDistanceToNow, fromUnixTime } from "date-fns";
+  import { formatDistanceToNowStrict, fromUnixTime } from "date-fns";
   import { take, takeLast } from "ramda";
 
   // show player with QR Code for stamping
@@ -41,7 +41,7 @@
       <div class="pc-b-container">
         {player.bio}
       </div>
-      <div class="overflow-x-hidden overflow-scroll h-[300px]">
+      <div class="overflow-x-hidden overflow-scroll h-[300px] w-full">
         {#each player.stamps as stamp}
           <div class="flex items-center justify-start space-x-4 w-full mb-4 ml-8">
             <div
@@ -49,10 +49,10 @@
             >
               {take(2, stamp.address)}
             </div>
-            <div class="w-1/3 text-left pl-8">
+            <div class="w-1/3 text-left pl-4">
               {take(5, stamp.address)}...{takeLast(5, stamp.address)}
             </div>
-            <div class="w-1/3">{formatDistanceToNow(fromUnixTime(stamp.timestamp))}</div>
+            <div class="w-1/3">{formatDistanceToNowStrict(fromUnixTime(stamp.timestamp))}</div>
           </div>
         {/each}
       </div>
