@@ -2,7 +2,6 @@
   import { fly } from "svelte/transition";
   import { createEventDispatcher } from "svelte";
   import modalAction from "./modal-action";
-  import continueIcon from "../assets/continue.svg";
   import { formatDistanceToNowStrict, fromUnixTime } from "date-fns";
   import { take, takeLast } from "ramda";
   import stamp from "../assets/stamp.svg";

@@ -4,61 +4,82 @@
   // import profileIcon from "../assets/profile.svg";
   // import hoodieIcon from "../assets/hoodie-icon.svg";
   // import continueIcon from "../assets/continue.svg";
-  import stampIcon from "../assets/stamp.svg";
+  import stamp from "../assets/stamp.svg";
+  import profile from "../assets/profile.svg";
+  import modalAction from "./modal-action";
 
   export let current;
   export let player;
   const dispatch = createEventDispatcher();
 
   $: open = current === "player";
+  let slicedStampList = player.stamps.slice(0, 7);
 </script>
 
 <input type="checkbox" id="player" bind:checked={open} class="modal-toggle" />
-<div class="modal">
-  <div class="modal-box mx-0 px-0 pb-0 mb-0" transition:fly={{ y: 200, duration: 300 }}>
-    {#if current === "player"}
-      <div class="pc-wrapper">
-        <p class="pc-header uppercase font-robo-mono-700">You've Scanned</p>
-        <div class="pc-u-container font-robo-mono-500 text-[17.74px]">
-          <p>{`@${player.handle}`}</p>
-        </div>
-        <div class="pc-a-container">
-          <img src={"https://arweave.net/" + player.avatar} alt={"Avatar"} />
-        </div>
-        <div class="pc-b-container">
-          {player.bio}
-        </div>
-        <div class="mt-8 flex justify-between items-center space-x-[30px]">
-          {#if player.stamps.length > 0}
-            <span class="uppercase text-2xl text-white">Stamped by</span>
-            <div class="pc-sl-container-e">
-              <span>({player.stamps.length})</span>
-            </div>
-            <span class="uppercase text-2xl text-white">Stampers</span>
-          {:else}
-            <div class="pc-empty-wrapper">
-              <p>Be the first to stamp this player</p>
-            </div>
-          {/if}
+
+<div class="modal" use:modalAction>
+  <div class="m-wrapper" transition:fly={{ y: 200, duration: 300 }}>
+    <div class="m-container">
+      <div class="m-body-container">
+        <div class="pc-wrapper">
+          <p class="pc-header">
+            {"You've Scanned"}
+          </p>
+          <div class="pc-u-container" style="margin: 0 0 20px 0;">
+            <p>{`@${player.handle}`}</p>
+          </div>
+          <div class="pc-a-container">
+            <img src={`https://arweave.net/${player.avatar}`} alt={"Avatar"} />
+          </div>
+          <div class="pc-b-container">
+            <p>{player.bio}</p>
+          </div>
+          <div class="pc-sl-container-p">
+            {#if player.stamps.length > 0}
+              <div class="info-flex">
+                <p class="font-poppins">Stamped by</p>
+                <span class="font-poppins"
+                  >{`(${player.stamps.length}) Player${player.stamps.length > 1 ? "s" : ""}`}</span
+                >
+              </div>
+              <div class="pc-sl-container-p-flex">
+                <div class="pc-sl-container-pl">
+                  {#each slicedStampList as element}
+                    <img src={profile} alt={"Avatar"} />
+                  {/each}
+                </div>
+                <div class="pc-sl-container-e">
+                  {#if player.stamps.length > 7}
+                    <span>+{player.stamps.length - slicedStampList.length}</span>
+                  {/if}
+                </div>
+              </div>
+            {:else}
+              <div class="pc-empty-wrapper">
+                <p>Be the first to stamp this player</p>
+              </div>
+            {/if}
+          </div>
         </div>
       </div>
-      <div class="modal-actions">
+      <div class="m-action-container">
         {#if player.admin}
-          <button
-            on:click|stopPropagation={() => dispatch("reset")}
-            class="btn btn-block btn-secondary rounded-none text-white font-roboto-mono text-xl mb-8"
-          >
-            RESET
+          <button class="mb-wrapper" on:click|stopPropagation={() => dispatch("reset")}>
+            <div class="mb-label-wrapper">
+              <span class="mb-label font-roboto-mono font-bold">Reset</span>
+            </div>
           </button>
         {/if}
-        <button
-          on:click|stopPropagation={() => dispatch("stamp")}
-          class="btn btn-block btn-secondary rounded-none text-white font-roboto-mono text-xl"
-        >
-          <img class="mr-2" src={stampIcon} alt="continue" />
-          STAMP
+        <button class="mb-wrapper" on:click|stopPropagation={() => dispatch("stamp")}>
+          <div class="mb-label-wrapper">
+            <div class={"mi-wrapper mi-icon-start"}>
+              <img src={stamp} alt={"Stamp Icon"} />
+            </div>
+            <span class="mb-label font-roboto-mono font-bold">Stamp</span>
+          </div>
         </button>
       </div>
-    {/if}
+    </div>
   </div>
 </div>
