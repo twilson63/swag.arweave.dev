@@ -17,7 +17,7 @@
 <div class="leaderboard-table-row cursor-pointer" on:click={() => show(player.code)}>
   <div class="leaderboard-table-row-left">
     <div class="leaderboard-table-row-place flex items-center justify-center">
-      <p>{player.index}</p>
+      <p class="font-bold">{player.index}</p>
     </div>
     <div class="leaderboard-table-row-player">
       <img src={"https://arweave.net/" + player.avatar} alt="avatar" />
@@ -54,6 +54,8 @@
     border: 1px solid #222326;
     border-radius: 11px;
     margin-bottom: 14px;
+    padding-top: 6px;
+    padding-bottom: 6px;
   }
 
   .leaderboard-table-row-left {
@@ -68,18 +70,17 @@
   }
 
   .leaderboard-table-row-place {
-    font-size: 11px;
     margin-left: 10px;
     color: #222326;
     width: 28px;
     height: 28px;
     border: 3px solid #222326;
     border-radius: 25px;
-    padding: 2px;
+    padding-top: 2px;
   }
 
   .leaderboard-table-row-place p {
-    margin-top: -1px;
+    font-size: 17px;
   }
 
   .leaderboard-table-row-player {
@@ -130,5 +131,6 @@
   .leaderboard-table-row-stamps-count {
     font-weight: 700;
     font-size: 18px;
+    margin-top: -6px;
   }
 </style>
