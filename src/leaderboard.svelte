@@ -46,17 +46,18 @@
 
 {#if current === "loading"}
   <Splash />
-{:else if current === "loadPlayer"}
-  <Splash msg="loading player..." />
+  <!-- {:else if current === "loadPlayer"} -->
+  <!-- <Splash msg="loading player..." /> -->
 {:else if current === "submitting"}
   <Splash msg="Check tabs for arweave.app to sign transactions" />
-{:else if current === "leaderboard"}
+{:else if current === "leaderboard" || current === "viewPlayer" || current === "loadPlayer"}
   <PlayerList
     players={context.players}
     on:show={(e) => send({ type: "show", code: e.detail.code })}
   />
-{:else if current === "viewPlayer"}
-  <PlayerShow bind:current player={context.player} on:close={() => send("close")} />
+  {#if current === "viewPlayer"}
+    <PlayerShow bind:current player={context.player} on:close={() => send("close")} />
+  {/if}
 {:else if current === "player"}
   <Player
     bind:current

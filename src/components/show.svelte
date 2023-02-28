@@ -63,6 +63,7 @@
           if (location.search) {
             location.search = "";
           }
+          open = false;
           dispatch("close");
         }}
         class="btn btn-block btn-secondary rounded-none text-white font-roboto-mono text-xl"
