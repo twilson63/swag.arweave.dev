@@ -4,7 +4,7 @@
   import continueIcon from "../assets/continue.svg";
   import { formatDistanceToNow, fromUnixTime } from "date-fns";
   import { take, takeLast } from "ramda";
-  import StampButton from "./leaderboard/stamp-button.svelte";
+
   // show player with QR Code for stamping
   export let current;
   export let player;
@@ -12,12 +12,11 @@
   const dispatch = createEventDispatcher();
 
   $: open = current === "viewPlayer";
-  console.log("player", player);
 </script>
 
 <input type="checkbox" id="player" bind:checked={open} class="modal-toggle" />
 <div class="modal">
-  <div class="modal-box mx-0 px-0 pb-0 mb-0" transition:fly={{ y: 200, duration: 2000 }}>
+  <div class="modal-box mx-0 px-0 pb-0 mb-0" transition:fly={{ y: 200, duration: 300 }}>
     <div class="pc-wrapper relative">
       <p class="pc-header uppercase font-robo-mono-700">Player</p>
       <img
@@ -26,8 +25,15 @@
         alt={"Avatar"}
       />
       <div class="absolute top-16 right-8">
-        <div class="">Stamps</div>
-        <StampButton count={player.stamps.length} />
+        <div class="mb-2">Stamps</div>
+        <div
+          class="flex items-center justify-center pl-[6px] w-[68px] h-[30px] bg-[#515359] rounded-[23px]"
+        >
+          <!-- <img src={stampIcon} alt="stamp-icon" class="pt-[2px] mr-[6px] h-[16px]" /> -->
+          <div class="text-[18px] text-white">
+            +{player.stamps.length}
+          </div>
+        </div>
       </div>
       <div class="pc-u-container font-robo-mono-500 text-[17.74px]">
         <p>{`@${player.handle}`}</p>
@@ -35,20 +41,21 @@
       <div class="pc-b-container">
         {player.bio}
       </div>
-
-      {#each player.stamps as stamp}
-        <div class="flex items-center justify-start space-x-4 w-full mb-4 ml-8">
-          <div
-            class="flex items-center justify-center bg-secondary rounded-full h-16 w-16 text-xl text-white"
-          >
-            {take(2, stamp.address)}
+      <div class="overflow-x-hidden overflow-scroll h-[300px]">
+        {#each player.stamps as stamp}
+          <div class="flex items-center justify-start space-x-4 w-full mb-4 ml-8">
+            <div
+              class="flex items-center justify-center bg-secondary rounded-full h-16 w-16 text-xl text-white"
+            >
+              {take(2, stamp.address)}
+            </div>
+            <div class="w-1/3 text-left pl-8">
+              {take(5, stamp.address)}...{takeLast(5, stamp.address)}
+            </div>
+            <div class="w-1/3">{formatDistanceToNow(fromUnixTime(stamp.timestamp))}</div>
           </div>
-          <div class="w-1/3 text-left pl-8">
-            {take(5, stamp.address)}...{takeLast(5, stamp.address)}
-          </div>
-          <div class="w-1/3">{formatDistanceToNow(fromUnixTime(stamp.timestamp))}</div>
-        </div>
-      {/each}
+        {/each}
+      </div>
     </div>
     <div class="modal-actions">
       <button
