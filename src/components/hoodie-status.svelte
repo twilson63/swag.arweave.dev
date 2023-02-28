@@ -48,33 +48,36 @@
               </div>
             </div>
           </div>
-          <div class="flex justify-center my-16">
-            <img class="h-48 w-48" src={hoodieIcon} alt="Hoodie Icon" />
-          </div>
-          <div class="flex bg-gray-700 w-2/3 px-4 py-8 rounded-4">
-            <div class="">
+          <div class="flex relative justify-center items-center w-full">
+            <div class="absolute top-[-50px] flex justify-center my-16">
+              <img class="h-24 w-24" src={hoodieIcon} alt="Hoodie Icon" />
+            </div>
+
+            <div class="mt-24 flex bg-gray-700 w-2/3 px-4 py-8 rounded-4">
               <div class="">
                 <div class="">
-                  <div>
-                    <p class="">
-                      {completed ? `Hoodie Unlocked !` : `Unlock Hoodie !`}
-                    </p>
-                    <p>
-                      {completed
-                        ? `Find us @ FwdResearch booth to claim your hoodie.`
-                        : `Give 3 stamps and get your own stamp game hoodie.`}
-                    </p>
-                  </div>
-                  <div class="psd-d-status-bar">
-                    <div
-                      class={`psd-d-status-bar-current ${
-                        completed ? `psd-d-status-bar-completed` : ""
-                      }`}
-                      style={`width: ${((hoodie.stamps.length / 3) * 100).toString()}%`}
-                    >
-                      {#if completed}
-                        <img src={completedIcon} alt="Completed Icon" />
-                      {/if}
+                  <div class="">
+                    <div>
+                      <p class="uppercase font-bold font-roboto-mono text-white text=[19px]">
+                        {completed ? `Hoodie Unlocked !` : `Unlock Hoodie !`}
+                      </p>
+                      <p class="my-8 font-poppins text-white-1/2">
+                        {completed
+                          ? `Find us @ FwdResearch booth to claim your hoodie.`
+                          : `Give 3 stamps and get your own stamp game hoodie.`}
+                      </p>
+                    </div>
+                    <div class="psd-d-status-bar">
+                      <div
+                        class={`psd-d-status-bar-current ${
+                          completed ? `psd-d-status-bar-completed` : ""
+                        }`}
+                        style={`width: ${((hoodie.stamps.length / 3) * 100).toString()}%`}
+                      >
+                        {#if completed}
+                          <img src={completedIcon} alt="Completed Icon" />
+                        {/if}
+                      </div>
                     </div>
                   </div>
                 </div>

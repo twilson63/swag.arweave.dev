@@ -69,7 +69,22 @@
 {:else if current === "stamping"}
   <Splash msg={null} />
 {:else if current === "confirmation"}
-  <StampConfirm player={context.player} bind:current on:click={() => send("continue")} />
+  <StampConfirm
+    player={context.player}
+    bind:current
+    on:click={async () => {
+      // if stamper is alreay player don't show hoodie screen
+      const addr = await window.arweaveWallet.getActiveAddress();
+      const isAPlayer = context.players.find((p) => p.address === addr);
+
+      if (isAPlayer) {
+        window.location.search = "";
+        send("skip");
+      } else {
+        send("continue");
+      }
+    }}
+  />
 {:else if current === "hoodie"}
   <!-- TODO: check -->
   <Hoodie bind:current hoodie={context.hoodie} on:click={() => send("close")} />
