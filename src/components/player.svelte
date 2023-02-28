@@ -15,7 +15,7 @@
 
 <input type="checkbox" id="player" bind:checked={open} class="modal-toggle" />
 <div class="modal">
-  <div class="modal-box mx-0 px-0 pb-0 mb-0" transition:fly={{ y: 200, duration: 2000 }}>
+  <div class="modal-box mx-0 px-0 pb-0 mb-0" transition:fly={{ y: 200, duration: 300 }}>
     {#if current === "player"}
       <div class="pc-wrapper">
         <p class="pc-header uppercase font-robo-mono-700">You've Scanned</p>

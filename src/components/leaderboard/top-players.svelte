@@ -27,7 +27,7 @@
       {#if players[1]}
         <img src={"https://arweave.net/" + players[1].avatar} alt="avatar" />
         <div class="top-players-label">
-          <div class="top-players-label-name">
+          <div class="top-players-label-name font-work-sans-700 font-bold">
             {players[1].handle}
           </div>
           <div class="top-players-label-pubkey">
@@ -38,7 +38,7 @@
       {:else}
         <img src={profileIcon} alt="avatar" />
         <div class="top-players-label">
-          <div class="top-players-label-name">
+          <div class="top-players-label-name font-work-sans-700 font-bold">
             {"Unknown"}
           </div>
           <div class="top-players-label-pubkey">
@@ -67,7 +67,9 @@
       {#if players[0]}
         <img src={"https://arweave.net/" + players[0].avatar} alt="avatar" />
         <div class="top-players-label top-players-label-mid">
-          <div class="top-players-label-name top-players-label-name-mid">
+          <div
+            class="top-players-label-name top-players-label-name-mid font-work-sans-700 font-bold"
+          >
             {players[0].handle}
           </div>
           <div class="top-players-label-pubkey">
@@ -78,7 +80,7 @@
       {:else}
         <img src={profileIcon} alt="avatar" />
         <div class="top-players-label">
-          <div class="top-players-label-name">
+          <div class="top-players-label-name font-work-sans-700 font-bold">
             {"Unknown"}
           </div>
           <div class="top-players-label-pubkey">
@@ -95,7 +97,7 @@
       {#if players[2]}
         <img src={"https://arweave.net/" + players[2].avatar} alt="avatar" />
         <div class="top-players-label">
-          <div class="top-players-label-name">
+          <div class="top-players-label-name font-work-sans-700 font-bold">
             {players[2].handle}
           </div>
           <div class="top-players-label-pubkey">
@@ -106,7 +108,7 @@
       {:else}
         <img src={profileIcon} alt="avatar" />
         <div class="top-players-label">
-          <div class="top-players-label-name">
+          <div class="top-players-label-name font-work-sans-700 font-bold">
             {"Unknown"}
           </div>
           <div class="top-players-label-pubkey">
