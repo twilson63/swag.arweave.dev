@@ -45,7 +45,7 @@
 </script>
 
 {#if current === "loading"}
-  <Splash />
+  <Splash msg={null} />
   <!-- {:else if current === "loadPlayer"} -->
   <!-- <Splash msg="loading player..." /> -->
 {:else if current === "submitting"}
@@ -67,17 +67,20 @@
     on:reset={() => send({ type: "reset" })}
   />
 {:else if current === "stamping"}
-  <Splash />
+  <Splash msg={null} />
 {:else if current === "confirmation"}
   <StampConfirm player={context.player} bind:current on:click={() => send("continue")} />
 {:else if current === "hoodie"}
+  <!-- TODO: check -->
   <Hoodie bind:current hoodie={context.hoodie} on:click={() => send("close")} />
 {:else if current === "register"}
+  <!-- TODO: modal -->
   <PlayerRegister bind:current id={qr} on:click={() => send("continue")} />
 {:else if current === "form"}
+  <!-- TODO: modal -->
   <PlayerForm on:submit={createPlayer} />
 {:else if current === "error"}
   <Error error={context.error} on:click={() => send("continue")} />
 {:else if current === "resetPlayer"}
-  <Splash />
+  <Splash msg={null} />
 {/if}
