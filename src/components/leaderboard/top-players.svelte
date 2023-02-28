@@ -133,7 +133,10 @@
   }
 
   .top-players p {
-    font-size: 21.7px;
+    font-family: "Work Sans";
+    font-weight: 400;
+    font-size: 19px;
+    letter-spacing: 0.24em;
   }
 
   .top-players-header {
