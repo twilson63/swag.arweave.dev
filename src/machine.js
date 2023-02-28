@@ -118,7 +118,7 @@ export default function (
         })
       )
     ),
-    confirmation: state(transition("continue", "getHoodie")),
+    confirmation: state(transition("continue", "getHoodie"), transition("skip", "loading")),
     getHoodie: invoke(
       async (ctx) => {
         const address = await window.arweaveWallet.getActiveAddress();
@@ -129,6 +129,7 @@ export default function (
 
         return { stamps: result.length, players: ctx.players.length };
       },
+
       transition(
         "done",
         "hoodie",

@@ -101,7 +101,7 @@
             {players[2].handle}
           </div>
           <div class="top-players-label-pubkey">
-            {truncatePubkey("XXXX")}
+            {truncatePubkey(players[2].address)}
           </div>
           <LeaderboardStampCounter count={players[2].collected} on:click={show(players[2].code)} />
         </div>
