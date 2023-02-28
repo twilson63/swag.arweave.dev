@@ -1,9 +1,12 @@
 <script>
   import { fly } from "svelte/transition";
   import { createEventDispatcher } from "svelte";
+  import modalAction from "./modal-action";
   import continueIcon from "../assets/continue.svg";
   import { formatDistanceToNowStrict, fromUnixTime } from "date-fns";
   import { take, takeLast } from "ramda";
+  import stamp from "../assets/stamp.svg";
+  import profile from "../assets/profile.svg";
 
   // show player with QR Code for stamping
   export let current;
@@ -15,62 +18,121 @@
 </script>
 
 <input type="checkbox" id="player" bind:checked={open} class="modal-toggle" />
-<div class="modal">
-  <div class="modal-box mx-0 px-0 pb-0 mb-0" transition:fly={{ y: 200, duration: 300 }}>
-    <div class="pc-wrapper relative">
-      <p class="pc-header uppercase font-robo-mono-700">Player</p>
-      <img
-        class="h-16 w-16 mb-4 mask mask-circle"
-        src={"https://arweave.net/" + player.avatar}
-        alt={"Avatar"}
-      />
-      <div class="absolute top-16 right-8">
-        <div class="mb-2">Stamps</div>
-        <div
-          class="flex items-center justify-center pl-[6px] w-[68px] h-[30px] bg-[#515359] rounded-[23px]"
-        >
-          <!-- <img src={stampIcon} alt="stamp-icon" class="pt-[2px] mr-[6px] h-[16px]" /> -->
-          <div class="text-[18px] text-white">
-            +{player.stamps.length}
+
+<div class="modal" use:modalAction>
+  <div class="m-wrapper" transition:fly={{ y: 200, duration: 300 }}>
+    <div class="m-container">
+      <div class="m-body-container">
+        <div class="pc-wrapper">
+          <div class="pc-u-container">
+            <p>{`@${player.handle}`}</p>
+          </div>
+          <div class="pc-a-container">
+            <img src={`https://arweave.net/${player.avatar}`} alt={"Avatar"} />
+          </div>
+          <div class="pc-b-container">
+            <p>{player.bio}</p>
+          </div>
+          <div class="pc-s-container">
+            <img src={stamp} alt={"Stamp Icon"} />
+            <p class="font-roboto-mono font-bold">{`+${player.stamps.length}`}</p>
+          </div>
+          <div class="pc-sl-container-l-wrapper">
+            <div class="p-container">
+              {#each player.stamps as stamp}
+                <div class="p-row">
+                  <div class="p-info">
+                    <img src={profile} alt={"Profile Icon"} />
+                    <p class="font-roboto-mono font-bold">
+                      {take(5, stamp.address)}...{takeLast(5, stamp.address)}
+                    </p>
+                  </div>
+                  <div class="p-ts">
+                    <div class="p-ts-flex">
+                      <p class="font-roboto-mono font-bold">Been Stamped</p>
+                      <div class="p-time">
+                        <p class="font-roboto-mono font-bold text-[18px] text-[#222326]">
+                          {`${formatDistanceToNowStrict(fromUnixTime(stamp.timestamp))} ago`}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {/each}
+            </div>
           </div>
         </div>
       </div>
-      <div class="pc-u-container font-robo-mono-500 text-[17.74px]">
-        <p>{`@${player.handle}`}</p>
-      </div>
-      <div class="pc-b-container">
-        {player.bio}
-      </div>
-      <div class="overflow-x-hidden overflow-scroll h-[300px] w-full">
-        {#each player.stamps as stamp}
-          <div class="flex items-center justify-start space-x-4 w-full mb-4 ml-8">
-            <div
-              class="flex items-center justify-center bg-secondary rounded-full h-16 w-16 text-xl text-white"
-            >
-              {take(2, stamp.address)}
-            </div>
-            <div class="w-1/3 text-left pl-4">
-              {take(5, stamp.address)}...{takeLast(5, stamp.address)}
-            </div>
-            <div class="w-1/3">{formatDistanceToNowStrict(fromUnixTime(stamp.timestamp))}</div>
+      <div class="m-action-container">
+        <button
+          class="mb-wrapper"
+          on:click|stopPropagation={() => {
+            if (location.search) {
+              location.search = "";
+            }
+            open = false;
+            dispatch("close");
+          }}
+        >
+          <div class="mb-label-wrapper">
+            <span class="mb-label font-roboto-mono font-bold">Go To Leaderboard</span>
           </div>
-        {/each}
+        </button>
       </div>
-    </div>
-    <div class="modal-actions">
-      <button
-        on:click|stopPropagation={() => {
-          if (location.search) {
-            location.search = "";
-          }
-          open = false;
-          dispatch("close");
-        }}
-        class="btn btn-block btn-secondary rounded-none text-white font-roboto-mono text-xl"
-      >
-        GO TO LEADERBOARD
-        <img class="ml-2" src={continueIcon} alt="continue" />
-      </button>
     </div>
   </div>
 </div>
+
+<style>
+  .p-container {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    padding: 40px 20px 0 20px;
+  }
+  .p-row {
+    height: 70px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border: 1px solid #222326;
+    border-radius: 11px;
+    margin: 0 0 20px 0;
+    padding: 0 20px;
+  }
+  .p-info {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+  }
+  .p-info img {
+    width: 30px;
+    margin: 0 10px 0 0;
+  }
+  .p-info p {
+    color: #222326;
+    font-size: 12px;
+  }
+  .p-ts {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: end;
+  }
+  .p-ts-flex {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .p-ts-flex p {
+    color: #222326;
+    font-size: 14px;
+    text-align: right;
+  }
+  .p-time p {
+    font-size: 16px;
+    font-weight: 700;
+  }
+</style>
