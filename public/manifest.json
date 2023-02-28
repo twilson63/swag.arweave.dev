@@ -5,6 +5,11 @@
   "start_url": ".",
   "display": "standalone",
   "description": "Swag Stamper QR Code App",
-  "icons": [{ "src": "arweave.svg", "sizes": "any" }],
+  "icons": [
+    {
+      "src": "arweave.svg",
+      "sizes": "any"
+    }
+  ],
   "orientation": "portrait"
 }

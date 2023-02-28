@@ -33,7 +33,7 @@
   </div>
   <div class="leaderboard-table-row-right">
     <div class="leaderboard-table-row-stamps">
-      <div class="leaderboard-table-row-stamps-action">Collected</div>
+      <div class="leaderboard-table-row-stamps-action font-bold text-black">Collected</div>
       <div class="leaderboard-table-row-stamps-count">
         <div class="text-[18px] text-[#222326]">
           +{player.collected}
