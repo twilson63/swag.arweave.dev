@@ -3,13 +3,15 @@
   //import profileIcon from "../assets/profile.svg";
   import hoodieIcon from "../assets/hoodie-icon.svg";
   import continueIcon from "../assets/continue.svg";
+  import modalAction from "./modal-action";
+
   export let current;
   export let id;
   $: open = current === "register";
 </script>
 
 <input type="checkbox" id="register" bind:checked={open} class="modal-toggle" />
-<div class="modal">
+<div class="modal" use:modalAction>
   <div class="modal-box mx-0 px-0 pb-0 mb-0" transition:fly={{ y: 200, duration: 2000 }}>
     {#if current === "register"}
       <div class="pc-wrapper">

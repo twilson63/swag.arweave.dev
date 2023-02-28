@@ -1,28 +1,12 @@
 <script>
   import { fly } from "svelte/transition";
   import { createEventDispatcher } from "svelte";
+  import modalAction from "./modal-action";
   import continueIcon from "../assets/continue.svg";
   import { formatDistanceToNowStrict, fromUnixTime } from "date-fns";
   import { take, takeLast } from "ramda";
   import stamp from "../assets/stamp.svg";
   import profile from "../assets/profile.svg";
-
-  import { onMount, onDestroy } from "svelte";
-  let ref;
-  let portal;
-
-  onMount(() => {
-    portal = document.createElement("div");
-    portal.className = "portal";
-    document.body.appendChild(portal);
-    document.body.style.overflow = "hidden";
-    portal.appendChild(ref);
-  });
-
-  onDestroy(() => {
-    document.body.style.overflow = "auto";
-    document.body.removeChild(portal);
-  });
 
   // show player with QR Code for stamping
   export let current;
@@ -35,67 +19,65 @@
 
 <input type="checkbox" id="player" bind:checked={open} class="modal-toggle" />
 
-<div class="portal">
-  <div bind:this={ref}>
-    <div class="m-wrapper" transition:fly={{ y: 200, duration: 300 }}>
-      <div class="m-container">
-        <div class="m-body-container">
-          <div class="pc-wrapper">
-            <div class="pc-u-container">
-              <p>{`@${player.handle}`}</p>
-            </div>
-            <div class="pc-a-container">
-              <img src={`https://arweave.net/${player.avatar}`} alt={"Avatar"} />
-            </div>
-            <div class="pc-b-container">
-              <p>{player.bio}</p>
-            </div>
-            <div class="pc-s-container">
-              <img src={stamp} alt={"Stamp Icon"} />
-              <p class="font-roboto-mono font-bold">{`+${player.stamps.length}`}</p>
-            </div>
-            <div class="pc-sl-container-l-wrapper">
-              <div class="p-container">
-                {#each player.stamps as stamp}
-                  <div class="p-row">
-                    <div class="p-info">
-                      <img src={profile} alt={"Profile Icon"} />
-                      <p class="font-roboto-mono font-bold">
-                        {take(5, stamp.address)}...{takeLast(5, stamp.address)}
-                      </p>
-                    </div>
-                    <div class="p-ts">
-                      <div class="p-ts-flex">
-                        <p class="font-roboto-mono font-bold">Been Stamped</p>
-                        <div class="p-time">
-                          <p class="font-roboto-mono font-bold text-[18px] text-[#222326]">
-                            {`${formatDistanceToNowStrict(fromUnixTime(stamp.timestamp))} ago`}
-                          </p>
-                        </div>
+<div class="modal" use:modalAction>
+  <div class="m-wrapper" transition:fly={{ y: 200, duration: 300 }}>
+    <div class="m-container">
+      <div class="m-body-container">
+        <div class="pc-wrapper">
+          <div class="pc-u-container">
+            <p>{`@${player.handle}`}</p>
+          </div>
+          <div class="pc-a-container">
+            <img src={`https://arweave.net/${player.avatar}`} alt={"Avatar"} />
+          </div>
+          <div class="pc-b-container">
+            <p>{player.bio}</p>
+          </div>
+          <div class="pc-s-container">
+            <img src={stamp} alt={"Stamp Icon"} />
+            <p class="font-roboto-mono font-bold">{`+${player.stamps.length}`}</p>
+          </div>
+          <div class="pc-sl-container-l-wrapper">
+            <div class="p-container">
+              {#each player.stamps as stamp}
+                <div class="p-row">
+                  <div class="p-info">
+                    <img src={profile} alt={"Profile Icon"} />
+                    <p class="font-roboto-mono font-bold">
+                      {take(5, stamp.address)}...{takeLast(5, stamp.address)}
+                    </p>
+                  </div>
+                  <div class="p-ts">
+                    <div class="p-ts-flex">
+                      <p class="font-roboto-mono font-bold">Been Stamped</p>
+                      <div class="p-time">
+                        <p class="font-roboto-mono font-bold text-[18px] text-[#222326]">
+                          {`${formatDistanceToNowStrict(fromUnixTime(stamp.timestamp))} ago`}
+                        </p>
                       </div>
                     </div>
                   </div>
-                {/each}
-              </div>
+                </div>
+              {/each}
             </div>
           </div>
         </div>
-        <div class="m-action-container">
-          <button
-            class="mb-wrapper"
-            on:click|stopPropagation={() => {
-              if (location.search) {
-                location.search = "";
-              }
-              open = false;
-              dispatch("close");
-            }}
-          >
-            <div class="mb-label-wrapper">
-              <span class="mb-label font-roboto-mono font-bold">Go To Leaderboard</span>
-            </div>
-          </button>
-        </div>
+      </div>
+      <div class="m-action-container">
+        <button
+          class="mb-wrapper"
+          on:click|stopPropagation={() => {
+            if (location.search) {
+              location.search = "";
+            }
+            open = false;
+            dispatch("close");
+          }}
+        >
+          <div class="mb-label-wrapper">
+            <span class="mb-label font-roboto-mono font-bold">Go To Leaderboard</span>
+          </div>
+        </button>
       </div>
     </div>
   </div>

@@ -1,6 +1,7 @@
 <script>
   import { fly } from "svelte/transition";
   import { createEventDispatcher } from "svelte";
+  import modalAction from "./modal-action";
   import profileIcon from "../assets/profile.svg";
   import hoodieIcon from "../assets/hoodie-icon.svg";
   //import stampIcon from "../assets/stamp.svg";
@@ -20,7 +21,7 @@
 </script>
 
 <input type="checkbox" id="hoodie" bind:checked={open} class="modal-toggle" />
-<div class="modal">
+<div class="modal" use:modalAction>
   <div class="modal-box mx-0 px-0 pb-0 mb-0" transition:fly={{ y: 200, duration: 2000 }}>
     <div class="pc-wrapper">
       <img class="h-16 w-16" src={profileIcon} alt="stamper" />
