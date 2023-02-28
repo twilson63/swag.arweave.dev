@@ -2,16 +2,22 @@
   import LeaderboardTable from "./leaderboard/table.svelte";
   import LeaderboardTopPlayers from "./leaderboard/top-players.svelte";
   import LeaderboardSearchBar from "./leaderboard/search.svelte";
-  import pixelsAnimatingOne from "../assets/pixels-animating-1.svg";
-  import pixelsAnimatingTwo from "../assets/pixels-animating-2.svg";
+  import PixelsAnimatingOne from "./svgs/pixels-animating-1.svelte";
+  import PixelsAnimatingTwo from "./svgs/pixels-animating-2.svelte";
 
   export let players;
 </script>
 
 <div class="leaderboard-wrapper">
   <div class="leaderboard-header">
-    <img class="pixels moving" src={pixelsAnimatingOne} alt="pixels animating" />
-    <img class="pixels-two moving-delay" src={pixelsAnimatingTwo} alt="pixels animating" />
+    <!-- <img class="pixels moving" src={pixelsAnimatingOne} alt="pixels animating" /> -->
+    <div class="pixels moving">
+      <PixelsAnimatingOne />
+    </div>
+    <!-- <img class="pixels-two moving-delay" src={pixelsAnimatingTwo} alt="pixels animating" /> -->
+    <div class="pixels-two moving-delay">
+      <PixelsAnimatingTwo />
+    </div>
     <LeaderboardTopPlayers {players} on:show />
     <!-- <LeaderboardSearchBar /> -->
   </div>

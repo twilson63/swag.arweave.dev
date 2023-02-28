@@ -4,6 +4,7 @@
   import modalAction from "./modal-action";
   import { formatDistanceToNowStrict, fromUnixTime } from "date-fns";
   import { take, takeLast } from "ramda";
+  import StampIcon from "./svgs/stamp.svelte";
   import stamp from "../assets/stamp.svg";
   import profile from "../assets/profile.svg";
 
@@ -33,7 +34,10 @@
             <p>{player.bio}</p>
           </div>
           <div class="pc-s-container">
-            <img src={stamp} alt={"Stamp Icon"} />
+            <!-- <img src={stamp} alt={"Stamp Icon"} /> -->
+            <div class="mt-2 mr-2">
+              <StampIcon />
+            </div>
             <p class="font-roboto-mono font-bold">{`+${player.stamps.length}`}</p>
           </div>
           <div class="pc-sl-container-l-wrapper">

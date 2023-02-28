@@ -19,7 +19,7 @@
     location.search = "";
     dispatch("click");
   }
-  let completed = hoodie.stamps.length >= 3;
+  let completed = hoodie.stamps >= 3;
 </script>
 
 <input type="checkbox" id="hoodie" bind:checked={open} class="modal-toggle" />
@@ -33,35 +33,30 @@
             <img src={profileIcon} alt="Profile Icon" />
             <p>You</p>
           </div>
-          <div class="pc-sl-container">
-            <div class="psc-u-flex">
+          <div class="mt-4 flex w-full px-8 justify-between">
+            <div class="flex text-white space-x-2">
               <span>Stamped</span>
               <img src={stampIcon} alt="Stamp Icon" />
             </div>
-            <div class="pc-sl-container-l-wrapper">
-              <div class="pc-sl-container-l">
-                {#each hoodie.stamps as element}
-                  <img src={element.avatarURL} alt={"Avatar"} />
-                {/each}
-              </div>
+            <div class="">
               <div class={`psc-sl-container-e ${completed ? "psc-sl-container-e-completed" : ""}`}>
                 <div class="psc-c-container">
-                  <span class="psc-span-active"
-                    >{completed ? "🎉" : "+"} {hoodie.stamps.length}</span
-                  >
+                  <span class="psc-span-active">{completed ? "🎉" : "+"} {hoodie.stamps}</span>
                   &nbsp;
                   <span class="psc-span-inactive">/ 3</span>
                 </div>
               </div>
             </div>
           </div>
-          <div class="psc-d-container">
-            <div class="psc-d-status-container">
-              <img src={hoodieIcon} alt="Hoodie Icon" />
-              <div class="psd-d-status">
-                <div class="psd-d-status-content">
+          <div class="flex justify-center my-16">
+            <img class="h-48 w-48" src={hoodieIcon} alt="Hoodie Icon" />
+          </div>
+          <div class="flex bg-gray-700 w-2/3 px-4 py-8 rounded-4">
+            <div class="">
+              <div class="">
+                <div class="">
                   <div>
-                    <p class="psd-d-status-content-header">
+                    <p class="">
                       {completed ? `Hoodie Unlocked !` : `Unlock Hoodie !`}
                     </p>
                     <p>

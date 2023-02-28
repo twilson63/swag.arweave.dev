@@ -4,7 +4,8 @@
   // import profileIcon from "../assets/profile.svg";
   // import hoodieIcon from "../assets/hoodie-icon.svg";
   // import continueIcon from "../assets/continue.svg";
-  import stamp from "../assets/stamp.svg";
+  //import stamp from "../assets/stamp.svg";
+  import StampIcon from "./svgs/stamp.svelte";
   import profile from "../assets/profile.svg";
   import modalAction from "./modal-action";
 
@@ -74,7 +75,8 @@
         <button class="mb-wrapper" on:click|stopPropagation={() => dispatch("stamp")}>
           <div class="mb-label-wrapper">
             <div class={"mi-wrapper mi-icon-start"}>
-              <img src={stamp} alt={"Stamp Icon"} />
+              <!-- <img src={stamp} alt={"Stamp Icon"} /> -->
+              <StampIcon />
             </div>
             <span class="mb-label font-roboto-mono font-bold">Stamp</span>
           </div>
