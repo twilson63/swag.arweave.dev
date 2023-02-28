@@ -18,6 +18,7 @@ function fetchStamps() {
     //"https://cache.permapages.app/61vg8n54MGSC9ZHfSVAtQp4WjNb20TaThu6bkQ86pPI"
   )
     .chain((res) => Async.fromPromise(res.json.bind(res))())
+    .map(prop("state"))
     .map(prop("stamps"))
     .map(values);
 }
