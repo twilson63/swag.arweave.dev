@@ -12,7 +12,7 @@
 
 <input type="checkbox" id="register" bind:checked={open} class="modal-toggle" />
 <div class="modal" use:modalAction>
-  <div class="modal-box bg-neutral mx-0 px-0 pb-0 mb-0" transition:fly={{ y: 200, duration: 2000 }}>
+  <div class="modal-box bg-neutral mx-0 px-0 pb-0 mb-0" transition:fly={{ y: 200, duration: 300 }}>
     {#if current === "register"}
       <div class="flex flex-col">
         <div class="text-white uppercase text-[25px] font-roboto-mono font-bold ">
