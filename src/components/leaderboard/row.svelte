@@ -14,10 +14,10 @@
   }
 </script>
 
-<div class="leaderboard-table-row cursor-pointer" on:click={() => show(player.code)}>
+<div class="leaderboard-table-row cursor-pointer" on:click={() => show(player.code)} on:keypress>
   <div class="leaderboard-table-row-left">
     <div class="leaderboard-table-row-place flex items-center justify-center">
-      <p class="font-bold">{player.index}</p>
+      <div class="font-bold">{player.index}</div>
     </div>
     <div class="leaderboard-table-row-player">
       <img src={"https://arweave.net/" + player.avatar} alt="avatar" />
@@ -74,8 +74,6 @@
     color: #222326;
     width: 28px;
     height: 28px;
-    border: 3px solid #222326;
-    border-radius: 25px;
     padding-top: 2px;
   }
 
