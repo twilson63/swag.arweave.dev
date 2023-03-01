@@ -1,6 +1,8 @@
 <script>
   import { ArweaveWebWallet } from "arweave-wallet-connector";
   import { createEventDispatcher, onMount } from "svelte";
+  import PixelsAnimatingOne from "./svgs/pixels-animating-1.svelte";
+  import PixelsAnimatingTwo from "./svgs/pixels-animating-2.svelte";
 
   import profileIcon from "../assets/profile.svg";
 
@@ -17,10 +19,18 @@
 </script>
 
 <form class="m-0 p-0" on:submit|preventDefault>
-  <div class="hero min-h-screen bg-base-100 relative">
-    <div class="hero-content flex-col">
-      <h3 class="text-[25px] pb-16 font-robo-mono-700 uppercase">Join the game</h3>
-      <div class="flex flex-col space-y-8 items-center">
+  <div class="hero min-h-screen bg-neutral items-start">
+    <div class="hero-content flex-col items-center justify-start relative">
+      <div class="pixels moving">
+        <PixelsAnimatingOne />
+      </div>
+      <div class="pixels-two moving-delay">
+        <PixelsAnimatingTwo />
+      </div>
+      <h3 class="mt-32 text-[25px] font-roboto-mono font-bold text-white uppercase">
+        Join the game
+      </h3>
+      <div class="flex flex-col items-center">
         <div>
           {#if files[0]}
             <img
@@ -32,7 +42,7 @@
             <img class="h-[102px] w-[102px]" src={profileIcon} alt="avatar" />
           {/if}
         </div>
-        <div class="form-control">
+        <div class="mt-4 mb-8 form-control">
           <label class="underline text-white font-work-sans-400"
             >set profile pic
             <input
@@ -44,7 +54,7 @@
             />
           </label>
         </div>
-        <div class="form-control">
+        <div class="mb-8 form-control">
           <input
             name="handle"
             placeholder="enter username..."
@@ -64,8 +74,60 @@
       </div>
     </div>
     <button
-      class="absolute bottom-0 btn btn-block rounded-none btn-secondary text-white font-robo-mono-500 text-[20px]"
+      class="absolute bottom-0 btn btn-block rounded-none btn-secondary text-white font-roboto-mono font-medium h-[60px] text-[20px]"
       >JOIN</button
     >
   </div>
 </form>
+
+<style>
+  @keyframes animating {
+    0% {
+      transform: scale(1);
+      transform: translate(0, -50px) scale(1) rotate(0turn);
+      opacity: 10%;
+    }
+    50% {
+      transform: translate(10px, 50px) scale(1.5) rotate(-0.1turn);
+      opacity: 25%;
+    }
+    75% {
+      opacity: 50%;
+    }
+    100% {
+      transform: translate(0, -50px) scale(1) rotate(0turn);
+      opacity: 10%;
+    }
+  }
+  @keyframes animatingTwo {
+    0% {
+      transform: translate(0, -50px) scale(1) rotate(0turn);
+      opacity: 10%;
+    }
+    50% {
+      transform: translate(10px, 200px) scale(0.25) rotate(0.1turn);
+      opacity: 25%;
+    }
+    75% {
+      opacity: 50%;
+    }
+    100% {
+      transform: translate(0, -50px) scale(1) rotate(0turn);
+      opacity: 10%;
+    }
+  }
+  .pixels {
+    position: absolute;
+    z-index: -50;
+  }
+  .pixels-two {
+    position: absolute;
+    z-index: -100;
+  }
+  .moving {
+    animation: animating infinite 20s linear;
+  }
+  .moving-delay {
+    animation: animatingTwo infinite 30s linear;
+  }
+</style>

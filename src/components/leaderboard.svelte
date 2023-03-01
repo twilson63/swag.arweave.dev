@@ -10,11 +10,9 @@
 
 <div class="leaderboard-wrapper">
   <div class="leaderboard-header">
-    <!-- <img class="pixels moving" src={pixelsAnimatingOne} alt="pixels animating" /> -->
     <div class="pixels moving">
       <PixelsAnimatingOne />
     </div>
-    <!-- <img class="pixels-two moving-delay" src={pixelsAnimatingTwo} alt="pixels animating" /> -->
     <div class="pixels-two moving-delay">
       <PixelsAnimatingTwo />
     </div>
@@ -36,8 +34,7 @@
     background-color: #f2f3f4;
   }
   .leaderboard-header {
-    height: 56%;
-    min-height: 500px;
+    min-height: 450px;
     width: 100%;
     background-color: #222326;
     border-bottom-left-radius: 10%;
