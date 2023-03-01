@@ -19,7 +19,7 @@
 </script>
 
 <form class="m-0 p-0" on:submit|preventDefault>
-  <div class="hero min-h-screen bg-neutral flex-col items-center relative">
+  <div class="hero min-h-screen bg-neutral flex flex-col items-center relative">
     <div class="hero-content flex-col items-center justify-start">
       <div class="pixels moving">
         <PixelsAnimatingOne />
