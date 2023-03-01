@@ -6,7 +6,7 @@
   import hoodieIcon from "../assets/hoodie-icon.svg";
   import stampIcon from "../assets/stamp.svg";
   import completedIcon from "../assets/completed.svg";
-
+  import StampedAvatars from "./common/stamped-avatars.svelte";
   export let current;
   export let hoodie;
 
@@ -19,7 +19,7 @@
     location.search = "";
     dispatch("click");
   }
-  let completed = hoodie.stamps >= 3;
+  let completed = hoodie.stamps.length >= 3;
 </script>
 
 <input type="checkbox" id="hoodie" bind:checked={open} class="modal-toggle" />
@@ -41,7 +41,9 @@
             <div class="">
               <div class={`psc-sl-container-e ${completed ? "psc-sl-container-e-completed" : ""}`}>
                 <div class="psc-c-container">
-                  <span class="psc-span-active">{completed ? "🎉" : "+"} {hoodie.stamps}</span>
+                  <span class="psc-span-active"
+                    >{completed ? "🎉" : "+"} {hoodie.stamps.length}</span
+                  >
                   &nbsp;
                   <span class="psc-span-inactive">/ 3</span>
                 </div>

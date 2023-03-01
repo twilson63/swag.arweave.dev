@@ -94,7 +94,7 @@
 {:else if current === "form"}
   <!-- TODO: modal -->
   <PlayerForm on:submit={createPlayer} />
-{:else if current === "error"}
+{:else if current === "error" || current === "errorStamp"}
   <Error error={context.error} on:click={() => send("continue")} />
 {:else if current === "resetPlayer"}
   <Splash msg={null} />

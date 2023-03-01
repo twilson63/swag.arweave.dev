@@ -1,5 +1,5 @@
 import { createMachine, invoke, reduce, state, transition, immediate, guard } from "robot3";
-import { propEq, over, lensProp, assoc } from "ramda";
+import { propEq, over, lensProp, assoc, map, lens, identity, find, compose, __, prop } from "ramda";
 
 export default function (
   { leaderboard, uploadAvatar, playerStamps, stamp, register, userStamps, reset },
@@ -77,7 +77,8 @@ export default function (
     getPlayer: invoke(
       async (ctx) => {
         const player = ctx.players.find(propEq("code", ctx.code));
-        const stamps = await playerStamps(player.token);
+        const stamps = await playerStamps(player.token).then(attachPlayersToStamps(ctx.players));
+
         return player ? Promise.resolve({ ...player, stamps }) : Promise.reject(null);
       },
       transition(
@@ -122,12 +123,19 @@ export default function (
     getHoodie: invoke(
       async (ctx) => {
         const address = await window.arweaveWallet.getActiveAddress();
-        const result = await userStamps(
+        const stamps = await userStamps(
           address,
           ctx.players.map((p) => p.token)
+        ).then(
+          map(
+            over(
+              lens(identity, assoc("player")),
+              compose(compose(find(__, ctx.players), propEq("token")), prop("asset"))
+            )
+          )
         );
 
-        return { stamps: result.length, players: ctx.players.length };
+        return { stamps: stamps, players: ctx.players.length };
       },
 
       transition(
@@ -162,12 +170,19 @@ export default function (
       transition(
         "error",
         "error",
-        reduce(({ ctx }) => ({
-          ...ctx,
-          error: { title: "Error", message: "Could not register player!" }
-        }))
+        reduce((ctx, ev) => {
+          let msg = ev.error.message;
+          if (ev.error.message === "Rejected") {
+            msg = "User cancelled Registration";
+          }
+          return {
+            ...ctx,
+            error: { title: "Error", message: msg }
+          };
+        })
       )
     ),
+    errorStamp: state(transition("continue", "leaderboard")),
     error: state(transition("continue", "form")),
     resetPlayer: invoke(async (ctx) => {
       if (!window["arweaveWallet"]) {
@@ -177,4 +192,13 @@ export default function (
       return await reset(ctx.player.code);
     }, transition("done", "loading"))
   });
+}
+
+function attachPlayersToStamps(players) {
+  return map(
+    over(
+      lens(identity, assoc("player")),
+      compose(compose(find(__, players), propEq("address")), prop("address"))
+    )
+  );
 }

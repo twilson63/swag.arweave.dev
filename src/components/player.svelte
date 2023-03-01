@@ -8,6 +8,7 @@
   import StampIcon from "./svgs/stamp.svelte";
   import profile from "../assets/profile.svg";
   import modalAction from "./modal-action";
+  import StampedAvatars from "./common/stamped-avatars.svelte";
 
   export let current;
   export let player;
@@ -38,6 +39,8 @@
           </div>
           <div class="pc-sl-container-p">
             {#if player.stamps.length > 0}
+              <StampedAvatars stamps={player.stamps} amount={7} />
+              <!--
               <div class="info-flex">
                 <p class="font-poppins">Stamped by</p>
                 <span class="font-poppins"
@@ -47,15 +50,23 @@
               <div class="pc-sl-container-p-flex">
                 <div class="pc-sl-container-pl">
                   {#each slicedStampList as element}
-                    <img src={profile} alt={"Avatar"} />
+                    {#if element.player}
+                      <img
+                        src="https://arweave.net/{element.player.avatar}"
+                        alt={element.player.handle}
+                      />
+                    {:else}
+                      <img src={profile} alt={"Avatar"} />
+                    {/if}
                   {/each}
                 </div>
                 <div class="pc-sl-container-e">
                   {#if player.stamps.length > 7}
-                    <span>+{player.stamps.length - slicedStampList.length}</span>
+                    <span>+{player.stamps.length - 7}</span>
                   {/if}
                 </div>
               </div>
+              -->
             {:else}
               <div class="pc-empty-wrapper">
                 <p>Be the first to stamp this player</p>
