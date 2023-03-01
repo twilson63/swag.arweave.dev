@@ -19,8 +19,8 @@
 </script>
 
 <form class="m-0 p-0" on:submit|preventDefault>
-  <div class="hero min-h-screen bg-neutral items-start">
-    <div class="hero-content flex-col items-center justify-start relative">
+  <div class="hero min-h-screen bg-neutral flex-col items-center relative">
+    <div class="hero-content flex-col items-center justify-start">
       <div class="pixels moving">
         <PixelsAnimatingOne />
       </div>
@@ -74,7 +74,7 @@
       </div>
     </div>
     <button
-      class="absolute bottom-0 btn btn-block rounded-none btn-secondary text-white font-roboto-mono font-medium h-[60px] text-[20px]"
+      class="mt-auto btn btn-block rounded-none btn-secondary text-white font-roboto-mono font-medium h-[60px] text-[20px]"
       >JOIN</button
     >
   </div>
