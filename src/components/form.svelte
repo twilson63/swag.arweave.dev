@@ -19,8 +19,8 @@
 </script>
 
 <form class="m-0 p-0" on:submit|preventDefault>
-  <div class="hero min-h-screen bg-neutral flex flex-col items-center relative">
-    <div class="hero-content flex-col items-center justify-start">
+  <div class="hero min-h-screen bg-neutral relative">
+    <div class="hero-content flex-col items-center justify-start pb-10">
       <div class="pixels moving">
         <PixelsAnimatingOne />
       </div>
@@ -54,11 +54,11 @@
             />
           </label>
         </div>
-        <div class="mb-8 form-control">
+        <div class="mb-4 form-control">
           <input
             name="handle"
             placeholder="enter username..."
-            class="font-work-sans-400 input rounded-full bg-white text-black"
+            class="font-work-sans-400 input rounded-md bg-white text-black min-w-[280px] h-[60px]"
             required
           />
         </div>
@@ -67,16 +67,16 @@
             name="bio"
             rows="3"
             placeholder="enter bio..."
-            class="font-work-sans-400 textarea rounded-50% w-[250px] bg-white text-black"
+            class="font-work-sans-400 textarea w-[250px] bg-white text-black min-w-[280px]"
             required
           />
         </div>
       </div>
+      <button
+        class="btn btn-block btn-secondary text-white font-roboto-mono font-medium h-[60px] text-[20px] rounded-md"
+        >JOIN</button
+      >
     </div>
-    <button
-      class="mt-auto btn btn-block rounded-none btn-secondary text-white font-roboto-mono font-medium h-[60px] text-[20px]"
-      >JOIN</button
-    >
   </div>
 </form>
 
