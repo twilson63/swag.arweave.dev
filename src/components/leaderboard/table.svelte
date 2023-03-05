@@ -6,7 +6,7 @@
   async function rankPlayers() {
     players = players.slice(3);
     return players.map((p, i) => {
-      return { ...p, ...{ index: i + 4, stampCount: 78 } };
+      return { ...p, ...{ index: i + 4, stampCount: 150 } };
     });
   }
 </script>
