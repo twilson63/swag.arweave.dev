@@ -44,7 +44,7 @@
         </div>
         <div class="mt-4 mb-8 form-control">
           <label class="underline text-white font-work-sans-400"
-            >set profile pic
+            >set profile pic* (required)
             <input
               bind:files
               name="avatar"
@@ -57,7 +57,7 @@
         <div class="mb-4 form-control">
           <input
             name="handle"
-            placeholder="enter username..."
+            placeholder="enter username...(required)"
             class="font-work-sans-400 input rounded-md bg-white text-black min-w-[280px] h-[60px]"
             required
           />
@@ -66,7 +66,7 @@
           <textarea
             name="bio"
             rows="3"
-            placeholder="enter bio..."
+            placeholder="enter bio...(required)"
             class="font-work-sans-400 textarea w-[250px] bg-white text-black min-w-[280px]"
             required
           />
